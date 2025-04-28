@@ -1,0 +1,23 @@
+<table class="table">
+    
+    <tbody>
+
+        <tr *ngFor="let result of results">
+
+            <td>{{getValue(result, itemType.accuracy)}}</td>
+            <td>{{getPercent(result, itemType.accuracy)}}</td>
+
+            <td>{{getValue(result, itemType.alacrity)}}</td>
+            <td>{{getPercent(result, itemType.alacrity)}}</td>
+
+            <td>{{getValue(result, itemType.critical)}}</td>
+            <td>{{getPercent(result, itemType.critical)}}</td>
+
+        </tr>
+
+
+    </tbody>
+
+
+
+</table>
