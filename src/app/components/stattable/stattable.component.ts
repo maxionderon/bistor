@@ -18,7 +18,7 @@ export class StattableComponent {
 
   constructor() {
 
-    this.results = this.calculationService.calculate().sort((result1, result2) => {
+    this.results = this.calculationService.calculateNew2().sort((result1, result2) => {
 
       if( result1.getValue(ItemType.accuracy) > result2.getValue(ItemType.accuracy) ) {
 
@@ -49,6 +49,8 @@ export class StattableComponent {
     
 
     });
+
+    console.log(this.results);
 
   }
 
