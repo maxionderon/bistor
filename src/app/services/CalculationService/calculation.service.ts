@@ -31,7 +31,7 @@ export class CalculationService {
     let accuracyAugment = new Augment(143, 310, ItemType.accuracy, "Advanced Accuracy Augment 86", 147);
 
     //create Stim
-    let accuracyStim = new Stim(132, 288, ItemType.accuracy, "Fortschrittlicher fähiger Kyrprax-Stim", 264);
+    let accuracyStim = new Stim(132, 288, ItemType.accuracy, "Fortschrittlicher fähiger Kyrprax-Stim", 264, ItemType.critical, 109);
 
     let results = new Array<Result>;
 
@@ -179,7 +179,7 @@ export class CalculationService {
     let accuracyAugment = new Augment(143, 310, ItemType.accuracy, "Advanced Accuracy Augment 86", 147);
 
     //create Stim
-    let accuracyStim = new Stim(132, 288, ItemType.accuracy, "Fortschrittlicher fähiger Kyrprax-Stim", 264);
+    let accuracyStim = new Stim(132, 288, ItemType.accuracy, "Fortschrittlicher fähiger Kyrprax-Stim", 264, ItemType.critical, 109);
 
     let results = new Array<Result>;
 
@@ -263,7 +263,7 @@ export class CalculationService {
     //create enhancements
     let criticalEnhancement = new Enhancement(156, 336, ItemType.critical, "Advanced Adept Enhancement 99", 589);
     let alacrityEnhancement = new Enhancement(156, 336, ItemType.alacrity, "Advanced Nimble Enhancement 99", 589);
-    //let accuracyEnhancement = new Enhancement(156, 336, ItemType.accuracy, "Advanced Initiative Enhancement 99", 589);
+    let accuracyEnhancement = new Enhancement(156, 336, ItemType.accuracy, "Advanced Initiative Enhancement 99", 589);
     
     //create Augments
     let criticalAugment = new Augment(143, 310, ItemType.critical, "Advanced Critical Augment 86", 147);
@@ -271,22 +271,22 @@ export class CalculationService {
     let accuracyAugment = new Augment(143, 310, ItemType.accuracy, "Advanced Accuracy Augment 86", 147);
 
     //create Stim
-    let accuracyStim = new Stim(132, 288, ItemType.accuracy, "Fortschrittlicher fähiger Kyrprax-Stim", 264);
+    let accuracyStim = new Stim(132, 288, ItemType.accuracy, "Fortschrittlicher fähiger Kyrprax-Stim", 264, ItemType.critical, 109);
 
 
     let items: Array<Item> = new Array<Item>;
 
     items.push(criticalEnhancement);
-    //items.push(alacrityEnhancement);
-    //items.push(accuracyEnhancement);
-    //items.push(criticalAugment);
-    //items.push(alacrityAugment);
-    //items.push(accuracyAugment);
+    items.push(alacrityEnhancement);
+    items.push(accuracyEnhancement);
+    items.push(criticalAugment);
+    items.push(alacrityAugment);
+    items.push(accuracyAugment);
     items.push(accuracyStim);
 
     let results: Array<Result> = new Array<Result>;
 
-    this.bob3(items, results, false);
+    this.bob3(items, results, true);
 
     return results
 
@@ -303,12 +303,6 @@ export class CalculationService {
     if( item instanceof Augment ) {
 
       return (14 - this.getNumberOfAugments(filledItems));
-
-    }
-
-    if( item instanceof Stim ) {
-      
-      return 0;
 
     }
 
@@ -356,8 +350,7 @@ export class CalculationService {
 
     let enhancements: Array<Enhancement> = new Array<Enhancement>;
     let augments: Array<Augment> = new Array<Enhancement>;
-    let stim: Stim = new Stim(0,0,ItemType.accuracy,"bobStim", 0);
-
+    
     for(let i: number = 0; i != filledItems.length; i = i + 1) {
 
       if( filledItems.at(i) instanceof Enhancement ) {
@@ -372,19 +365,13 @@ export class CalculationService {
 
       }
 
-      if( filledItems.at(i) instanceof Stim ) {
-        
-        stim = filledItems.at(i) as Stim;
-
-      }
-
     }
 
     if( buildWithAugments == true ) {
 
       if( enhancements.length == 10 && augments.length == 14 ) {
 
-        return new Result(enhancements, augments, stim);
+        return new Result(enhancements, augments);
 
       }
 
@@ -392,7 +379,7 @@ export class CalculationService {
 
       if( enhancements.length == 10 ) {
 
-        return new Result(enhancements, augments, stim);
+        return new Result(enhancements, augments);
 
       }
 
@@ -403,9 +390,6 @@ export class CalculationService {
   }
 
   bob3(items: Array<Item>, results: Array<Result>, buildWithAugments: boolean, filledItems?: Array<Item>) : void {
-
-    console.log("items:");
-    console.log(items);
 
     if( filledItems == undefined ) {
       
@@ -423,7 +407,8 @@ export class CalculationService {
 
         if( result != undefined ) {
 
-          results.push(result as Result)
+          results.push(result as Result);
+          //break;
           
         } else {
           
