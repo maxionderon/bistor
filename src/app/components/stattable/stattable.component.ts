@@ -50,7 +50,7 @@ export class StattableComponent {
 
     });
 
-    console.log(this.results);
+    //console.log(this.results);
 
   }
 
