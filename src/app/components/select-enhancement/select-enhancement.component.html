@@ -1,0 +1,48 @@
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Item Rating</label>
+    </div>
+    <div class="field-body">
+        
+        <div class="field has-addons">
+            <div class="control is-expanded">
+                <div class="select is-fullwidth">
+                    <select [(ngModel)]="selectedItemRating" [disabled]="itemRatingIsSelected">
+                        <option *ngFor="let itemRatingEnhancement of bistor.itemRatingEnhancements">
+                            {{itemRatingEnhancement}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="control">
+                <button class="button" [class.is-warning]="itemRatingIsSelected" [class.is-success]="!itemRatingIsSelected" (click)="selectItemRating()">{{chooseItemRating}}</button>
+            </div>
+            <p class="help has-text-danger" *ngIf="showHelp">Item Rating is required</p>
+        </div>
+
+    </div>    
+</div>
+
+<div class="field is-horizontal">
+    <div class="field-label is-normal">
+        <label class="label">Enhancement Type</label>
+    </div>
+    <div class="field-body">
+
+        <div class="field has-addons">    
+            <div class="control is-expanded">
+                <div class="select is-fullwidth">
+                    <select [(ngModel)]="selectedEnhancementType" [disabled]="!itemRatingIsSelected || noEnhancementTypeAvailableAnymore">
+                        <option *ngFor="let enhancementItemType of enhancementsItemTypes">
+                            {{enhancementItemType}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="control">
+                <button class="button is-success" [disabled]="!itemRatingIsSelected || noEnhancementTypeAvailableAnymore" (click)="addEnhancement()">Add Enhancement</button>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -4,7 +4,7 @@ export enum ItemType {
     accuracy = "Accuracy",
     alacrity = "Alacrity",
     critical = "Critical",
-    defense = "Redoubt",
+    defense = "Defense",
     shield = "Shield",
     mastery = "Versatile"
 
