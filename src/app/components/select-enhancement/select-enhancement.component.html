@@ -46,3 +46,19 @@
 
     </div>
 </div>
+
+<div class="block" *ngIf="showChosenEnhancements">
+
+    <div class="content">
+
+        <h2>Chosen Enhancements</h2>
+        
+        <ul>
+            <li *ngFor="let enhancement of chosenEnhancements">
+                {{enhancement.itemRating}} {{enhancement.itemType}} {{enhancement.tertiaryStat}}
+            </li>
+        </ul>
+    </div>
+
+
+</div>

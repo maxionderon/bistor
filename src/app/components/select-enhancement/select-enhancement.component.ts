@@ -16,7 +16,7 @@ export class SelectEnhancementComponent {
 
   bistor: BistorService;
 
-  selectedItemRating: number;
+  selectedItemRating: string;
 
   showHelp: boolean;
   itemRatingIsSelected: boolean;
@@ -31,11 +31,14 @@ export class SelectEnhancementComponent {
 
   chosenEnhancements: Array<Enhancement>
 
+  showChosenEnhancements: boolean;
+
+
 
   constructor() {
 
     this.bistor = new BistorService();
-    this.selectedItemRating = this.bistor.itemRatingEnhancements.at(0) as number;
+    this.selectedItemRating = String(this.bistor.itemRatingEnhancements.at(0));
     this.showHelp = false;
     this.itemRatingIsSelected = false;
     
@@ -49,12 +52,14 @@ export class SelectEnhancementComponent {
 
     this.chosenEnhancements = new Array<Enhancement>;
 
+    this.showChosenEnhancements = false;
+
   }
 
   selectItemRating() {
 
     if( this.itemRatingIsSelected == false ) {
-
+      
       this.itemRatingIsSelected = true;
       this.chooseItemRating = "Modify";
 
@@ -66,19 +71,25 @@ export class SelectEnhancementComponent {
       this.selectedEnhancementType = this.enhancementsItemTypes.at(0) as ItemType;
       this.noEnhancementTypeAvailableAnymore = false;
       this.chosenEnhancements = new Array<Enhancement>;
+      this.showChosenEnhancements = false;
       
-    }
+    }    
 
   }
 
   addEnhancement() {
-
+    
     let enhancementType: ItemType = this.selectedEnhancementType;
 
     for(let i: number = 0; i != this.enhancementsItemTypes.length; i = i + 1) {
 
       if( enhancementType == this.enhancementsItemTypes.at(i) ) {
 
+        //get enhancement
+        this.chosenEnhancements.push( this.bistor.getEnhancement(Number.parseInt(this.selectedItemRating), enhancementType) as Enhancement);
+        this.showChosenEnhancements = true;
+
+        //erase enhancementType from select
         this.enhancementsItemTypes.splice(i, 1);
         if( this.enhancementsItemTypes.length != 0 ) {
 
@@ -94,9 +105,7 @@ export class SelectEnhancementComponent {
 
       }
       
-
     }
-
 
   }
 

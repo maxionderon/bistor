@@ -21,14 +21,14 @@ export class CalculationService {
     //14 Augments
 
     //create enhancements
-    let criticalEnhancement = new Enhancement(156, 336, ItemType.critical, "Advanced Adept Enhancement 99", 589);
-    let alacrityEnhancement = new Enhancement(156, 336, ItemType.alacrity, "Advanced Nimble Enhancement 99", 589);
-    let accuracyEnhancement = new Enhancement(156, 336, ItemType.accuracy, "Advanced Initiative Enhancement 99", 589);
+    let criticalEnhancement = new Enhancement(156, 336, ItemType.critical, 589);
+    let alacrityEnhancement = new Enhancement(156, 336, ItemType.alacrity, 589);
+    let accuracyEnhancement = new Enhancement(156, 336, ItemType.accuracy, 589);
 
     //create Augments
-    let criticalAugment = new Augment(143, 310, ItemType.critical, "Advanced Critical Augment 86", 147);
-    let alacrityAugment= new Augment(143, 310, ItemType.alacrity, "Advanced Alacrity Augment 86", 147);
-    let accuracyAugment = new Augment(143, 310, ItemType.accuracy, "Advanced Accuracy Augment 86", 147);
+    let criticalAugment = new Augment(143, 310, ItemType.critical, 147);
+    let alacrityAugment= new Augment(143, 310, ItemType.alacrity, 147);
+    let accuracyAugment = new Augment(143, 310, ItemType.accuracy, 147);
 
     //create Stim
     let accuracyStim = new Stim(132, 288, ItemType.accuracy, "Fortschrittlicher fähiger Kyrprax-Stim", 264, ItemType.critical, 109);
@@ -169,14 +169,14 @@ export class CalculationService {
     //14 Augments
 
     //create enhancements
-    let criticalEnhancement = new Enhancement(156, 336, ItemType.critical, "Advanced Adept Enhancement 99", 589);
-    let alacrityEnhancement = new Enhancement(156, 336, ItemType.alacrity, "Advanced Nimble Enhancement 99", 589);
-    let accuracyEnhancement = new Enhancement(156, 336, ItemType.accuracy, "Advanced Initiative Enhancement 99", 589);
+    let criticalEnhancement = new Enhancement(156, 336, ItemType.critical, 589);
+    let alacrityEnhancement = new Enhancement(156, 336, ItemType.alacrity, 589);
+    let accuracyEnhancement = new Enhancement(156, 336, ItemType.accuracy, 589);
 
     //create Augments
-    let criticalAugment = new Augment(143, 310, ItemType.critical, "Advanced Critical Augment 86", 147);
-    let alacrityAugment= new Augment(143, 310, ItemType.alacrity, "Advanced Alacrity Augment 86", 147);
-    let accuracyAugment = new Augment(143, 310, ItemType.accuracy, "Advanced Accuracy Augment 86", 147);
+    let criticalAugment = new Augment(143, 310, ItemType.critical, 147);
+    let alacrityAugment= new Augment(143, 310, ItemType.alacrity, 147);
+    let accuracyAugment = new Augment(143, 310, ItemType.accuracy, 147);
 
     //create Stim
     let accuracyStim = new Stim(132, 288, ItemType.accuracy, "Fortschrittlicher fähiger Kyrprax-Stim", 264, ItemType.critical, 109);
@@ -261,14 +261,14 @@ export class CalculationService {
     //14 Augments
 
     //create enhancements
-    let criticalEnhancement = new Enhancement(156, 336, ItemType.critical, "Advanced Adept Enhancement 99", 589);
-    let alacrityEnhancement = new Enhancement(156, 336, ItemType.alacrity, "Advanced Nimble Enhancement 99", 589);
-    let accuracyEnhancement = new Enhancement(156, 336, ItemType.accuracy, "Advanced Initiative Enhancement 99", 589);
+    let criticalEnhancement = new Enhancement(156, 336, ItemType.critical, 589);
+    let alacrityEnhancement = new Enhancement(156, 336, ItemType.alacrity, 589);
+    let accuracyEnhancement = new Enhancement(156, 336, ItemType.accuracy, 589);
     
     //create Augments
-    let criticalAugment = new Augment(143, 310, ItemType.critical, "Advanced Critical Augment 86", 147);
-    let alacrityAugment= new Augment(143, 310, ItemType.alacrity, "Advanced Alacrity Augment 86", 147);
-    let accuracyAugment = new Augment(143, 310, ItemType.accuracy, "Advanced Accuracy Augment 86", 147);
+    let criticalAugment = new Augment(143, 310, ItemType.critical, 147);
+    let alacrityAugment= new Augment(143, 310, ItemType.alacrity, 147);
+    let accuracyAugment = new Augment(143, 310, ItemType.accuracy, 147);
 
     //create Stim
     let accuracyStim = new Stim(132, 288, ItemType.accuracy, "Fortschrittlicher fähiger Kyrprax-Stim", 264, ItemType.critical, 109);
