@@ -1,22 +1,60 @@
 <div class="columns">
+
+  <div class="column is-one-quarter">
+
+    <div class="card has-background-grey-lighter">
+
+      <header class="card-header">
+        <p class="card-header-title">Chosen Gear</p>
+      </header>
+
+      <div class="card-content">
+        <div class="content">
+
+          <div *ngIf="chosenEnhancements.length != 0">
+            <h3>Enhancements</h3>
+            <ul>
+              <li *ngFor="let enhancement of chosenEnhancements">
+                {{enhancement.itemRating}} {{enhancement.itemType}} {{enhancement.tertiaryStat}}
+              </li>
+            </ul>
+          </div>
+
+          <div *ngIf="chosenAugments.length != 0">
+            <h3>Augments</h3>
+            <ul>
+              <li *ngFor="let augment of chosenAugments">
+                {{augment.itemRating}} {{augment.itemType}} {{augment.tertiaryStat}}
+              </li>
+            </ul>
+          </div>
+
+        </div>
+        
+      </div>
+
+    </div>
+
+  </div>
+
   <div class="column">
     <div class="card has-background-grey-lighter">
         
         <header class="card-header">
-            <p class="card-header-title">{{step}}</p>
+            <p class="card-header-title">{{stepLabel}}</p>
         </header>
         
         <div class="card-content">            
-            <app-select-enhancement></app-select-enhancement>
+            <app-select-enhancement (enhancements)="setChosenEnhancements($event)" *ngIf="isFirstStep"></app-select-enhancement>
+            <app-select-augment (augments)="setChosenAugments($event)" *ngIf="isSecondStep"></app-select-augment>
         </div>
 
         <footer class="card-footer">
-            <button class="button card-footer-item is-danger" *ngIf="!isFirstStep">Previous</button>
-            <button class="button card-footer-item is-success">Next</button>
+            <button class="button card-footer-item is-danger" *ngIf="!isFirstStep" (click)="back()">Previous</button>
+            <button class="button card-footer-item is-success" [disabled]="!nextIsPossible" (click)="next()">Next</button>
         </footer>
 
     </div>
-
   </div>
 
 </div>

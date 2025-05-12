@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ItemType } from '../../model/itemType';
 import { Enhancement } from '../../model/enhancement';
 import { Augment } from '../../model/augment';
+import { Item } from '../../model/item';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class BistorService {
   
   enhancementsItemTypes: Array<ItemType>;
   enhancementsByItemRating: Map<number, Array<Enhancement>>;
+  augmentsItemTypes: Array<ItemType>;
   augmentsByItemRating: Map<number, Array<Augment>>;
   itemRatingEnhancements: Array<number>;
   itemRatingAugments: Array<number>;
@@ -25,6 +27,17 @@ export class BistorService {
     this.enhancementsItemTypes.push(ItemType.shield);
 
     this.enhancementsByItemRating = this.createAvailableEnhancements();
+    
+    this.augmentsItemTypes = new Array<ItemType>
+
+    this.augmentsItemTypes.push(ItemType.absorb);
+    this.augmentsItemTypes.push(ItemType.accuracy);
+    this.augmentsItemTypes.push(ItemType.alacrity);
+    this.augmentsItemTypes.push(ItemType.critical);
+    this.augmentsItemTypes.push(ItemType.defense);
+    this.augmentsItemTypes.push(ItemType.mastery);
+    this.augmentsItemTypes.push(ItemType.shield);
+    
     this.augmentsByItemRating = this.createAvailableAugments();
 
     this.itemRatingEnhancements = Array.from(this.enhancementsByItemRating.keys());
@@ -115,6 +128,27 @@ export class BistorService {
     }
 
     return enhancement;
+
+  }
+
+  getAugment(itemRating: number, itemType: ItemType): Augment | undefined {
+
+    let augments: Array<Augment> = this.augmentsByItemRating.get(itemRating) as Array<Augment>;
+
+    let augment: Augment | undefined = undefined;
+
+    for(let i: number = 0; i != augments.length; i = i + 1) {
+
+      if( augments.at(i)?.itemType == itemType ) {
+
+        augment = augments.at(i);
+        break;
+
+      }
+
+    }
+
+    return augment;
 
   }
 

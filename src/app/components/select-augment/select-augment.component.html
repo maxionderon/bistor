@@ -8,8 +8,8 @@
             <div class="control is-expanded">
                 <div class="select is-fullwidth">
                     <select [(ngModel)]="selectedItemRating" [disabled]="itemRatingIsSelected">
-                        <option *ngFor="let itemRatingEnhancement of bistor.itemRatingEnhancements">
-                            {{itemRatingEnhancement}}
+                        <option *ngFor="let itemRatingAugment of bistor.itemRatingAugments">
+                            {{itemRatingAugment}}
                         </option>
                     </select>
                 </div>
@@ -24,37 +24,37 @@
 
 <div class="field is-horizontal">
     <div class="field-label is-normal">
-        <label class="label">Enhancement Type</label>
+        <label class="label">Augment Type</label>
     </div>
     <div class="field-body">
 
         <div class="field has-addons">    
             <div class="control is-expanded">
                 <div class="select is-fullwidth">
-                    <select [(ngModel)]="selectedEnhancementType" [disabled]="!itemRatingIsSelected || noEnhancementTypeAvailableAnymore">
-                        <option *ngFor="let enhancementItemType of enhancementsItemTypes">
-                            {{enhancementItemType}}
+                    <select [(ngModel)]="selectedAugmentType" [disabled]="!itemRatingIsSelected || noAugmentTypeAvailableAnymore">
+                        <option *ngFor="let augmentItemType of augmentItemTypes">
+                            {{augmentItemType}}
                         </option>
                     </select>
                 </div>
             </div>
             <div class="control">
-                <button class="button is-success" [disabled]="!itemRatingIsSelected || noEnhancementTypeAvailableAnymore" (click)="addEnhancement()">Add Enhancement</button>
+                <button class="button is-success" [disabled]="!itemRatingIsSelected || noAugmentTypeAvailableAnymore" (click)="addAugment()">Add Augment</button>
             </div>
         </div>
 
     </div>
 </div>
 
-<div class="block" *ngIf="showChosenEnhancements">
+<div class="block" *ngIf="showChosenAugments">
 
     <div class="content">
 
-        <h2>Chosen Enhancements</h2>
+        <h2>Chosen Augments</h2>
         
         <ul>
-            <li *ngFor="let enhancement of chosenEnhancements">
-                {{enhancement.itemRating}} {{enhancement.itemType}} {{enhancement.tertiaryStat}}
+            <li *ngFor="let augment of chosenAugments">
+                {{augment.itemRating}} {{augment.itemType}} {{augment.tertiaryStat}}
             </li>
         </ul>
     </div>
