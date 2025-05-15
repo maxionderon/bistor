@@ -44,9 +44,9 @@
             <p class="card-header-title">{{stepLabel}}</p>
         </header>
         
-        <div class="card-content">            
-            <app-select-enhancement (enhancements)="setChosenEnhancements($event)" *ngIf="isFirstStep"></app-select-enhancement>
-            <app-select-augment (augments)="setChosenAugments($event)" *ngIf="isSecondStep"></app-select-augment>
+        <div class="card-content">
+            <app-select-item [itemClass]="itemClass.enhancement" (outputSelectedItems)="setItems($event)" *ngIf="isFirstStep"></app-select-item>
+            <app-select-item [itemClass]="itemClass.augment" (outputSelectedItems)="setItems($event)" *ngIf="isSecondStep"></app-select-item>
         </div>
 
         <footer class="card-footer">

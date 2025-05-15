@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 import { BistorService } from '../../services/bistor/bistor.service';
 import { CommonModule } from '@angular/common';
-import { SelectEnhancementComponent } from "../select-enhancement/select-enhancement.component";
 import { Enhancement } from '../../model/enhancement';
-import { SelectAugmentComponent } from "../select-augment/select-augment.component";
 import { Augment } from '../../model/augment';
 import { FormsModule } from '@angular/forms';
+import { SelectItemComponent } from "../select-item/select-item.component";
+import { ItemClass } from '../../model/itemClass';
+import { Item } from '../../model/item';
 
 @Component({
   selector: 'app-select-gear',
-  imports: [CommonModule, FormsModule, SelectEnhancementComponent, SelectAugmentComponent],
+  imports: [CommonModule, FormsModule, SelectItemComponent],
   templateUrl: './select-gear.component.html',
   styleUrl: './select-gear.component.css'
 })
@@ -25,6 +26,8 @@ export class SelectGearComponent {
   chosenAugments: Array<Augment>;
 
   step: number;
+
+  itemClass: typeof ItemClass = ItemClass;
   
   constructor() {
 
@@ -69,6 +72,22 @@ export class SelectGearComponent {
 
     }
 
+  }
+
+  setItems(items: Array<Item>) {
+
+    if( items.at(0) instanceof Enhancement ) {
+
+      this.setChosenEnhancements(items as Array<Enhancement>);
+
+    }
+
+    if( items.at(0) instanceof Augment ) {
+
+      this.setChosenAugments(items as Array<Augment>);
+
+    }
+    
   }
 
   back() {

@@ -1,0 +1,20 @@
+<div class="columns">
+
+    <div class="column">
+        <p>Item Rating: {{labelItemRating}}</p>
+    </div>
+
+    <div class="column">
+        <p>Item Type: {{labelItemType}}</p>
+    </div>
+
+    <div class="column">
+        <p>Tertiary Stat: {{labelTertiaryStat}}</p>
+    </div>
+
+    <div class="column" *ngIf="isStim">
+        <p>Second Stat: {{labelItemRating}}</p>
+    </div>
+
+
+</div>

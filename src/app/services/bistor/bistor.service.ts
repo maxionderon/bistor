@@ -3,6 +3,7 @@ import { ItemType } from '../../model/itemType';
 import { Enhancement } from '../../model/enhancement';
 import { Augment } from '../../model/augment';
 import { Item } from '../../model/item';
+import { ItemClass } from '../../model/itemClass';
 
 @Injectable({
   providedIn: 'root'
@@ -149,6 +150,26 @@ export class BistorService {
     }
 
     return augment;
+
+  }
+
+  getItem(itemRating: number, itemType: ItemType, itemClass: ItemClass): Item | undefined {
+
+    if( itemClass == ItemClass.enhancement ) {
+
+      return this.getEnhancement(itemRating, itemType);
+
+    }
+
+    if( itemClass == ItemClass.augment ) {
+
+      return this.getAugment(itemRating, itemType);
+
+    }
+
+    //stim is missing yet
+
+    return undefined;
 
   }
 
