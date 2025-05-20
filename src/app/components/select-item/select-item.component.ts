@@ -88,7 +88,14 @@ export class SelectItemComponent implements OnInit{
       this.itemRatings = this.bistor.itemRatingAugments.concat([]);
       this.itemTypes = this.bistor.augmentsItemTypes;
 
-    }    
+    }
+    
+    if( this.itemClass == ItemClass.stim ) {
+
+      this.itemRatings = this.bistor.itemRatingStims.concat([]);
+      //fehlt noch
+
+    }
     
     this.workingItemTypes = this.itemTypes.concat([]);
     this.selectedItemRating = this.selectedItemRating = String(this.itemRatings.at(0));

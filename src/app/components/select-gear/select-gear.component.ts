@@ -7,10 +7,12 @@ import { FormsModule } from '@angular/forms';
 import { SelectItemComponent } from "../select-item/select-item.component";
 import { ItemClass } from '../../model/itemClass';
 import { Item } from '../../model/item';
+import { SetBonusComponent } from "../set-bonus/set-bonus.component";
+import { ItemType } from '../../model/itemType';
 
 @Component({
   selector: 'app-select-gear',
-  imports: [CommonModule, FormsModule, SelectItemComponent],
+  imports: [CommonModule, FormsModule, SelectItemComponent, SetBonusComponent],
   templateUrl: './select-gear.component.html',
   styleUrl: './select-gear.component.css'
 })
@@ -20,14 +22,18 @@ export class SelectGearComponent {
   stepLabel: string;
   isFirstStep: boolean;
   isSecondStep: boolean;
+  isThirdStep: boolean;
   nextIsPossible: boolean;
 
   chosenEnhancements: Array<Enhancement>;
   chosenAugments: Array<Augment>;
+  chosenSetBonus: Array<Enhancement>;
 
   step: number;
 
   itemClass: typeof ItemClass = ItemClass;
+
+  setBonusEnhancementTypes: Array<ItemType>;
   
   constructor() {
 
@@ -35,10 +41,13 @@ export class SelectGearComponent {
     this.stepLabel = "1. Step - Choose Enhancements";
     this.isFirstStep = true;
     this.isSecondStep = false;
+    this.isThirdStep = false;
     this.nextIsPossible = false;
     this.chosenEnhancements = new Array<Enhancement>;
     this.chosenAugments = new Array<Augment>;
+    this.chosenSetBonus = new Array<Enhancement>
     this.step = 1;
+    this.setBonusEnhancementTypes = new Array<ItemType>;
 
   }  
 
@@ -94,6 +103,12 @@ export class SelectGearComponent {
 
     if(this.step > 1 ) {
 
+      if( this.step == 4 ) {
+
+        this.step = this.step - 1;
+
+      }
+
       this.step = this.step - 1;
       this.setStep();
 
@@ -115,8 +130,13 @@ export class SelectGearComponent {
 
       this.isFirstStep = true;
       this.isSecondStep = false;
+      this.isThirdStep = false;
 
       this.stepLabel = "1. Step - Choose Enhancements";
+
+      this.chosenEnhancements = new Array<Enhancement>;
+      this.chosenAugments = new Array<Augment>;
+      this.chosenSetBonus = new Array<Enhancement>;
 
     }
 
@@ -124,8 +144,105 @@ export class SelectGearComponent {
 
       this.isFirstStep = false;
       this.isSecondStep = true;
+      this.isThirdStep = false;
 
       this.stepLabel = "2. Step - Choose Augments";
+
+      this.chosenAugments = new Array<Augment>;
+      this.chosenSetBonus = new Array<Enhancement>;
+
+    }
+
+    if( this.step == 3 ) {
+
+      if( this.checkIfThirdStepIsNecessary() == false ) {
+
+        this.step = this.step + 1;
+        this.setStep();
+
+      } else {
+
+        this.calculateSetBonusEnhancementsTypes();
+
+        this.isFirstStep = false;
+        this.isSecondStep = false;
+        this.isThirdStep = true;
+
+        this.stepLabel = "3. Step - Choose Set Bonus Enhancements";
+
+        this.chosenSetBonus = new Array<Enhancement>;
+
+        this.nextIsPossible = true;
+
+      }
+
+    }
+
+  }
+
+  private checkIfThirdStepIsNecessary(): boolean {
+
+    if( this.chosenEnhancements.length != 0 ) {
+
+      if( (this.chosenEnhancements.at(0)?.itemRating as number) >= 340) {
+
+        return true;
+
+      }
+
+    }    
+
+    return false;
+
+  }
+  
+  private calculateSetBonusEnhancementsTypes() {
+
+    let setBonusEnhancementTypes: Set<ItemType> = new Set<ItemType>;
+
+    this.chosenEnhancements.forEach( (enhancement: Enhancement) => {
+
+      setBonusEnhancementTypes.add(enhancement.itemType);
+
+    });
+
+    setBonusEnhancementTypes.delete(ItemType.accuracy);
+
+    this.setBonusEnhancementTypes = Array.from(setBonusEnhancementTypes) as Array<ItemType>;
+
+  }
+
+  setSetBonus(setBonusItemTypes: Map<number, ItemType>) {
+
+    let itemRating: number = 340;
+
+    this.chosenSetBonus = new Array<Enhancement>;
+
+    if( setBonusItemTypes.has(1) ) {
+
+      for(let i: number = 0; i != this.bistor.setBonusByItemRating.get(itemRating)?.length; i = i + 1) {
+
+        if( this.bistor.setBonusByItemRating.get(itemRating)?.at(i)?.itemType == setBonusItemTypes.get(1) ) {
+
+          this.chosenSetBonus.push(this.bistor.setBonusByItemRating.get(itemRating)?.at(i) as Enhancement);
+
+        }
+
+      }   
+
+    }
+
+    if( setBonusItemTypes.has(2) ) {
+
+      for(let i: number = 0; i != this.bistor.setBonusByItemRating.get(itemRating)?.length; i = i + 1) {
+
+        if( this.bistor.setBonusByItemRating.get(itemRating)?.at(i)?.itemType == setBonusItemTypes.get(2) ) {
+
+          this.chosenSetBonus.push(this.bistor.setBonusByItemRating.get(itemRating)?.at(i) as Enhancement);
+
+        }
+
+      }
 
     }
 

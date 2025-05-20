@@ -4,6 +4,7 @@ import { Enhancement } from '../../model/enhancement';
 import { Augment } from '../../model/augment';
 import { Item } from '../../model/item';
 import { ItemClass } from '../../model/itemClass';
+import { Stim } from '../../model/stim';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,9 @@ export class BistorService {
   augmentsByItemRating: Map<number, Array<Augment>>;
   itemRatingEnhancements: Array<number>;
   itemRatingAugments: Array<number>;
+  setBonusByItemRating: Map<number, Array<Enhancement>>;
+  stimByItemRating: Map<number, Array<Stim>>;
+  itemRatingStims: Array<number>;
   
   constructor() { 
     
@@ -29,7 +33,7 @@ export class BistorService {
 
     this.enhancementsByItemRating = this.createAvailableEnhancements();
     
-    this.augmentsItemTypes = new Array<ItemType>
+    this.augmentsItemTypes = new Array<ItemType>;
 
     this.augmentsItemTypes.push(ItemType.absorb);
     this.augmentsItemTypes.push(ItemType.accuracy);
@@ -43,6 +47,11 @@ export class BistorService {
 
     this.itemRatingEnhancements = Array.from(this.enhancementsByItemRating.keys());
     this.itemRatingAugments = Array.from(this.augmentsByItemRating.keys());
+
+    this.setBonusByItemRating = this.createAvailableSetBonus();
+
+    this.stimByItemRating = this.createAvailableStims();
+    this.itemRatingStims = Array.from(this.stimByItemRating.keys());
 
   }
 
@@ -80,6 +89,29 @@ export class BistorService {
 
   }
 
+  private createAvailableSetBonus(): Map<number, Array<Enhancement>> {
+
+    let setBonusByItemRating: Map<number, Array<Enhancement>> = new Map<number, Array<Enhancement>>;
+
+    setBonusByItemRating.set(340, this.buildSetBonus(154, 340, 614, 585));
+
+    return setBonusByItemRating;
+
+  }
+
+  private createAvailableStims(): Map<number, Array<Stim>> {
+
+    let stimByItemRating: Map<number, Array<Stim>> = new Map<number, Array<Stim>>;
+
+    stimByItemRating.set(270, this.buildStims(132, 270, 240, 99));
+    stimByItemRating.set(280, this.buildStims(132, 280, 251, 104));
+    stimByItemRating.set(288, this.buildStims(132, 288, 264, 109));
+    stimByItemRating.set(296, this.buildStims(132, 296, 264, 109));
+
+    return stimByItemRating;
+
+  }
+
   private buildEnhancements(itemLevel: number, itemRating: number, healAndDamageStat: number, tankStat: number): Array<Enhancement> {
 
     let enhancements: Array<Enhancement> = new Array<Enhancement>;
@@ -110,6 +142,34 @@ export class BistorService {
 
   }
 
+  private buildSetBonus(itemLevel: number, itemRating: number, healAndDamageStat: number, tankStat: number): Array<Enhancement> {
+
+    let setBonus = new Array<Enhancement>;
+
+    setBonus.push(new Enhancement(itemLevel, itemRating, ItemType.absorb, tankStat));
+    setBonus.push(new Enhancement(itemLevel, itemRating, ItemType.shield, tankStat));
+    setBonus.push(new Enhancement(itemLevel, itemRating, ItemType.alacrity, healAndDamageStat));
+    setBonus.push(new Enhancement(itemLevel, itemRating, ItemType.critical, healAndDamageStat));
+
+    return setBonus;
+
+  }
+
+  private buildStims(itemLevel: number, itemRating: number, tertiaryStat: number, secondStat: number): Array<Stim> {
+
+    let stims: Array<Stim> = new Array<Stim>;
+
+    //fortitude stim
+    stims.push( new Stim(itemLevel, itemRating, ItemType.endurance, tertiaryStat, ItemType.defense, secondStat) );
+    //versatile stim
+    stims.push( new Stim(itemLevel, itemRating, ItemType.mastery, tertiaryStat, ItemType.power, secondStat) );
+    //Kyrprax Proficient
+    stims.push( new Stim(itemLevel, itemRating, ItemType.accuracy, tertiaryStat, ItemType.critical, secondStat) );    
+
+    return stims;
+
+  }
+
   getEnhancement(itemRating: number, itemType: ItemType): Enhancement | undefined {
 
     let enhancements: Array<Enhancement> = this.enhancementsByItemRating.get(itemRating) as Array<Enhancement>;
@@ -122,7 +182,6 @@ export class BistorService {
 
         enhancement = enhancements.at(i);
         break;
-
 
       }
 
@@ -153,6 +212,27 @@ export class BistorService {
 
   }
 
+  getStim(itemRating: number, itemType: ItemType): Stim | undefined {
+
+    let stims: Array<Stim> = this.stimByItemRating.get(itemRating) as Array<Stim>;
+
+    let stim: Stim | undefined = undefined;
+
+    for(let i: number = 0; i != stims.length; i = i + 1) {
+
+      if( stims.at(i)?.itemType == itemType || stims.at(i)?.secondItemType == itemType ) {
+
+        stim = stims.at(i);
+        break;
+
+      }
+
+    }
+
+    return stim;
+
+  }
+
   getItem(itemRating: number, itemType: ItemType, itemClass: ItemClass): Item | undefined {
 
     if( itemClass == ItemClass.enhancement ) {
@@ -167,7 +247,11 @@ export class BistorService {
 
     }
 
-    //stim is missing yet
+    if( itemClass == ItemClass.stim ) {
+
+      return this.getStim(itemRating, itemType);
+
+    }
 
     return undefined;
 

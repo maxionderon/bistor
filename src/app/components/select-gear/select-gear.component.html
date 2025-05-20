@@ -29,6 +29,17 @@
             </ul>
           </div>
 
+          <div *ngIf="chosenSetBonus.length != 0">
+            <h3>Set Bonus</h3>
+            <ul>
+              <li *ngFor="let setBonus of chosenSetBonus">
+                {{setBonus.itemRating}} {{setBonus.itemType}} {{setBonus.tertiaryStat}}
+              </li>
+            </ul>
+
+
+          </div>
+
         </div>
         
       </div>
@@ -47,6 +58,7 @@
         <div class="card-content">
             <app-select-item [itemClass]="itemClass.enhancement" (outputSelectedItems)="setItems($event)" *ngIf="isFirstStep"></app-select-item>
             <app-select-item [itemClass]="itemClass.augment" (outputSelectedItems)="setItems($event)" *ngIf="isSecondStep"></app-select-item>
+            <app-set-bonus *ngIf="isThirdStep" [setBonusEnhancementTypes]="setBonusEnhancementTypes" (outputEventEmitter)="setSetBonus($event)"></app-set-bonus>
         </div>
 
         <footer class="card-footer">

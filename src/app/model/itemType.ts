@@ -6,6 +6,8 @@ export enum ItemType {
     critical = "Critical",
     defense = "Defense",
     shield = "Shield",
-    mastery = "Versatile"
+    mastery = "Versatile",
+    endurance = "Endurance",
+    power = "Power"
 
 }

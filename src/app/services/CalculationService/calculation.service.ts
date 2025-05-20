@@ -31,7 +31,7 @@ export class CalculationService {
     let accuracyAugment = new Augment(143, 310, ItemType.accuracy, 147);
 
     //create Stim
-    let accuracyStim = new Stim(132, 288, ItemType.accuracy, "Fortschrittlicher fähiger Kyrprax-Stim", 264, ItemType.critical, 109);
+    //let accuracyStim = new Stim(132, 288, ItemType.accuracy, "Fortschrittlicher fähiger Kyrprax-Stim", 264, ItemType.critical, 109);
 
     let results = new Array<Result>;
 
@@ -124,7 +124,7 @@ export class CalculationService {
                 
                 if( criticalEnhancements.length + alacrityEnhancements.length + accuracyEnhancements.length == 10 && criticalAugments.length + alacrityAugments.length + accuracyAugments.length == 14) {
 
-                  results.push(new Result(criticalEnhancements.concat(alacrityEnhancements).concat(accuracyEnhancements), criticalAugments.concat(alacrityAugments).concat(accuracyAugments), accuracyStim));
+                  //results.push(new Result(criticalEnhancements.concat(alacrityEnhancements).concat(accuracyEnhancements), criticalAugments.concat(alacrityAugments).concat(accuracyAugments), accuracyStim));
         
                 }
                 
@@ -179,7 +179,7 @@ export class CalculationService {
     let accuracyAugment = new Augment(143, 310, ItemType.accuracy, 147);
 
     //create Stim
-    let accuracyStim = new Stim(132, 288, ItemType.accuracy, "Fortschrittlicher fähiger Kyrprax-Stim", 264, ItemType.critical, 109);
+    //let accuracyStim = new Stim(132, 288, ItemType.accuracy, "Fortschrittlicher fähiger Kyrprax-Stim", 264, ItemType.critical, 109);
 
     let results = new Array<Result>;
 
@@ -233,7 +233,7 @@ export class CalculationService {
                 
                 if( criticalEnhancements.length + alacrityEnhancements.length + accuracyEnhancements.length == 10 && criticalAugments.length + alacrityAugments.length + accuracyAugments.length == 14) {
 
-                  results.push(new Result(criticalEnhancements.concat(alacrityEnhancements).concat(accuracyEnhancements), criticalAugments.concat(alacrityAugments).concat(accuracyAugments), accuracyStim));
+                  //results.push(new Result(criticalEnhancements.concat(alacrityEnhancements).concat(accuracyEnhancements), criticalAugments.concat(alacrityAugments).concat(accuracyAugments), accuracyStim));
         
                 }
                 
@@ -271,7 +271,7 @@ export class CalculationService {
     let accuracyAugment = new Augment(143, 310, ItemType.accuracy, 147);
 
     //create Stim
-    let accuracyStim = new Stim(132, 288, ItemType.accuracy, "Fortschrittlicher fähiger Kyrprax-Stim", 264, ItemType.critical, 109);
+    //let accuracyStim = new Stim(132, 288, ItemType.accuracy, "Fortschrittlicher fähiger Kyrprax-Stim", 264, ItemType.critical, 109);
 
 
     let items: Array<Item> = new Array<Item>;
@@ -282,7 +282,7 @@ export class CalculationService {
     items.push(criticalAugment);
     items.push(alacrityAugment);
     items.push(accuracyAugment);
-    items.push(accuracyStim);
+    //items.push(accuracyStim);
 
     let results: Array<Result> = new Array<Result>;
 
