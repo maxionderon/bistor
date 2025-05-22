@@ -36,8 +36,15 @@
                 {{setBonus.itemRating}} {{setBonus.itemType}} {{setBonus.tertiaryStat}}
               </li>
             </ul>
+          </div>
 
-
+          <div *ngIf="chosenStim!=undefined">
+            <h3>Stim</h3>
+            <ul>
+              <li>
+                {{chosenStim.itemRating}} {{chosenStim.itemType}} {{chosenStim.tertiaryStat}} {{chosenStim.secondItemType}} {{chosenStim.secondStat}}
+              </li>
+            </ul>
           </div>
 
         </div>
@@ -52,18 +59,19 @@
     <div class="card has-background-grey-lighter">
         
         <header class="card-header">
-            <p class="card-header-title">{{stepLabel}}</p>
+            <p class="card-header-title">{{labelStep}}</p>
         </header>
         
         <div class="card-content">
             <app-select-item [itemClass]="itemClass.enhancement" (outputSelectedItems)="setItems($event)" *ngIf="isFirstStep"></app-select-item>
             <app-select-item [itemClass]="itemClass.augment" (outputSelectedItems)="setItems($event)" *ngIf="isSecondStep"></app-select-item>
             <app-set-bonus *ngIf="isThirdStep" [setBonusEnhancementTypes]="setBonusEnhancementTypes" (outputEventEmitter)="setSetBonus($event)"></app-set-bonus>
+            <app-select-item [itemClass]="itemClass.stim" (outputSelectedItems)="setItems($event)" *ngIf="isFourthStep"></app-select-item>
         </div>
 
         <footer class="card-footer">
             <button class="button card-footer-item is-danger" *ngIf="!isFirstStep" (click)="back()">Previous</button>
-            <button class="button card-footer-item is-success" [disabled]="!nextIsPossible" (click)="next()">Next</button>
+            <button class="button card-footer-item is-success" [disabled]="!nextIsPossible" (click)="next()">{{labelNext}}</button>
         </footer>
 
     </div>

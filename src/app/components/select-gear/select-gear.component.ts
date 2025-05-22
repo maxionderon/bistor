@@ -9,6 +9,7 @@ import { ItemClass } from '../../model/itemClass';
 import { Item } from '../../model/item';
 import { SetBonusComponent } from "../set-bonus/set-bonus.component";
 import { ItemType } from '../../model/itemType';
+import { Stim } from '../../model/stim';
 
 @Component({
   selector: 'app-select-gear',
@@ -19,15 +20,18 @@ import { ItemType } from '../../model/itemType';
 export class SelectGearComponent {
 
   bistor: BistorService;
-  stepLabel: string;
+  labelStep: string;
+  labelNext: string;
   isFirstStep: boolean;
   isSecondStep: boolean;
   isThirdStep: boolean;
+  isFourthStep: boolean;
   nextIsPossible: boolean;
 
   chosenEnhancements: Array<Enhancement>;
   chosenAugments: Array<Augment>;
   chosenSetBonus: Array<Enhancement>;
+  chosenStim: Stim | undefined;
 
   step: number;
 
@@ -38,14 +42,17 @@ export class SelectGearComponent {
   constructor() {
 
     this.bistor = new BistorService;
-    this.stepLabel = "1. Step - Choose Enhancements";
+    this.labelStep = "1. Step - Choose Enhancements";
+    this.labelNext = "Next";
     this.isFirstStep = true;
     this.isSecondStep = false;
     this.isThirdStep = false;
+    this.isFourthStep = false;
     this.nextIsPossible = false;
     this.chosenEnhancements = new Array<Enhancement>;
     this.chosenAugments = new Array<Augment>;
     this.chosenSetBonus = new Array<Enhancement>
+    this.chosenStim = undefined;
     this.step = 1;
     this.setBonusEnhancementTypes = new Array<ItemType>;
 
@@ -83,6 +90,13 @@ export class SelectGearComponent {
 
   }
 
+  setChosenStim(stim: Stim) {
+
+    this.chosenStim = stim;
+    this.nextIsPossible = true;
+
+  }
+
   setItems(items: Array<Item>) {
 
     if( items.at(0) instanceof Enhancement ) {
@@ -96,10 +110,18 @@ export class SelectGearComponent {
       this.setChosenAugments(items as Array<Augment>);
 
     }
+
+    if( items.at(0) instanceof Stim ) {
+
+      this.setChosenStim(items.at(0) as Stim);
+
+    } 
     
   }
 
   back() {
+
+    this.nextIsPossible = false;
 
     if(this.step > 1 ) {
 
@@ -131,12 +153,14 @@ export class SelectGearComponent {
       this.isFirstStep = true;
       this.isSecondStep = false;
       this.isThirdStep = false;
+      this.isFourthStep = false;
 
-      this.stepLabel = "1. Step - Choose Enhancements";
+      this.labelStep = "1. Step - Choose Enhancements";
 
       this.chosenEnhancements = new Array<Enhancement>;
       this.chosenAugments = new Array<Augment>;
       this.chosenSetBonus = new Array<Enhancement>;
+      this.chosenStim = undefined;
 
     }
 
@@ -145,11 +169,13 @@ export class SelectGearComponent {
       this.isFirstStep = false;
       this.isSecondStep = true;
       this.isThirdStep = false;
+      this.isFourthStep = false;
 
-      this.stepLabel = "2. Step - Choose Augments";
+      this.labelStep = "2. Step - Choose Augments";
 
       this.chosenAugments = new Array<Augment>;
       this.chosenSetBonus = new Array<Enhancement>;
+      this.chosenStim = undefined;
 
     }
 
@@ -167,14 +193,30 @@ export class SelectGearComponent {
         this.isFirstStep = false;
         this.isSecondStep = false;
         this.isThirdStep = true;
+        this.isFourthStep = false;
 
-        this.stepLabel = "3. Step - Choose Set Bonus Enhancements";
+        this.labelStep = "3. Step - Choose Set Bonus Enhancements";
 
         this.chosenSetBonus = new Array<Enhancement>;
+        this.chosenStim = undefined;
 
         this.nextIsPossible = true;
 
       }
+
+    }
+
+    if( this.step == 4 ) {
+
+      this.isFirstStep = false;
+      this.isSecondStep = false;
+      this.isThirdStep = false;
+      this.isFourthStep = true;
+
+      this.labelStep = "4. Step - Choose Stim";
+      this.labelNext = "Calculate";
+
+      this.chosenStim = undefined;
 
     }
 

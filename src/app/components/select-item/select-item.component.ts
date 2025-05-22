@@ -93,7 +93,7 @@ export class SelectItemComponent implements OnInit{
     if( this.itemClass == ItemClass.stim ) {
 
       this.itemRatings = this.bistor.itemRatingStims.concat([]);
-      //fehlt noch
+      this.itemTypes = this.bistor.stimsItemTypes;
 
     }
     
@@ -139,10 +139,18 @@ export class SelectItemComponent implements OnInit{
         this.showChosenItems = true;
         this.outputSelectedItems.emit(this.chosenItems);
 
-        this.workingItemTypes.splice(i, 1);
-        if( this.workingItemTypes.length != 0 ) {
+        if( this.itemClass != ItemClass.stim ) {
 
-          this.selectedItemType = this.workingItemTypes.at(0); 
+          this.workingItemTypes.splice(i, 1);
+          if( this.workingItemTypes.length != 0 ) {
+
+            this.selectedItemType = this.workingItemTypes.at(0); 
+
+          } else {
+
+            this.noItemAvailableAnymore = true;
+
+          }          
 
         } else {
 
@@ -151,7 +159,7 @@ export class SelectItemComponent implements OnInit{
         }
 
         break;
-      
+          
       }
 
     }
