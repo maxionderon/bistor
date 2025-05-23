@@ -10,16 +10,20 @@ import { Item } from '../../model/item';
 import { SetBonusComponent } from "../set-bonus/set-bonus.component";
 import { ItemType } from '../../model/itemType';
 import { Stim } from '../../model/stim';
+import { TableComponent } from "../table/table.component";
+import { Result } from '../../model/result';
+import { CalculationService } from '../../services/CalculationService/calculation.service';
 
 @Component({
   selector: 'app-select-gear',
-  imports: [CommonModule, FormsModule, SelectItemComponent, SetBonusComponent],
+  imports: [CommonModule, FormsModule, SelectItemComponent, SetBonusComponent, TableComponent],
   templateUrl: './select-gear.component.html',
   styleUrl: './select-gear.component.css'
 })
 export class SelectGearComponent {
 
   bistor: BistorService;
+  calculationService: CalculationService;
   labelStep: string;
   labelNext: string;
   isFirstStep: boolean;
@@ -38,10 +42,14 @@ export class SelectGearComponent {
   itemClass: typeof ItemClass = ItemClass;
 
   setBonusEnhancementTypes: Array<ItemType>;
+
+  results: Array<Result>
+  calculated: boolean;
   
   constructor() {
 
-    this.bistor = new BistorService;
+    this.bistor = new BistorService();
+    this.calculationService = new CalculationService()
     this.labelStep = "1. Step - Choose Enhancements";
     this.labelNext = "Next";
     this.isFirstStep = true;
@@ -55,6 +63,8 @@ export class SelectGearComponent {
     this.chosenStim = undefined;
     this.step = 1;
     this.setBonusEnhancementTypes = new Array<ItemType>;
+    this.results = new Array<Result>;
+    this.calculated = false;
 
   }  
 
@@ -220,6 +230,16 @@ export class SelectGearComponent {
 
     }
 
+    if( this.step == 5 ) {
+
+      this.nextIsPossible = false;
+
+      this.calculateResults();
+
+      this.calculated = true;
+
+    }
+
   }
 
   private checkIfThirdStepIsNecessary(): boolean {
@@ -287,6 +307,12 @@ export class SelectGearComponent {
       }
 
     }
+
+  }
+
+  private calculateResults() {
+
+    this.results = this.calculationService.calculateResults(this.chosenEnhancements, this.chosenAugments, this.chosenSetBonus, this.chosenStim);
 
   }
 

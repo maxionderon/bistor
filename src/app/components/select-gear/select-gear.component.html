@@ -55,7 +55,7 @@
 
   </div>
 
-  <div class="column">
+  <div class="column is-three-quarters" *ngIf="!calculated">
     <div class="card has-background-grey-lighter">
         
         <header class="card-header">
@@ -75,6 +75,12 @@
         </footer>
 
     </div>
+  </div>
+
+  <div class="column is-three-quarters" *ngIf="calculated">
+
+    <app-table [results]="results"></app-table>
+
   </div>
 
 </div>

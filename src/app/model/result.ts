@@ -116,12 +116,19 @@ export class Result {
         
     }
 
+    setStim(stim: Stim) {
+
+        this.stim = stim;
+        this.values = this.calculateValues();
+
+    }
+
     attachStim(stim: Stim): void {
 
         if( this.stim != undefined ) {
 
-            this.subtractValue(stim.tertiaryStat, stim.itemType);
-            this.subtractValue(stim.secondStat, stim.secondItemType);
+            this.subtractValue(this.stim.tertiaryStat, this.stim.itemType);
+            this.subtractValue(this.stim.secondStat, this.stim.secondItemType);
 
         }
         
@@ -130,6 +137,20 @@ export class Result {
 
         this.stim = stim;
         
+    }
+
+    attachSetBonus(firstSetBonus: Enhancement, secondSetBonus: Enhancement | undefined): boolean {
+        
+        if( secondSetBonus == undefined ) {
+
+            return this.substituteEnhancement(firstSetBonus);
+
+        } else {
+
+            return this.substituteSetBonus(firstSetBonus, secondSetBonus);
+
+        }
+                
     }
 
     private addValue(value: number, itemType: ItemType, values?: Map<ItemType, number>): void {
@@ -176,13 +197,14 @@ export class Result {
 
     }
 
-    substituteEnhancement(enhancement: Enhancement): boolean {
+    private substituteEnhancement(enhancement: Enhancement): boolean {
 
         for(let i: number = 0; i != this.enhancements.length; i = i + 1) {
 
             if( this.enhancements.at(i)?.itemType == enhancement.itemType ) {
 
                 this.enhancements.splice(i, 1, enhancement);
+                this.values = this.calculateValues();
                 return true;
 
             }
@@ -192,6 +214,56 @@ export class Result {
         return false;
 
     }
-    
 
+    private substituteSetBonus(firstSetBonus: Enhancement, secondSetBonus: Enhancement): boolean {
+
+        let positionOfFirstSetBonus: number = 0;
+        let positionOfSecondSetBonus: number = 0;
+
+        for(let i: number = 0; i != this.enhancements.length; i = i + 1) {
+            
+            if( this.enhancements.at(i)?.itemType == firstSetBonus.itemType ) {
+
+                positionOfFirstSetBonus = i;
+                break;
+            
+            }
+            
+        }
+
+        if( positionOfFirstSetBonus == 0 ) {
+            //no first Set Bonus possible
+            return false;
+
+        }
+
+        for(let i: number = 0; i != this.enhancements.length; i = i + 1) {
+            
+            if( this.enhancements.at(i)?.itemType == secondSetBonus.itemType ) {
+
+                if( i != positionOfFirstSetBonus ) {
+                    
+                    positionOfSecondSetBonus = i;
+                    break;
+
+                }
+
+            }
+            
+        }
+
+        if( positionOfSecondSetBonus == 0 ) {
+            //no second Set Bonus possible
+            return false;
+
+        }
+
+        this.enhancements.splice(positionOfFirstSetBonus, 1, firstSetBonus);
+        this.enhancements.splice(positionOfSecondSetBonus, 1, secondSetBonus);
+        this.values = this.calculateValues();
+
+        return true;
+
+    }
+    
 }

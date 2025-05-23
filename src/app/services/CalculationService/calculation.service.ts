@@ -13,140 +13,43 @@ export class CalculationService {
 
   constructor() { }
 
-  calculate(): Array<Result> {
-    
-    //7 Enhancements
-    //2 Implants
-    //1 EarPeaces
-    //14 Augments
+  calculateResults(enhancements: Array<Enhancement>, augments: Array<Augment>, setBonus: Array<Enhancement>, stim: Stim | undefined): Array<Result> {
 
-    //create enhancements
-    let criticalEnhancement = new Enhancement(156, 336, ItemType.critical, 589);
-    let alacrityEnhancement = new Enhancement(156, 336, ItemType.alacrity, 589);
-    let accuracyEnhancement = new Enhancement(156, 336, ItemType.accuracy, 589);
+    let results: Array<Result> = new Array<Result>;
+    let items: Array<Item> = new Array<Item>;
+    let buildWithAugments: boolean = false;
 
-    //create Augments
-    let criticalAugment = new Augment(143, 310, ItemType.critical, 147);
-    let alacrityAugment= new Augment(143, 310, ItemType.alacrity, 147);
-    let accuracyAugment = new Augment(143, 310, ItemType.accuracy, 147);
+    items = items.concat(enhancements);
 
-    //create Stim
-    //let accuracyStim = new Stim(132, 288, ItemType.accuracy, "Fortschrittlicher fähiger Kyrprax-Stim", 264, ItemType.critical, 109);
+    if( augments.length != 0 ) {
 
-    let results = new Array<Result>;
+      buildWithAugments = true;
+      items = items.concat(augments);
 
-    //start with critical Enhancements
-    for(let criticalEnhancementCounter: number = 0; criticalEnhancementCounter <= 10; criticalEnhancementCounter = criticalEnhancementCounter + 1) {
-     
-      let criticalEnhancements = new Array<Enhancement>;
+    } 
 
-      //fill crit Enhancements
-      for(let i = 0; i != criticalEnhancementCounter; i=i+1) {
-
-        criticalEnhancements.push(criticalEnhancement);
-
-      }
-
-      //alacrity Enhancements
-      for(let alacrityEnhancementCounter: number = 0; alacrityEnhancementCounter <= 10 - criticalEnhancements.length; alacrityEnhancementCounter= alacrityEnhancementCounter + 1) {
-
-        let alacrityEnhancements = new Array<Enhancement>;
-
-        //fill alacrity Enhancements
-        for(let i = 0; i != alacrityEnhancementCounter; i = i + 1) {
-
-          alacrityEnhancements.push(alacrityEnhancement);
-
-        }
-      
-        //accuracy Enhancements
-        for(let accuracyEnhancementsCounter: number = 0; accuracyEnhancementsCounter <= 10 - criticalEnhancements.length - alacrityEnhancements.length; accuracyEnhancementsCounter = accuracyEnhancementsCounter + 1) {
-
-          let accuracyEnhancements = new Array<Enhancement>;
-
-          //fill accuracy Enhancements
-          for(let i = 0; i != accuracyEnhancementsCounter; i = i + 1) {
-
-            accuracyEnhancements.push(accuracyEnhancement);
-
-          }
-          /*
-          if( criticalEnhancements.length + alacrityEnhancements.length + accuracyEnhancements.length == 10) {
-
-            results.push(new Result(criticalEnhancements.concat(alacrityEnhancements).concat(accuracyEnhancements), augments, accuracyStim));
+    this.calculate(items, results, buildWithAugments);
   
-          }
-          */
+    results = this.attachSetBonus(results, setBonus);
+    
+    if( stim != undefined ) {
 
-          //critical Augments
-          for(let criticalAugmentCounter: number = 0; criticalAugmentCounter <= 14; criticalAugmentCounter = criticalAugmentCounter + 1) {
+      let resultsWithStim: Array<Result> = results.concat([]);
 
-            let criticalAugments = new Array<Augment>;
+      resultsWithStim.forEach( (result: Result) => {
 
-            //fill critical Augments
-            for(let i = 0; i != criticalAugmentCounter; i = i + 1) {
+        result.setStim(stim);
 
-              criticalAugments.push(criticalAugment);
+      });
 
-            }
-
-            //alacrity Augments
-            for(let alacrityAugmentCounter = 0; alacrityAugmentCounter <= 14 - criticalAugments.length; alacrityAugmentCounter = alacrityAugmentCounter + 1) {
-
-              let alacrityAugments = new Array<Augment>;
-
-              //fill alacrity Augments
-              for(let i = 0; i != alacrityAugmentCounter; i = i + 1) {
-
-                alacrityAugments.push(alacrityAugment);
-
-              }
-              /*
-              if( criticalEnhancements.length + alacrityEnhancements.length + accuracyEnhancements.length == 10 && criticalAugments.length + alacrityAugments.length == 14) {
-
-                results.push(new Result(criticalEnhancements.concat(alacrityEnhancements).concat(accuracyEnhancements), criticalAugments.concat(alacrityAugments), accuracyStim));
-      
-              }
-              */
-              
-
-              //accuracy Augments
-              for(let accuracyAugmentCounter = 0; accuracyAugmentCounter <= 14 -criticalAugments.length - alacrityAugments.length; accuracyAugmentCounter = accuracyAugmentCounter + 1) {
-
-                let accuracyAugments = new Array<Augment>;
-
-                //fill accuracy Augments
-                for(let i = 0; i != accuracyAugmentCounter; i = i + 1) {
-
-                  accuracyAugments.push(accuracyAugment);
-
-                }
-                
-                if( criticalEnhancements.length + alacrityEnhancements.length + accuracyEnhancements.length == 10 && criticalAugments.length + alacrityAugments.length + accuracyAugments.length == 14) {
-
-                  //results.push(new Result(criticalEnhancements.concat(alacrityEnhancements).concat(accuracyEnhancements), criticalAugments.concat(alacrityAugments).concat(accuracyAugments), accuracyStim));
-        
-                }
-                
-              }             
-
-            }
-
-            
-
-
-          }
-
-        }
-      
-      }
+      results = results.concat(resultsWithStim);
 
     }
-
-    return results;
     
-  }
+    return results;
 
+  }
+  
   private fillItems(item: Item, itemCounter: number): Array<Item> {
 
     let items: Array<Item> = new Array<Item>;
@@ -160,138 +63,7 @@ export class CalculationService {
     return items;
 
   }
-
-  calculateNew(): Array<Result> {
     
-    //7 Enhancements
-    //2 Implants
-    //1 EarPeaces
-    //14 Augments
-
-    //create enhancements
-    let criticalEnhancement = new Enhancement(156, 336, ItemType.critical, 589);
-    let alacrityEnhancement = new Enhancement(156, 336, ItemType.alacrity, 589);
-    let accuracyEnhancement = new Enhancement(156, 336, ItemType.accuracy, 589);
-
-    //create Augments
-    let criticalAugment = new Augment(143, 310, ItemType.critical, 147);
-    let alacrityAugment= new Augment(143, 310, ItemType.alacrity, 147);
-    let accuracyAugment = new Augment(143, 310, ItemType.accuracy, 147);
-
-    //create Stim
-    //let accuracyStim = new Stim(132, 288, ItemType.accuracy, "Fortschrittlicher fähiger Kyrprax-Stim", 264, ItemType.critical, 109);
-
-    let results = new Array<Result>;
-
-    //start with critical Enhancements
-    for(let criticalEnhancementCounter: number = 0; criticalEnhancementCounter <= 10; criticalEnhancementCounter = criticalEnhancementCounter + 1) {
-     
-      let criticalEnhancements: Array<Enhancement>;
-
-      //fill crit Enhancements
-      criticalEnhancements = this.fillItems(criticalEnhancement, criticalEnhancementCounter) as Array<Enhancement>;
-
-      //alacrity Enhancements
-      for(let alacrityEnhancementCounter: number = 0; alacrityEnhancementCounter <= 10 - criticalEnhancements.length; alacrityEnhancementCounter= alacrityEnhancementCounter + 1) {
-
-        let alacrityEnhancements: Array<Enhancement>;
-
-        //fill alacrity Enhancements
-        alacrityEnhancements = this.fillItems(alacrityEnhancement, alacrityEnhancementCounter) as Array<Enhancement>;
-      
-        //accuracy Enhancements
-        for(let accuracyEnhancementsCounter: number = 0; accuracyEnhancementsCounter <= 10 - criticalEnhancements.length - alacrityEnhancements.length; accuracyEnhancementsCounter = accuracyEnhancementsCounter + 1) {
-
-          let accuracyEnhancements: Array<Enhancement>;
-
-          //fill accuracy Enhancements
-          accuracyEnhancements = this.fillItems(accuracyEnhancement, accuracyEnhancementsCounter) as Array<Enhancement>;
-          
-          //critical Augments
-          for(let criticalAugmentCounter: number = 0; criticalAugmentCounter <= 14; criticalAugmentCounter = criticalAugmentCounter + 1) {
-
-            let criticalAugments: Array<Augment>;
-
-            //fill critical Augments
-            criticalAugments = this.fillItems(criticalAugment, criticalAugmentCounter) as Array<Augment>;
-
-            //alacrity Augments
-            for(let alacrityAugmentCounter = 0; alacrityAugmentCounter <= 14 - criticalAugments.length; alacrityAugmentCounter = alacrityAugmentCounter + 1) {
-
-              let alacrityAugments: Array<Augment>;
-
-              //fill alacrity Augments
-              alacrityAugments = this.fillItems(alacrityAugment, alacrityAugmentCounter) as Array<Augment>;                            
-
-              //accuracy Augments
-              for(let accuracyAugmentCounter = 0; accuracyAugmentCounter <= 14 -criticalAugments.length - alacrityAugments.length; accuracyAugmentCounter = accuracyAugmentCounter + 1) {
-
-                let accuracyAugments: Array<Augment>;
-
-                //fill accuracy Augments
-                accuracyAugments = this.fillItems(accuracyAugment, accuracyAugmentCounter) as Array<Augment>;
-                
-                if( criticalEnhancements.length + alacrityEnhancements.length + accuracyEnhancements.length == 10 && criticalAugments.length + alacrityAugments.length + accuracyAugments.length == 14) {
-
-                  //results.push(new Result(criticalEnhancements.concat(alacrityEnhancements).concat(accuracyEnhancements), criticalAugments.concat(alacrityAugments).concat(accuracyAugments), accuracyStim));
-        
-                }
-                
-              }             
-
-            }
-          
-          }
-
-        }
-      
-      }
-
-    }
-
-    return results;
-
-  }
-
-  calculateNew2(): Array<Result> {
-    
-    //7 Enhancements
-    //2 Implants
-    //1 EarPeaces
-    //14 Augments
-
-    //create enhancements
-    let criticalEnhancement = new Enhancement(156, 336, ItemType.critical, 589);
-    let alacrityEnhancement = new Enhancement(156, 336, ItemType.alacrity, 589);
-    let accuracyEnhancement = new Enhancement(156, 336, ItemType.accuracy, 589);
-    
-    //create Augments
-    let criticalAugment = new Augment(143, 310, ItemType.critical, 147);
-    let alacrityAugment= new Augment(143, 310, ItemType.alacrity, 147);
-    let accuracyAugment = new Augment(143, 310, ItemType.accuracy, 147);
-
-    //create Stim
-    //let accuracyStim = new Stim(132, 288, ItemType.accuracy, "Fortschrittlicher fähiger Kyrprax-Stim", 264, ItemType.critical, 109);
-
-
-    let items: Array<Item> = new Array<Item>;
-
-    items.push(criticalEnhancement);
-    items.push(alacrityEnhancement);
-    items.push(accuracyEnhancement);
-    items.push(criticalAugment);
-    items.push(alacrityAugment);
-    items.push(accuracyAugment);
-    //items.push(accuracyStim);
-
-    let results: Array<Result> = new Array<Result>;
-
-    this.bob3(items, results, true);
-
-    return results
-
-  }
-  
   private getMaxLoopCount(item: Item, filledItems: Array<Item>): number {
 
     if( item instanceof Enhancement) {
@@ -389,7 +161,7 @@ export class CalculationService {
 
   }
 
-  bob3(items: Array<Item>, results: Array<Result>, buildWithAugments: boolean, filledItems?: Array<Item>) : void {
+  private calculate(items: Array<Item>, results: Array<Result>, buildWithAugments: boolean, filledItems?: Array<Item>) : void {
 
     if( filledItems == undefined ) {
       
@@ -419,13 +191,50 @@ export class CalculationService {
           nextItems.shift();
           let nextFilledItems = filledItemsTemp.concat([]);
 
-          this.bob3(nextItems, results, buildWithAugments, nextFilledItems);
+          this.calculate(nextItems, results, buildWithAugments, nextFilledItems);
           
         }    
 
       }
 
     }
+ 
+  }
+
+  private attachSetBonus(results: Array<Result>, setBonus: Array<Enhancement>): Array<Result> {
+ 
+    if( setBonus.length == 0 || setBonus.length > 2 ) {
+      
+      return results;
+
+    }
+    
+    let newResults: Array<Result> = new Array<Result>;
+
+    let firstSetBonus: Enhancement;
+    let secondSetBonus: Enhancement | undefined;
+
+    firstSetBonus = setBonus.at(0) as Enhancement;
+    
+    if(setBonus.length > 1 ) {
+
+      secondSetBonus = setBonus.at(1);
+
+    }
+
+    for(let i: number = 0; i != results.length; i = i + 1) {
+
+      if( results.at(i)?.attachSetBonus(firstSetBonus, secondSetBonus) == true ) {
+        
+        newResults.push(results.at(i) as Result);
+
+      }
+
+    }
+    
+    results = newResults;
+
+    return results;
 
   }
 
