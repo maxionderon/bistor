@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ItemType } from '../../model/itemType';
 import { Enhancement } from '../../model/enhancement';
 import { Augment } from '../../model/augment';
 import { Stim } from '../../model/stim';
@@ -34,18 +33,18 @@ export class CalculationService {
     
     if( stim != undefined ) {
 
-      let resultsWithStim: Array<Result> = results.concat([]);
+      let resultsWithStim: Array<Result> = new Array<Result>;
 
-      resultsWithStim.forEach( (result: Result) => {
+      results.forEach( (result: Result) => {
 
-        result.setStim(stim);
+        resultsWithStim.push(new Result(result.enhancements, result.augments, stim));
 
       });
 
       results = results.concat(resultsWithStim);
-
+      
     }
-    
+        
     return results;
 
   }
@@ -133,7 +132,7 @@ export class CalculationService {
 
       if( filledItems.at(i) instanceof Augment ) {
 
-        augments.push(filledItems.at(0) as Augment);
+        augments.push(filledItems.at(i) as Augment);
 
       }
 

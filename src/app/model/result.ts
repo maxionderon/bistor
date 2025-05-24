@@ -19,7 +19,7 @@ export class Result {
         this.stim = stim;
 
         this.isPossible = this.calculateIsPossible();
-        this.values = this.calculateValues();
+        this.values = new Map<ItemType, number>;
 
     }
 
@@ -47,30 +47,40 @@ export class Result {
 
     }
 
-    calculateValues(): Map<ItemType, number> {
+    getValues(): Map<ItemType, number> {
 
-        let values: Map<ItemType, number> = new Map<ItemType, number> ; 
+        this.values = this.calculateValues2();
 
-        this.enhancements.forEach( (enhancement) => {
+        return this.values;
 
-            this.addValue(enhancement.tertiaryStat, enhancement.itemType, values);
+    }
+
+    private calculateValues2(): Map<ItemType, number> {
+
+        let values: Map<ItemType, number> = new Map<ItemType, number>;
+
+        this.enhancements.forEach( (enhancement: Enhancement) => {
+
+            this.addValue2(enhancement.tertiaryStat, enhancement.itemType, values);
 
         });
+       
+        this.augments.forEach( (augment: Augment) => {
 
-        this.augments.forEach( (augment) => {
+            this.addValue2(augment.tertiaryStat, augment.itemType, values);
 
-            this.addValue(augment.tertiaryStat, augment.itemType, values);
-    
         });
 
         if( this.stim != undefined ) {
 
-            this.addValue(this.stim.tertiaryStat, this.stim.itemType, values);
-            this.addValue(this.stim.secondStat, this.stim.secondItemType, values);
+            this.addValue2(this.stim.tertiaryStat, this.stim.itemType, values);
+            this.addValue2(this.stim.secondStat, this.stim.secondItemType, values)
 
-        }       
+        }
 
-        return values;
+        this.values = values;
+
+        return this.values;
 
     }
 
@@ -119,26 +129,9 @@ export class Result {
     setStim(stim: Stim) {
 
         this.stim = stim;
-        this.values = this.calculateValues();
-
-    }
-
-    attachStim(stim: Stim): void {
-
-        if( this.stim != undefined ) {
-
-            this.subtractValue(this.stim.tertiaryStat, this.stim.itemType);
-            this.subtractValue(this.stim.secondStat, this.stim.secondItemType);
-
-        }
-        
-        this.addValue(stim.tertiaryStat, stim.itemType);
-        this.addValue(stim.secondStat, stim. secondItemType);
-
-        this.stim = stim;
         
     }
-
+    
     attachSetBonus(firstSetBonus: Enhancement, secondSetBonus: Enhancement | undefined): boolean {
         
         if( secondSetBonus == undefined ) {
@@ -152,48 +145,20 @@ export class Result {
         }
                 
     }
-
-    private addValue(value: number, itemType: ItemType, values?: Map<ItemType, number>): void {
-
-        if( values == undefined) {
-
-            if( this.values.has(itemType) ) {
-
-                this.values.set(itemType, this.values.get(itemType) as number + value);
     
-            } else {
-    
-                this.values.set(itemType, value);
-    
-            }
+    private addValue2(value: number, itemType: ItemType, values: Map<ItemType, number>): Map<ItemType, number> {
+
+        if( values.has(itemType) ) {
+
+            values.set( itemType, (values.get(itemType) as number) + value);
 
         } else {
 
-            if( values.has(itemType) ) {
-
-                values.set(itemType, values.get(itemType) as number + value);
-
-            } else {
-
-                values.set(itemType, value);
-
-            }
+            values.set(itemType, value);
 
         }
 
-    }
-
-    private subtractValue(value: number, itemType: ItemType): boolean {
-
-        if( this.values.has(itemType) ) {
-
-            this.values.set(itemType, this.values.get(itemType) as number - value);
-
-            return true;
-
-        }
-
-        return false;
+        return values;
 
     }
 
@@ -204,7 +169,6 @@ export class Result {
             if( this.enhancements.at(i)?.itemType == enhancement.itemType ) {
 
                 this.enhancements.splice(i, 1, enhancement);
-                this.values = this.calculateValues();
                 return true;
 
             }
@@ -217,13 +181,13 @@ export class Result {
 
     private substituteSetBonus(firstSetBonus: Enhancement, secondSetBonus: Enhancement): boolean {
 
-        let positionOfFirstSetBonus: number = 0;
-        let positionOfSecondSetBonus: number = 0;
+        let positionOfFirstSetBonus: number | undefined = undefined;
+        let positionOfSecondSetBonus: number | undefined = undefined;
 
         for(let i: number = 0; i != this.enhancements.length; i = i + 1) {
             
             if( this.enhancements.at(i)?.itemType == firstSetBonus.itemType ) {
-
+                
                 positionOfFirstSetBonus = i;
                 break;
             
@@ -231,7 +195,7 @@ export class Result {
             
         }
 
-        if( positionOfFirstSetBonus == 0 ) {
+        if( positionOfFirstSetBonus == undefined ) {
             //no first Set Bonus possible
             return false;
 
@@ -252,7 +216,7 @@ export class Result {
             
         }
 
-        if( positionOfSecondSetBonus == 0 ) {
+        if( positionOfSecondSetBonus == undefined ) {
             //no second Set Bonus possible
             return false;
 
@@ -260,8 +224,7 @@ export class Result {
 
         this.enhancements.splice(positionOfFirstSetBonus, 1, firstSetBonus);
         this.enhancements.splice(positionOfSecondSetBonus, 1, secondSetBonus);
-        this.values = this.calculateValues();
-
+        
         return true;
 
     }

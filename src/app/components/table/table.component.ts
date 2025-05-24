@@ -14,6 +14,8 @@ export class TableComponent implements OnInit {
   @Input()
   results: Array<Result>;
 
+  showResults: Array<Result>;
+
   necessaryItemTypes: Array<ItemType>;
 
 
@@ -21,12 +23,14 @@ export class TableComponent implements OnInit {
 
     this.results = new Array<Result>
     this.necessaryItemTypes = new Array<ItemType>;
+    this.showResults = new Array<Result>
 
   }
 
   ngOnInit(): void {
 
     this.necessaryItemTypes = this.calculateNecessaryItemTypes();
+    this.showResults = this.results.concat([]);
           
   }
 
@@ -35,6 +39,12 @@ export class TableComponent implements OnInit {
     let itemTypes: Set<ItemType> = new Set<ItemType>;
 
     this.results.forEach( (result: Result) => {
+
+      if( result.values.size == 0) {
+
+        result.getValues();
+
+      }
 
       Array.from(result.values.keys()).forEach( (itemType: ItemType) => {
 
@@ -47,6 +57,16 @@ export class TableComponent implements OnInit {
     this.necessaryItemTypes = Array.from(itemTypes);
 
     return this.necessaryItemTypes;
+
+  }
+
+  sortByHeader(itemType: ItemType) {
+
+    this.showResults.sort( (a, b) => {
+
+      return a.getValue(itemType) - b.getValue(itemType);
+
+    });
 
   }
 
