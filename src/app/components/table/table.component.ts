@@ -2,10 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Result } from '../../model/result';
 import { ItemType } from '../../model/itemType';
 import { CommonModule } from '@angular/common';
+import { ResultComponent } from "../result/result.component";
 
 @Component({
   selector: 'app-table',
-  imports: [CommonModule],
+  imports: [CommonModule, ResultComponent],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'
 })

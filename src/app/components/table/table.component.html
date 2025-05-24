@@ -6,7 +6,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let result of showResults">
-                <th>E: {{result.enhancements.length}} A: {{result.augments.length}}</th>
+                <th><app-result [result]="result"></app-result></th>
                 <td *ngFor="let itemType of necessaryItemTypes">
                     {{itemType}} {{result.getPercent(itemType)}} ({{result.getValue(itemType)}})
                 </td>
