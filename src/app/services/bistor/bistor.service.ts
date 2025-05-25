@@ -126,11 +126,11 @@ export class BistorService {
 
     let enhancements: Array<Enhancement> = new Array<Enhancement>;
 
-    enhancements.push(new Enhancement(itemLevel, itemRating, ItemType.critical, healAndDamageStat));
-    enhancements.push(new Enhancement(itemLevel, itemRating, ItemType.alacrity, healAndDamageStat));
-    enhancements.push(new Enhancement(itemLevel, itemRating, ItemType.accuracy, healAndDamageStat));
-    enhancements.push(new Enhancement(itemLevel, itemRating, ItemType.absorb, tankStat));
-    enhancements.push(new Enhancement(itemLevel, itemRating, ItemType.shield, tankStat));
+    enhancements.push(new Enhancement(itemLevel, itemRating, ItemType.critical, healAndDamageStat, false));
+    enhancements.push(new Enhancement(itemLevel, itemRating, ItemType.alacrity, healAndDamageStat, false));
+    enhancements.push(new Enhancement(itemLevel, itemRating, ItemType.accuracy, healAndDamageStat, false));
+    enhancements.push(new Enhancement(itemLevel, itemRating, ItemType.absorb, tankStat, false));
+    enhancements.push(new Enhancement(itemLevel, itemRating, ItemType.shield, tankStat, false));
     
     return enhancements;
 
@@ -156,10 +156,10 @@ export class BistorService {
 
     let setBonus = new Array<Enhancement>;
 
-    setBonus.push(new Enhancement(itemLevel, itemRating, ItemType.absorb, tankStat));
-    setBonus.push(new Enhancement(itemLevel, itemRating, ItemType.shield, tankStat));
-    setBonus.push(new Enhancement(itemLevel, itemRating, ItemType.alacrity, healAndDamageStat));
-    setBonus.push(new Enhancement(itemLevel, itemRating, ItemType.critical, healAndDamageStat));
+    setBonus.push(new Enhancement(itemLevel, itemRating, ItemType.absorb, tankStat, true));
+    setBonus.push(new Enhancement(itemLevel, itemRating, ItemType.shield, tankStat, true));
+    setBonus.push(new Enhancement(itemLevel, itemRating, ItemType.alacrity, healAndDamageStat, true));
+    setBonus.push(new Enhancement(itemLevel, itemRating, ItemType.critical, healAndDamageStat, true));
 
     return setBonus;
 

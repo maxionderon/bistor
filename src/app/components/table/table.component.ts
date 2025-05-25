@@ -61,6 +61,12 @@ export class TableComponent implements OnInit {
 
   }
 
+  getPercent(result: Result, itemType: ItemType): string {
+
+    return String(result.getPercent(itemType).toFixed(2)) + " %";
+
+  }
+
   sortByHeader(itemType: ItemType) {
 
     this.showResults.sort( (a, b) => {

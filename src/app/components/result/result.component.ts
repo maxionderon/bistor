@@ -4,10 +4,13 @@ import { ItemType } from '../../model/itemType';
 import { Enhancement } from '../../model/enhancement';
 import { CommonModule } from '@angular/common';
 import { Augment } from '../../model/augment';
+import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
+import { faUserGear, faUserPlus, faStar, faSyringe } from '@fortawesome/free-solid-svg-icons'
+import { Item2Component } from "../item2/item2.component";
 
 @Component({
   selector: 'app-result',
-  imports: [CommonModule],
+  imports: [CommonModule, FontAwesomeModule, Item2Component],
   templateUrl: './result.component.html',
   styleUrl: './result.component.css'
 })
@@ -18,13 +21,35 @@ export class ResultComponent implements OnInit {
 
   numberOfEnhancementsByType: Map<ItemType, number>;
   numberOfAugmentsByType: Map<ItemType, number>;
-  itemTypes: Array<ItemType>;
+  numberOfSetBonusByType: Map<ItemType, number>;
+  itemTypesOfEnhancements: Array<ItemType>;
+  itemTypesOfAugments: Array<ItemType>;
+  itemTypesOfSetBonus: Array<ItemType>;
+
+  iconEnhancements: IconDefinition;
+  iconAugments: IconDefinition;
+  iconSetBonus: IconDefinition;
+  iconStim: IconDefinition;
+
+  withSetBonus: boolean;
+  withStim: boolean;
 
   constructor() {
 
     this.numberOfEnhancementsByType = new Map<ItemType, number>;
     this.numberOfAugmentsByType = new Map<ItemType, number>;
-    this.itemTypes = new Array<ItemType>;
+    this.numberOfSetBonusByType = new Map<ItemType, number>;
+    this.itemTypesOfEnhancements = new Array<ItemType>;
+    this.itemTypesOfAugments = new Array<ItemType>;
+    this.itemTypesOfSetBonus = new Array<ItemType>;
+
+    this.iconEnhancements = faUserGear;
+    this.iconAugments = faUserPlus;
+    this.iconSetBonus = faStar;
+    this.iconStim = faSyringe;
+
+    this.withSetBonus = false;
+    this.withStim = false;
 
   }
 
@@ -32,23 +57,44 @@ export class ResultComponent implements OnInit {
 
     this.calculateNumberOfEnhancementsByType();
     this.calculateNumberOfAugmentsByType();
-    this.itemTypes = this.getItemTypes();
-      
+    this.itemTypesOfEnhancements = this.getItemTypes(this.numberOfEnhancementsByType);
+    this.itemTypesOfAugments = this.getItemTypes(this.numberOfAugmentsByType);
+    this.itemTypesOfSetBonus = this.getItemTypes(this.numberOfSetBonusByType);
+    
+    this.setWithSetBonus();
+    this.setWithStim();
+          
   }
 
   private calculateNumberOfEnhancementsByType() {
 
     this.result?.enhancements.forEach( (enhancement: Enhancement) => {
 
-      if( this.numberOfEnhancementsByType.has(enhancement.itemType) ) {
+      if( enhancement.setBonus == false ) {
 
-        this.numberOfEnhancementsByType.set(enhancement.itemType, (this.numberOfEnhancementsByType.get(enhancement.itemType) as number) + 1);
+        if( this.numberOfEnhancementsByType.has(enhancement.itemType) ) {
+
+          this.numberOfEnhancementsByType.set(enhancement.itemType, (this.numberOfEnhancementsByType.get(enhancement.itemType) as number) + 1);
+
+        } else {
+
+          this.numberOfEnhancementsByType.set(enhancement.itemType, 1);
+
+        }
 
       } else {
 
-        this.numberOfEnhancementsByType.set(enhancement.itemType, 1);
+        if( this.numberOfSetBonusByType.has(enhancement.itemType) ) {
 
-      }
+          this.numberOfSetBonusByType.set(enhancement.itemType, (this.numberOfSetBonusByType.get(enhancement.itemType) as number) + 1);
+
+        } else {
+
+          this.numberOfSetBonusByType.set(enhancement.itemType, 1);
+
+        }
+
+      }      
 
     });
 
@@ -72,21 +118,80 @@ export class ResultComponent implements OnInit {
 
   }
 
-  getNumberOfEnhancements(itemType: ItemType): string {
+  getNumberOfEnhancements(itemType: ItemType): number {
 
-    return String(this.numberOfEnhancementsByType.get(itemType));
+    if( this.numberOfEnhancementsByType.has(itemType) ) {
+
+      return this.numberOfEnhancementsByType.get(itemType) as number;
+
+
+    } else {
+
+      return 0;
+
+    }
 
   }
 
-  getNumberOfAugments(itemType: ItemType): string {
+  getNumberOfAugments(itemType: ItemType): number {
 
-    return String(this.numberOfAugmentsByType.get(itemType));
+    if( this.numberOfAugmentsByType.has(itemType) )  {
+      
+      return this.numberOfAugmentsByType.get(itemType) as number;
+
+    } else {
+
+      return 0;
+
+    }
 
   }
 
-  getItemTypes(): Array<ItemType> {
+  getNumberOfSetBonus(itemType: ItemType): number {
 
-    return Array.from(this.numberOfEnhancementsByType.keys());
+    if( this.numberOfSetBonusByType.has(itemType) ) {
+
+      return this.numberOfSetBonusByType.get(itemType) as number;
+
+    } else {
+
+      return 0;
+
+    }
+
+  }
+
+  private getItemTypes(items: Map<ItemType, number>): Array<ItemType> {
+
+    return Array.from(items.keys());
+
+  }
+
+  private setWithStim(): void {
+
+    if( this.result?.stim != undefined ) {
+
+      this.withStim = true
+
+    } else {
+
+      this.withStim = false;
+
+    }
+        
+  }
+
+  private setWithSetBonus() {
+
+    if( this.numberOfSetBonusByType.size != 0 ) {
+
+      this.withSetBonus = true;
+
+    } else {
+
+      this.withSetBonus = false;
+
+    }
 
   }
 
