@@ -1,0 +1,41 @@
+<div class="field is-horizontal">
+
+    <div class="field-label is-normal">
+
+        <label class="label">
+
+            <span class="icon-text">
+                <span class="icon">
+                    <fa-icon [icon]="icon"></fa-icon>
+                </span>
+                <span>Item Rating</span>
+            </span>
+
+        </label>
+
+    </div>
+
+    <div class="field-body">
+
+        <div class="field">
+
+            <div class="control is-expanded">
+
+                <div class="select is-fullwidth">
+
+                    <select [(ngModel)]="selectedItemRating" (change)="changedItemRating()">
+                        <option *ngFor="let itemRating of itemRatings">
+                            {{itemRating}}
+                        </option>
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
