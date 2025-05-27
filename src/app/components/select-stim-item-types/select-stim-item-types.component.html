@@ -1,0 +1,81 @@
+<div class="field is-horizontal">
+
+    <div class="field-label">
+
+        <label class="label">
+
+            <span class="icon-text">
+                <span class="icon">
+                    <fa-icon [icon]="icon"></fa-icon>
+                </span>
+                <span>Chose Item Types</span>
+            </span>
+
+        </label>
+
+    </div>
+
+    <div class="field-body">
+
+        <div class="field">
+
+            <div class="control">
+
+                
+                <div class="fixed-grid has-1-cols-mobile has-4-cols-tablet has-4-cols-fullhd">
+                    
+                    <div class="grid">
+
+                        <div class="cell" *ngFor="let stim of stimItemTypes">
+
+                    <div class="level">
+
+                        <div class="">
+                    
+                    
+                    <label class="checkbox level-item" >
+                        <input type="checkbox" (change)="change(stim)" [checked]="this.getIsChecked(stim)"/>
+                        <span class="icon-text">
+                            
+                            <span class="icon" [class]="this.iconService.getIconColor(this.getItemType(stim, 0))">
+                                <fa-icon [icon]="this.iconService.getIcon(this.getItemType(stim, 0))"></fa-icon>
+                            </span>
+                            <span>{{this.getItemType(stim, 0)}}</span>
+                            <span> / </span>
+                            
+                            <span class="icon" [class]="this.iconService.getIconColor(this.getItemType(stim, 1))">
+                                <fa-icon [icon]="this.iconService.getIcon(this.getItemType(stim, 1))"></fa-icon>
+                            </span>
+                            <span>{{this.getItemType(stim, 1)}}</span>
+                            
+                        
+                        
+                        </span>
+                       
+                    </label>
+
+                    
+
+
+
+                        </div>
+
+                        </div>
+
+                    </div>
+                    
+                    
+                    </div>
+
+                </div>
+
+                
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>

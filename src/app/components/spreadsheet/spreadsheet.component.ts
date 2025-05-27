@@ -5,10 +5,11 @@ import { IconService } from '../../services/iconService/icon.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SelectItemTypesComponent } from "../select-item-types/select-item-types.component";
 import { ItemType } from '../../model/itemType';
+import { SelectStimItemTypesComponent } from "../select-stim-item-types/select-stim-item-types.component";
 
 @Component({
   selector: 'app-spreadsheet',
-  imports: [SelectItemRatingComponent, FontAwesomeModule, SelectItemTypesComponent],
+  imports: [SelectItemRatingComponent, FontAwesomeModule, SelectItemTypesComponent, SelectStimItemTypesComponent],
   templateUrl: './spreadsheet.component.html',
   styleUrl: './spreadsheet.component.css'
 })

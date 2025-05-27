@@ -93,7 +93,7 @@ export class SelectItemComponent implements OnInit{
     if( this.itemClass == ItemClass.stim ) {
 
       this.itemRatings = this.bistor.itemRatingStims.concat([]);
-      this.itemTypes = this.bistor.stimsItemTypes;
+      //this.itemTypes = this.bistor.stimsItemTypes;
 
     }
     

@@ -1,25 +1,34 @@
 import { Injectable } from '@angular/core';
 import { IconDefinition } from '@fortawesome/angular-fontawesome';
-import { faArrowTrendDown, faArrowTrendUp, faAsterisk, faBolt, faCrosshairs, faGaugeHigh, faHeart, faNotdef, faPowerOff, faShield, faShieldHalved, faStar, faSyringe, faUserGear, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp, faArrowTrendDown, faArrowTrendUp, faAsterisk, faBolt, faCalculator, faCrosshairs, faGaugeHigh, faGears, faHeart, faNotdef, faPowerOff, faShield, faShieldHalved, faStar, faSyringe, faUserGear, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { ItemType } from '../../model/itemType';
-import { Item } from '../../model/item';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IconService {
 
+  iconGear: IconDefinition;
   iconEnhancements: IconDefinition;
   iconAugments: IconDefinition;
   iconSetBonus: IconDefinition;
   iconStim: IconDefinition;
 
+  iconShowMore: IconDefinition;
+  iconShowLess: IconDefinition;
+  iconCalculate: IconDefinition;
+
   constructor() { 
 
+    this.iconGear = faGears;
     this.iconEnhancements = faUserGear;
     this.iconAugments = faUserPlus;
     this.iconSetBonus = faStar;
     this.iconStim = faSyringe;
+    
+    this.iconShowMore = faAngleDown;
+    this.iconShowLess = faAngleUp;
+    this.iconCalculate = faCalculator;
 
   }
 

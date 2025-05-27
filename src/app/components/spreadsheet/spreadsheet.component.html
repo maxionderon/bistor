@@ -1,78 +1,123 @@
-<div class="box has-background-grey-lighter">
+<div class="card has-background-grey-lighter">
 
-    <div class="content">
+    <header class="card-header">
+
+        <p class="card-header-title">
+            <span class="icon-text">
+                <span class="icon">
+                    <fa-icon [icon]="this.iconService.iconGear"></fa-icon>
+                </span>
+                <span>Configure Gear</span>
+            </span> 
+        </p>
         
-        <div class="level">
-            <h1 class="is-size-3 level-item level-left">
+        <button class="card-header-icon" aria-label="more options">
+            <span class="icon">
+                <fa-icon [icon]="this.iconService.iconShowMore"></fa-icon>
+            </span>
+        </button>
+        
+    </header>
+
+    <div class="card-content">
+
+        <div class="columns is-multiline is-6">
+
+            <div class="column is-full">
+
+                <div class="columns is-multiline is-3">
+
+                    <div class="column is-full">
+                        <h1 class="is-size-3">
+                            <span class="icon-text">
+                                <span class="icon">
+                                    <fa-icon [icon]="this.iconService.iconEnhancements"></fa-icon>
+                                </span>
+                            <span>Enhancements</span>
+                            </span>    
+                        </h1>
+                    </div>
+                            
+                    <div class="column is-full">
+                        <app-select-item-rating [ItemRatings]="this.bistor.itemRatingEnhancements" [Icon]="this.iconService.iconEnhancements" (SelectedItemRating)="this.setItemRatingEnhancements($event)"></app-select-item-rating>
+                    </div>
+                
+                    <div class="column is-full">
+                        <app-select-item-types [ItemTypes]="this.bistor.enhancementsItemTypes" [Icon]="this.iconService.iconEnhancements" (ChosenItemTypes)="this.setChosenEnhancementsItemTypes($event)"></app-select-item-types>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="column is-full">
+
+                <div class="columns is-multiline is-3">
+
+                    <div class="column is-full">
+                        <h1 class="is-size-3 level-item level-left">
+                            <span class="icon-text">
+                            <span class="icon">
+                                <fa-icon [icon]="this.iconService.iconAugments"></fa-icon>
+                            </span>
+                            <span>Augments</span>
+                            </span>    
+                        </h1>
+                    </div>
+                
+                    <div class="column is-full">
+                        <app-select-item-rating [ItemRatings]="this.bistor.itemRatingAugments" [Icon]="this.iconService.iconAugments" (SelectedItemRating)=false></app-select-item-rating>
+                    </div>            
+
+                    <div class="column is-full">
+                        <app-select-item-types [ItemTypes]="this.bistor.augmentsItemTypes" [Icon]="this.iconService.iconAugments" (ChosenItemTypes)="false"></app-select-item-types>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="column is-full">
+
+                <div class="columns is-multiline is-3">
+
+                    <div class="colums is-full">
+                        <h1 class="is-size-3">
+                            <span class="icon-text">
+                                <span class="icon">
+                                    <fa-icon [icon]="this.iconService.iconStim"></fa-icon>
+                                </span>
+                            <span>Stim</span>
+                            </span>    
+                        </h1>
+                    </div>
+                
+                    <div class="column is-full">
+                        <app-select-item-rating [ItemRatings]="this.bistor.itemRatingStims" [Icon]="this.iconService.iconStim" (SelectedItemRating)=false></app-select-item-rating>
+                    </div>
+
+                    <div class="column is-full">
+                        <app-select-stim-item-types [StimItemTypes]="this.bistor.stimsItemTypes" [Icon]="this.iconService.iconStim" (ChosenStimItemTypes)="false"></app-select-stim-item-types>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer class="card-footer">
+        <div class="card-footer-item">
+            <button class="button is-primary is-fullwidth">
                 <span class="icon-text">
                     <span class="icon">
-                        <fa-icon [icon]="this.iconService.iconEnhancements"></fa-icon>
+                      <fa-icon [icon]="this.iconService.iconCalculate"></fa-icon>
                     </span>
-                <span>Enhancements</span>
-                </span>    
-            </h1>
+                    <span>Calculate</span>
+                </span>
+            </button>
         </div>
+    </footer>
 
-        <div class="columns">
-            <div class="column is-full">
-                <app-select-item-rating [ItemRatings]="this.bistor.itemRatingEnhancements" [Icon]="this.iconService.iconEnhancements" (SelectedItemRating)="this.setItemRatingEnhancements($event)"></app-select-item-rating>
-            </div>
-        </div>
-        <div class="columns">
-            <div class="column is-full">
-                <app-select-item-types [ItemTypes]="this.bistor.enhancementsItemTypes" [Icon]="this.iconService.iconEnhancements" (ChosenItemTypes)="this.setChosenEnhancementsItemTypes($event)"></app-select-item-types>
-            </div>
-        </div>
-        
-        
-   
-
-        <div class="level">
-            <h1 class="is-size-3 level-item level-left">
-                <span class="icon-text">
-                    <span class="icon">
-                        <fa-icon [icon]="this.iconService.iconAugments"></fa-icon>
-                    </span>
-                <span>Augments</span>
-                </span>    
-            </h1>
-        </div>
-
-        <div class="columns">
-            <div class="column is-full">
-                <app-select-item-rating [ItemRatings]="this.bistor.itemRatingAugments" [Icon]="this.iconService.iconAugments" (SelectedItemRating)=false></app-select-item-rating>
-            </div>
-        </div>
-        <div class="columns">
-            <div class="column is-full">
-                <app-select-item-types [ItemTypes]="this.bistor.augmentsItemTypes" [Icon]="this.iconService.iconAugments" (ChosenItemTypes)="false"></app-select-item-types>
-            </div>
-        </div>
-
-
-
-        <div class="level">
-            <h1 class="is-size-3 level-item level-left">
-                <span class="icon-text">
-                    <span class="icon">
-                        <fa-icon [icon]="this.iconService.iconStim"></fa-icon>
-                    </span>
-                <span>Stim</span>
-                </span>    
-            </h1>
-        </div>
-
-        <div class="columns">
-            <div class="column is-full">
-                <app-select-item-rating [ItemRatings]="this.bistor.itemRatingStims" [Icon]="this.iconService.iconStim" (SelectedItemRating)=false></app-select-item-rating>
-            </div>
-        </div>
-        <div class="columns">
-            <div class="column is-full">
-                <app-select-item-types [ItemTypes]="this.bistor.stimsItemTypes" [Icon]="this.iconService.iconStim" (ChosenItemTypes)="false"></app-select-item-types>
-            </div>
-        </div>
-
-
-    
 </div>

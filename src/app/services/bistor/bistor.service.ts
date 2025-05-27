@@ -20,7 +20,7 @@ export class BistorService {
   setBonusByItemRating: Map<number, Array<Enhancement>>;
   stimByItemRating: Map<number, Array<Stim>>;
   itemRatingStims: Array<number>;
-  stimsItemTypes: Array<ItemType>;
+  stimsItemTypes: Array<Array<ItemType>>;
   
   constructor() { 
     
@@ -51,14 +51,24 @@ export class BistorService {
 
     this.setBonusByItemRating = this.createAvailableSetBonus();
 
-    this.stimsItemTypes = new Array<ItemType>;
+    this.stimsItemTypes = new Array<Array<ItemType>>;
 
-    this.stimsItemTypes.push(ItemType.endurance);
-    this.stimsItemTypes.push(ItemType.mastery);
-    this.stimsItemTypes.push(ItemType.accuracy);
-    this.stimsItemTypes.push(ItemType.defense);
-    this.stimsItemTypes.push(ItemType.power);
-    this.stimsItemTypes.push(ItemType.critical);
+    let enduranceStim: Array<ItemType> = new Array<ItemType>;
+    enduranceStim.push(ItemType.endurance);
+    enduranceStim.push(ItemType.defense);
+    let masteryStim: Array<ItemType> = new Array<ItemType>;
+    masteryStim.push(ItemType.mastery);
+    masteryStim.push(ItemType.power);
+    let accuracyStim: Array<ItemType> = new Array<ItemType>;
+    accuracyStim.push(ItemType.accuracy);
+    accuracyStim.push(ItemType.critical);
+
+
+
+    this.stimsItemTypes.push(enduranceStim);
+    this.stimsItemTypes.push(masteryStim);
+    this.stimsItemTypes.push(accuracyStim);
+    
 
     this.stimByItemRating = this.createAvailableStims();
     this.itemRatingStims = Array.from(this.stimByItemRating.keys());
