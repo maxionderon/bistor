@@ -18,6 +18,7 @@ export class BistorService {
   itemRatingEnhancements: Array<number>;
   itemRatingAugments: Array<number>;
   setBonusByItemRating: Map<number, Array<Enhancement>>;
+  itemRatingSetBonus: Array<number>;
   stimByItemRating: Map<number, Array<Stim>>;
   itemRatingStims: Array<number>;
   stimsItemTypes: Array<Array<ItemType>>;
@@ -50,6 +51,7 @@ export class BistorService {
     this.itemRatingAugments = Array.from(this.augmentsByItemRating.keys());
 
     this.setBonusByItemRating = this.createAvailableSetBonus();
+    this.itemRatingSetBonus = Array.from(this.setBonusByItemRating.keys());
 
     this.stimsItemTypes = new Array<Array<ItemType>>;
 
@@ -113,6 +115,13 @@ export class BistorService {
 
     let setBonusByItemRating: Map<number, Array<Enhancement>> = new Map<number, Array<Enhancement>>;
 
+    setBonusByItemRating.set(326, this.buildSetBonus(147, 326, 532, 506));
+    setBonusByItemRating.set(328, this.buildSetBonus(148, 328, 543, 517));
+    setBonusByItemRating.set(330, this.buildSetBonus(149, 330, 554, 527));
+    setBonusByItemRating.set(332, this.buildSetBonus(150, 332, 566, 539));
+    setBonusByItemRating.set(334, this.buildSetBonus(151, 334, 577, 550));
+    setBonusByItemRating.set(336, this.buildSetBonus(152, 336, 559, 561));
+    setBonusByItemRating.set(338, this.buildSetBonus(153, 338, 602, 573));    
     setBonusByItemRating.set(340, this.buildSetBonus(154, 340, 614, 585));
 
     return setBonusByItemRating;
