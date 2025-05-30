@@ -15,6 +15,8 @@ export class SelectItemRatingComponent implements OnInit {
   itemRatings: Array<number>
   @Input("Icon")
   icon: IconDefinition;
+  @Input("Disabled")
+  disabled: boolean;
   @Output("SelectedItemRating")
   eventEmitter: EventEmitter<number>;
 
@@ -26,6 +28,7 @@ export class SelectItemRatingComponent implements OnInit {
 
     this.itemRatings = new Array<number>;
     this.icon = {} as IconDefinition;
+    this.disabled = false;
     this.eventEmitter = new EventEmitter<number>();
     this.selectedItemRating = "";
 

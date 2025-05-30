@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="column is-full" >                        
-                        <app-select-item-rating [ItemRatings]="this.bistor.itemRatingSetBonus" [Icon]="this.iconService.iconSetBonus" (SelectedItemRating)="setItemRatingSetBonus($event)"></app-select-item-rating>
+                        <app-select-item-rating [ItemRatings]="this.bistor.itemRatingSetBonus" [Icon]="this.iconService.iconSetBonus" [Disabled]="!showFirstSetBonus" (SelectedItemRating)="setItemRatingSetBonus($event)"></app-select-item-rating>
                     </div>
 
                     <div class="column is-full" *ngIf="showFirstSetBonus">
@@ -141,7 +141,7 @@
 
     <footer class="card-footer">
         <div class="card-footer-item">
-            <button class="button is-primary is-fullwidth">
+            <button class="button is-primary is-fullwidth" [disabled]="!showFirstSetBonus">
                 <span class="icon-text">
                     <span class="icon">
                       <fa-icon [icon]="this.iconService.iconCalculate"></fa-icon>
