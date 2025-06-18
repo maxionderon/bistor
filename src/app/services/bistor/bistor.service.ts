@@ -241,6 +241,27 @@ export class BistorService {
 
   }
 
+  getSetBonus(itemRating: number, itemType: ItemType): Enhancement | undefined {
+
+    let setBoni: Array<Enhancement> = this.setBonusByItemRating.get(itemRating) as Array<Enhancement>;
+
+    let setBonus: Enhancement | undefined;
+
+    for(let i: number = 0; i != setBoni.length; i = i + 1) {
+
+      if( setBoni.at(i)?.itemType == itemType ) {
+
+        setBonus = setBoni.at(i);
+        break;
+
+      }
+
+    }
+
+    return setBonus;
+
+  }
+
   getStim(itemRating: number, itemType: ItemType): Stim | undefined {
 
     let stims: Array<Stim> = this.stimByItemRating.get(itemRating) as Array<Stim>;

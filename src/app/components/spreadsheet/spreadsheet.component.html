@@ -8,6 +8,9 @@
                     <fa-icon [icon]="this.iconService.iconGear"></fa-icon>
                 </span>
                 <span>Configure Gear</span>
+                <span class="icon has-text-success" *ngIf="calculated">
+                    <fa-icon [icon]="this.iconService.iconSuccess"></fa-icon>
+                </span>
             </span> 
         </p>
         
@@ -139,9 +142,9 @@
 
     </div>
 
-    <footer class="card-footer">
-        <div class="card-footer-item">
-            <button class="button is-primary is-fullwidth" [disabled]="!showFirstSetBonus">
+    <footer class="card-footer" *ngIf="isExpanded">
+        <div class="card-footer-item" *ngIf="!isCalculating">
+            <button class="button is-primary is-fullwidth" [disabled]="!showFirstSetBonus" (click)="calculate()">
                 <span class="icon-text">
                     <span class="icon">
                       <fa-icon [icon]="this.iconService.iconCalculate"></fa-icon>
@@ -149,6 +152,9 @@
                     <span>Calculate</span>
                 </span>
             </button>
+        </div>
+        <div class="card-footer-item" *ngIf="isCalculating">
+            <progress class="progress is-large is-warning" max="100">60%</progress>
         </div>
     </footer>
 

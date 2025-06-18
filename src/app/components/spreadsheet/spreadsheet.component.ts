@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { SelectItemRatingComponent } from "../select-item-rating/select-item-rating.component";
 import { BistorService } from '../../services/bistor/bistor.service';
 import { IconService } from '../../services/iconService/icon.service';
@@ -8,6 +8,11 @@ import { ItemType } from '../../model/itemType';
 import { SelectStimItemTypesComponent } from "../select-stim-item-types/select-stim-item-types.component";
 import { SelectSetBonusItemTypesComponent } from "../select-set-bonus-item-types/select-set-bonus-item-types.component";
 import { CommonModule } from '@angular/common';
+import { Enhancement } from '../../model/enhancement';
+import { Augment } from '../../model/augment';
+import { Stim } from '../../model/stim';
+import { CalculationService } from '../../services/CalculationService/calculation.service';
+import { Result } from '../../model/result';
 
 @Component({
   selector: 'app-spreadsheet',
@@ -19,6 +24,7 @@ export class SpreadsheetComponent {
 
   bistor: BistorService;
   iconService: IconService;
+  calculationService: CalculationService;
   
   itemRatingEnhancements: number;
   chosenEnhancementsItemTypes: Map<ItemType, boolean>;
@@ -39,12 +45,19 @@ export class SpreadsheetComponent {
 
   isExpanded: boolean;
   iconIsExpanded: IconDefinition;
+
+  isCalculating: boolean;
   
+  @Output("results")
+  eventEmitter: EventEmitter<Array<Result>>;
+
+  calculated: boolean;
 
   constructor() {
 
     this.bistor = new BistorService();
     this.iconService = new IconService()
+    this.calculationService = new CalculationService();
 
     this.itemRatingEnhancements = 0;
     this.chosenEnhancementsItemTypes = new Map<ItemType, boolean>();
@@ -65,6 +78,11 @@ export class SpreadsheetComponent {
     this.isExpanded = true;
     this.iconIsExpanded = this.getIconIsExpanded();
 
+    this.isCalculating = false;
+
+    this.eventEmitter = new EventEmitter<Array<Result>>();
+
+    this.calculated = false;
     
   }
 
@@ -172,9 +190,76 @@ export class SpreadsheetComponent {
 
     }
 
-
   }
 
+  calculate(): void {
+
+    this.isCalculating = true;
+
+    let enhancements: Array<Enhancement> = new Array<Enhancement>();
+
+    this.chosenEnhancementsItemTypes.forEach( (value: boolean, key: ItemType) => {
+
+      if( value == true ) {
+
+        enhancements.push( this.bistor.getEnhancement( this.itemRatingEnhancements, key) as Enhancement );
+
+      }
+
+    });
+
+    let augments: Array<Augment> = new Array<Augment>();
+
+    this.chosenAugmentsItemTypes.forEach( (value: boolean, key: ItemType) => {
+
+      if( value == true ) {
+
+        augments.push( this.bistor.getAugment( this.itemRatingAugments, key) as Augment );
+
+      }
+
+    });
+
+    let setBonus: Array<Enhancement> = new Array<Enhancement>();
+
+    this.firstSetBonus.forEach( (value: boolean, key: ItemType) => {
+
+      if( value = true ) {
+
+        setBonus.push( this.bistor.getSetBonus(this.itemRatingSetBonus, key) as Enhancement);
+
+      }
+
+    });
+
+    this.secondSetBonus.forEach( (value: boolean, key: ItemType) => {
+
+      if( value = true ) {
+
+        setBonus.push( this.bistor.getSetBonus(this.itemRatingSetBonus, key) as Enhancement);
+
+      }
+
+    });
+
+    let stim: Stim | undefined = undefined;
+
+    if( this.setChosenStimItemTypes.length != 0 ) {
+
+      stim = this.bistor.getStim( this.itemRatingStim, this.chosenStimItemTypes.at(0) as ItemType) as Stim
+
+    }
+
+    let results: Array<Result> = this.calculationService.calculateResults(enhancements, augments, setBonus, stim);
+
+    this.eventEmitter.emit(results);
+
+    this.isCalculating = false;
+
+    this.calculated = true;
+    this.expand();
+    
+  }
 
   
 
