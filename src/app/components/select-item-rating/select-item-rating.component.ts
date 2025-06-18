@@ -20,7 +20,7 @@ export class SelectItemRatingComponent implements OnInit {
   @Output("SelectedItemRating")
   eventEmitter: EventEmitter<number>;
 
-  selectedItemRating: string;
+  selectedItemRating: number;
 
   
 
@@ -30,20 +30,20 @@ export class SelectItemRatingComponent implements OnInit {
     this.icon = {} as IconDefinition;
     this.disabled = false;
     this.eventEmitter = new EventEmitter<number>();
-    this.selectedItemRating = "";
+    this.selectedItemRating = 0;
 
   }
 
   ngOnInit(): void {
       
-    this.selectedItemRating = String(this.itemRatings.at(0));
-    this.eventEmitter.emit(Number.parseInt(this.selectedItemRating));
+    this.selectedItemRating = this.itemRatings.at(0) as number;
+    this.eventEmitter.emit(this.selectedItemRating);
 
   }
 
   changedItemRating(): void {
-
-    this.eventEmitter.emit(Number.parseInt(this.selectedItemRating));
+    console.log(this.selectedItemRating);
+    this.eventEmitter.emit(this.selectedItemRating);
 
   }
 

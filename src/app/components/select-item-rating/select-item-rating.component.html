@@ -24,9 +24,9 @@
                 <div class="select is-fullwidth" [class.is-danger]="disabled">
 
                     <select [(ngModel)]="selectedItemRating" (change)="changedItemRating()" [disabled]="disabled">
-                        <option *ngFor="let itemRating of itemRatings">
+                        <option *ngFor="let itemRating of itemRatings" [ngValue]="itemRating">
                             {{itemRating}}
-                        </option>
+                        </option>                                                                  
                     </select>
 
                 </div>
