@@ -3,13 +3,13 @@ import { ItemType } from '../../model/itemType';
 import { Item } from '../../model/item';
 import { ItemClass } from '../../model/itemClass';
 import { BistorService } from '../../services/bistor/bistor.service';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { ItemComponent } from "../item/item.component";
 
 @Component({
   selector: 'app-select-item',
-  imports: [CommonModule, FormsModule, ItemComponent],
+  imports: [FormsModule, ItemComponent],
   templateUrl: './select-item.component.html',
   styleUrl: './select-item.component.css'
 })

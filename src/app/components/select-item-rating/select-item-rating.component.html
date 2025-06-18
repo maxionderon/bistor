@@ -1,41 +1,43 @@
 <div class="field is-horizontal">
 
-    <div class="field-label is-normal">
+  <div class="field-label is-normal">
 
-        <label class="label">
+    <label class="label">
 
-            <span class="icon-text">
-                <span class="icon">
-                    <fa-icon [icon]="icon"></fa-icon>
-                </span>
-                <span>Item Rating</span>
-            </span>
+      <span class="icon-text">
+        <span class="icon">
+          <fa-icon [icon]="icon"></fa-icon>
+        </span>
+        <span>Item Rating</span>
+      </span>
 
-        </label>
+    </label>
 
-    </div>
+  </div>
 
-    <div class="field-body">
+  <div class="field-body">
 
-        <div class="field">
+    <div class="field">
 
-            <div class="control is-expanded">
+      <div class="control is-expanded">
 
-                <div class="select is-fullwidth" [class.is-danger]="disabled">
+        <div class="select is-fullwidth" [class.is-danger]="disabled">
 
-                    <select [(ngModel)]="selectedItemRating" (change)="changedItemRating()" [disabled]="disabled">
-                        <option *ngFor="let itemRating of itemRatings" [ngValue]="itemRating">
-                            {{itemRating}}
-                        </option>                                                                  
-                    </select>
-
-                </div>
-
-            </div>
+          <select [(ngModel)]="selectedItemRating" (change)="changedItemRating()" [disabled]="disabled">
+            @for (itemRating of itemRatings; track itemRating) {
+              <option [ngValue]="itemRating">
+                {{itemRating}}
+              </option>
+            }
+          </select>
 
         </div>
 
+      </div>
+
     </div>
+
+  </div>
 
 
 </div>

@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { ItemType } from '../../model/itemType';
-import { CommonModule } from '@angular/common';
+
 import { IconService } from '../../services/iconService/icon.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-select-item-types',
-  imports: [FontAwesomeModule, CommonModule, FormsModule],
+  imports: [FontAwesomeModule, FormsModule],
   templateUrl: './select-item-types.component.html',
   styleUrl: './select-item-types.component.css'
 })

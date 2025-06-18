@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BistorService } from '../../services/bistor/bistor.service';
-import { CommonModule } from '@angular/common';
+
 import { Enhancement } from '../../model/enhancement';
 import { Augment } from '../../model/augment';
 import { FormsModule } from '@angular/forms';
@@ -16,7 +16,7 @@ import { CalculationService } from '../../services/CalculationService/calculatio
 
 @Component({
   selector: 'app-select-gear',
-  imports: [CommonModule, FormsModule, SelectItemComponent, SetBonusComponent, TableComponent],
+  imports: [FormsModule, SelectItemComponent, SetBonusComponent, TableComponent],
   templateUrl: './select-gear.component.html',
   styleUrl: './select-gear.component.css'
 })

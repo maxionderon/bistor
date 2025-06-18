@@ -3,11 +3,11 @@ import { Item } from '../../model/item';
 import { Enhancement } from '../../model/enhancement';
 import { Augment } from '../../model/augment';
 import { Stim } from '../../model/stim';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-item',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './item.component.html',
   styleUrl: './item.component.css'
 })

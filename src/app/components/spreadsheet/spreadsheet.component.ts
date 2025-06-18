@@ -7,7 +7,7 @@ import { SelectItemTypesComponent } from "../select-item-types/select-item-types
 import { ItemType } from '../../model/itemType';
 import { SelectStimItemTypesComponent } from "../select-stim-item-types/select-stim-item-types.component";
 import { SelectSetBonusItemTypesComponent } from "../select-set-bonus-item-types/select-set-bonus-item-types.component";
-import { CommonModule } from '@angular/common';
+
 import { Enhancement } from '../../model/enhancement';
 import { Augment } from '../../model/augment';
 import { Stim } from '../../model/stim';
@@ -16,7 +16,7 @@ import { Result } from '../../model/result';
 
 @Component({
   selector: 'app-spreadsheet',
-  imports: [CommonModule, SelectItemRatingComponent, FontAwesomeModule, SelectItemTypesComponent, SelectStimItemTypesComponent, SelectSetBonusItemTypesComponent],
+  imports: [SelectItemRatingComponent, FontAwesomeModule, SelectItemTypesComponent, SelectStimItemTypesComponent, SelectSetBonusItemTypesComponent],
   templateUrl: './spreadsheet.component.html',
   styleUrl: './spreadsheet.component.css'
 })

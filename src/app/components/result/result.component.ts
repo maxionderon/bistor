@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Result } from '../../model/result';
 import { ItemType } from '../../model/itemType';
 import { Enhancement } from '../../model/enhancement';
-import { CommonModule } from '@angular/common';
+
 import { Augment } from '../../model/augment';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { faUserGear, faUserPlus, faStar, faSyringe } from '@fortawesome/free-solid-svg-icons'
@@ -10,7 +10,7 @@ import { Item2Component } from "../item2/item2.component";
 
 @Component({
   selector: 'app-result',
-  imports: [CommonModule, FontAwesomeModule, Item2Component],
+  imports: [FontAwesomeModule, Item2Component],
   templateUrl: './result.component.html',
   styleUrl: './result.component.css'
 })

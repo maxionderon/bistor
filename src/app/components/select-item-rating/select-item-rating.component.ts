@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-select-item-rating',
-  imports: [CommonModule, FormsModule, FontAwesomeModule],
+  imports: [FormsModule, FontAwesomeModule],
   templateUrl: './select-item-rating.component.html',
   styleUrl: './select-item-rating.component.css'
 })
@@ -42,7 +42,7 @@ export class SelectItemRatingComponent implements OnInit {
   }
 
   changedItemRating(): void {
-    console.log(this.selectedItemRating);
+    
     this.eventEmitter.emit(this.selectedItemRating);
 
   }

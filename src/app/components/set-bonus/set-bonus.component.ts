@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectSetBonusComponent } from "../select-set-bonus/select-set-bonus.component";
@@ -6,7 +6,7 @@ import { ItemType } from '../../model/itemType';
 
 @Component({
   selector: 'app-set-bonus',
-  imports: [CommonModule, FormsModule, SelectSetBonusComponent],
+  imports: [FormsModule, SelectSetBonusComponent],
   templateUrl: './set-bonus.component.html',
   styleUrl: './set-bonus.component.css'
 })

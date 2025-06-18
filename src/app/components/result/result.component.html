@@ -1,34 +1,44 @@
 <div class="box">
+  <div class="level">
+    <span class="icon has-text-grey">
+      <fa-icon [icon]="iconEnhancements"></fa-icon>
+    </span>
+    @for (itemType of itemTypesOfEnhancements; track itemType) {
+      <span>
+        <app-item2 [itemType]="itemType" [amount]="getNumberOfEnhancements(itemType)"></app-item2>
+      </span>
+    }
+  </div>
+
+  @if (withSetBonus) {
     <div class="level">
-        <span class="icon has-text-grey">
-            <fa-icon [icon]="iconEnhancements"></fa-icon>
+      <span class="icon has-text-grey">
+        <fa-icon [icon]="iconSetBonus"></fa-icon>
+      </span>
+      @for (itemType of itemTypesOfSetBonus; track itemType) {
+        <span>
+          <app-item2 [itemType]="itemType" [amount]="getNumberOfSetBonus(itemType)"></app-item2>
         </span>
-        <span *ngFor="let itemType of itemTypesOfEnhancements">
-            <app-item2 [itemType]="itemType" [amount]="getNumberOfEnhancements(itemType)"></app-item2>
-        </span>
+      }
     </div>
+  }
 
-    <div class="level" *ngIf="withSetBonus">
-        <span class="icon has-text-grey">
-            <fa-icon [icon]="iconSetBonus"></fa-icon>
-        </span>
-        <span *ngFor="let itemType of itemTypesOfSetBonus">
-            <app-item2 [itemType]="itemType" [amount]="getNumberOfSetBonus(itemType)"></app-item2>
-        </span>
-    </div>
+  <div class="level">
+    <span class="icon has-text-grey">
+      <fa-icon [icon]="iconAugments"></fa-icon>
+    </span>
+    @for (itemType of itemTypesOfAugments; track itemType) {
+      <span>
+        <app-item2 [itemType]="itemType" [amount]="getNumberOfAugments(itemType)"></app-item2>
+      </span>
+    }
+  </div>
 
+  @if (withStim) {
     <div class="level">
-        <span class="icon has-text-grey">
-            <fa-icon [icon]="iconAugments"></fa-icon>
-        </span>
-        <span *ngFor="let itemType of itemTypesOfAugments">
-            <app-item2 [itemType]="itemType" [amount]="getNumberOfAugments(itemType)"></app-item2>
-        </span>
+      <span class="icon has-text-grey">
+        <fa-icon [icon]="iconStim"></fa-icon>
+      </span>
     </div>
-
-    <div class="level" *ngIf="withStim">
-        <span class="icon has-text-grey">
-            <fa-icon [icon]="iconStim"></fa-icon>
-        </span>
-    </div>
+  }
 </div>

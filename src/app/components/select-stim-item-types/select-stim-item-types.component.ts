@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
@@ -7,7 +7,7 @@ import { IconService } from '../../services/iconService/icon.service';
 
 @Component({
   selector: 'app-select-stim-item-types',
-  imports: [FontAwesomeModule, CommonModule, FormsModule],
+  imports: [FontAwesomeModule, FormsModule],
   templateUrl: './select-stim-item-types.component.html',
   styleUrl: './select-stim-item-types.component.css'
 })

@@ -11,76 +11,98 @@
       <div class="card-content">
         <div class="content">
 
-          <div *ngIf="chosenEnhancements.length != 0">
-            <h3>Enhancements</h3>
-            <ul>
-              <li *ngFor="let enhancement of chosenEnhancements">
-                {{enhancement.itemRating}} {{enhancement.itemType}} {{enhancement.tertiaryStat}}
-              </li>
-            </ul>
-          </div>
+          @if (chosenEnhancements.length != 0) {
+            <div>
+              <h3>Enhancements</h3>
+              <ul>
+                @for (enhancement of chosenEnhancements; track enhancement) {
+                  <li>
+                    {{enhancement.itemRating}} {{enhancement.itemType}} {{enhancement.tertiaryStat}}
+                  </li>
+                }
+              </ul>
+            </div>
+          }
 
-          <div *ngIf="chosenAugments.length != 0">
-            <h3>Augments</h3>
-            <ul>
-              <li *ngFor="let augment of chosenAugments">
-                {{augment.itemRating}} {{augment.itemType}} {{augment.tertiaryStat}}
-              </li>
-            </ul>
-          </div>
+          @if (chosenAugments.length != 0) {
+            <div>
+              <h3>Augments</h3>
+              <ul>
+                @for (augment of chosenAugments; track augment) {
+                  <li>
+                    {{augment.itemRating}} {{augment.itemType}} {{augment.tertiaryStat}}
+                  </li>
+                }
+              </ul>
+            </div>
+          }
 
-          <div *ngIf="chosenSetBonus.length != 0">
-            <h3>Set Bonus</h3>
-            <ul>
-              <li *ngFor="let setBonus of chosenSetBonus">
-                {{setBonus.itemRating}} {{setBonus.itemType}} {{setBonus.tertiaryStat}}
-              </li>
-            </ul>
-          </div>
+          @if (chosenSetBonus.length != 0) {
+            <div>
+              <h3>Set Bonus</h3>
+              <ul>
+                @for (setBonus of chosenSetBonus; track setBonus) {
+                  <li>
+                    {{setBonus.itemRating}} {{setBonus.itemType}} {{setBonus.tertiaryStat}}
+                  </li>
+                }
+              </ul>
+            </div>
+          }
 
-          <div *ngIf="chosenStim!=undefined">
-            <h3>Stim</h3>
-            <ul>
-              <li>
-                {{chosenStim.itemRating}} {{chosenStim.itemType}} {{chosenStim.tertiaryStat}} {{chosenStim.secondItemType}} {{chosenStim.secondStat}}
-              </li>
-            </ul>
-          </div>
+          @if (chosenStim!=undefined) {
+            <div>
+              <h3>Stim</h3>
+              <ul>
+                <li>
+                  {{chosenStim.itemRating}} {{chosenStim.itemType}} {{chosenStim.tertiaryStat}} {{chosenStim.secondItemType}} {{chosenStim.secondStat}}
+                </li>
+              </ul>
+            </div>
+          }
 
         </div>
-        
+
       </div>
 
     </div>
 
   </div>
 
-  <div class="column is-three-quarters" *ngIf="!calculated">
-    <div class="card has-background-grey-lighter">
-        
+  @if (!calculated) {
+    <div class="column is-three-quarters">
+      <div class="card has-background-grey-lighter">
         <header class="card-header">
-            <p class="card-header-title">{{labelStep}}</p>
+          <p class="card-header-title">{{labelStep}}</p>
         </header>
-        
         <div class="card-content">
-            <app-select-item [itemClass]="itemClass.enhancement" (outputSelectedItems)="setItems($event)" *ngIf="isFirstStep"></app-select-item>
-            <app-select-item [itemClass]="itemClass.augment" (outputSelectedItems)="setItems($event)" *ngIf="isSecondStep"></app-select-item>
-            <app-set-bonus *ngIf="isThirdStep" [setBonusEnhancementTypes]="setBonusEnhancementTypes" (outputEventEmitter)="setSetBonus($event)"></app-set-bonus>
-            <app-select-item [itemClass]="itemClass.stim" (outputSelectedItems)="setItems($event)" *ngIf="isFourthStep"></app-select-item>
+          @if (isFirstStep) {
+            <app-select-item [itemClass]="itemClass.enhancement" (outputSelectedItems)="setItems($event)"></app-select-item>
+          }
+          @if (isSecondStep) {
+            <app-select-item [itemClass]="itemClass.augment" (outputSelectedItems)="setItems($event)"></app-select-item>
+          }
+          @if (isThirdStep) {
+            <app-set-bonus [setBonusEnhancementTypes]="setBonusEnhancementTypes" (outputEventEmitter)="setSetBonus($event)"></app-set-bonus>
+          }
+          @if (isFourthStep) {
+            <app-select-item [itemClass]="itemClass.stim" (outputSelectedItems)="setItems($event)"></app-select-item>
+          }
         </div>
-
         <footer class="card-footer">
-            <button class="button card-footer-item is-danger" *ngIf="!isFirstStep" (click)="back()">Previous</button>
-            <button class="button card-footer-item is-success" [disabled]="!nextIsPossible" (click)="next()">{{labelNext}}</button>
+          @if (!isFirstStep) {
+            <button class="button card-footer-item is-danger" (click)="back()">Previous</button>
+          }
+          <button class="button card-footer-item is-success" [disabled]="!nextIsPossible" (click)="next()">{{labelNext}}</button>
         </footer>
-
+      </div>
     </div>
-  </div>
+  }
 
-  <div class="column is-three-quarters" *ngIf="calculated">
-
-    <app-table [results]="results"></app-table>
-
-  </div>
+  @if (calculated) {
+    <div class="column is-three-quarters">
+      <app-table [results]="results"></app-table>
+    </div>
+  }
 
 </div>
