@@ -11,15 +11,15 @@
             </span> 
         </p>
         
-        <button class="card-header-icon" aria-label="more options">
+        <button class="card-header-icon" aria-label="more options" (click)="expand()">
             <span class="icon">
-                <fa-icon [icon]="this.iconService.iconShowMore"></fa-icon>
+                <fa-icon [icon]="iconIsExpanded"></fa-icon>
             </span>
         </button>
         
     </header>
 
-    <div class="card-content">
+    <div class="card-content" *ngIf="isExpanded">
 
         <div class="columns is-multiline is-6">
 

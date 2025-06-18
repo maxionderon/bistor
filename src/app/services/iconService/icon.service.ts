@@ -20,7 +20,7 @@ export class IconService {
 
   iconFirst: IconDefinition;
   iconSecond: IconDefinition;
-
+  
   constructor() { 
 
     this.iconGear = faGears;

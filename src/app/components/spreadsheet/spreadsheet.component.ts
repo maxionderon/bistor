@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { SelectItemRatingComponent } from "../select-item-rating/select-item-rating.component";
 import { BistorService } from '../../services/bistor/bistor.service';
 import { IconService } from '../../services/iconService/icon.service';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { SelectItemTypesComponent } from "../select-item-types/select-item-types.component";
 import { ItemType } from '../../model/itemType';
 import { SelectStimItemTypesComponent } from "../select-stim-item-types/select-stim-item-types.component";
@@ -36,6 +36,9 @@ export class SpreadsheetComponent {
   
   showFirstSetBonus: boolean;
   showSecondSetBonus: boolean;
+
+  isExpanded: boolean;
+  iconIsExpanded: IconDefinition;
   
 
   constructor() {
@@ -58,6 +61,9 @@ export class SpreadsheetComponent {
 
     this.showFirstSetBonus = false;
     this.showSecondSetBonus = false;
+
+    this.isExpanded = true;
+    this.iconIsExpanded = this.getIconIsExpanded();
 
     
   }
@@ -144,6 +150,28 @@ export class SpreadsheetComponent {
       }
 
     }
+
+  }
+
+  expand(): void {
+
+    this.isExpanded = !this.isExpanded;
+    this.iconIsExpanded = this.getIconIsExpanded();
+
+  }
+
+  private getIconIsExpanded(): IconDefinition {
+
+    if( this.isExpanded == true ) {
+
+      return this.iconService.iconShowLess;
+
+    } else {
+
+      return this.iconService.iconShowMore;
+
+    }
+
 
   }
 
