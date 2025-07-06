@@ -1,0 +1,40 @@
+<div class="field is-horizontal">
+    
+    <div class="field-label is-normal">
+        <label class="label">
+            <span class="icon-text">
+                <span class="icon" [class]="this.iconService.getIconColor(this.itemType)">
+                    <fa-icon [icon]="iconService.getIcon(this.itemType)"></fa-icon>
+                </span>
+                <span>{{this.itemType}}</span>
+            </span>
+        </label>
+    </div>
+
+    <div class="field-body">
+
+        <div class="field is-grouped">
+        
+            <p class="control is-expanded has-icons-left">
+            
+                <input class="input" type="number" placeholder="Minimum" [(ngModel)]="this.selectedMinimum" [min]="this.minimum" [max]="this.maximum">
+                <span class="icon is-small is-left">
+                    <fa-icon [icon]="this.iconService.iconLimitMinimum"></fa-icon>
+                </span>
+            
+            </p>
+
+            <p class="control is-expanded has-icons-right">
+            
+               <input class="input" type="number" placeholder="Maximum" [(ngModel)]="this.selectedMaximum" [min]="this.minimum" [max]="this.maximum">
+               <span class="icon is-small is-right">
+                   <fa-icon [icon]="this.iconService.iconLimitMaximum"></fa-icon>
+               </span>
+           
+            </p>
+        
+        </div>
+
+    </div>
+
+</div>

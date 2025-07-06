@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IconDefinition } from '@fortawesome/angular-fontawesome';
-import { fa1, fa2, faAngleDown, faAngleUp, faArrowTrendDown, faArrowTrendUp, faAsterisk, faBolt, faCalculator, faCircleCheck, faCrosshairs, faGaugeHigh, faGears, faHeart, faNotdef, faShield, faShieldHalved, faStar, faSyringe, faUserGear, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { fa1, fa2, faAngleDown, faAngleUp, faArrowTrendDown, faArrowTrendUp, faAsterisk, faBolt, faCalculator, faCircleCheck, faCrosshairs, faGaugeHigh, faGears, faHeart, faNotdef, faRoadBarrier, faShield, faShieldHalved, faStar, faSyringe, faTable, faTemperatureArrowDown, faTemperatureArrowUp, faTriangleExclamation, faUserGear, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { ItemType } from '../../model/itemType';
 
 @Injectable({
@@ -22,6 +22,14 @@ export class IconService {
   iconSecond: IconDefinition;
 
   iconSuccess: IconDefinition;
+
+  iconLimits: IconDefinition;
+  iconWarning: IconDefinition;
+
+  iconLimitMinimum: IconDefinition;
+  iconLimitMaximum: IconDefinition;
+
+  iconTable: IconDefinition;
   
   constructor() { 
 
@@ -39,6 +47,14 @@ export class IconService {
     this.iconSecond = fa2;
 
     this.iconSuccess = faCircleCheck;
+
+    this.iconLimits = faRoadBarrier;
+    this.iconWarning = faTriangleExclamation;
+
+    this.iconLimitMinimum = faTemperatureArrowDown;
+    this.iconLimitMaximum = faTemperatureArrowUp;
+
+    this.iconTable = faTable;
 
   }
 

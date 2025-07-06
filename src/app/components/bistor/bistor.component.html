@@ -1,0 +1,11 @@
+<div class="columns">
+    <div class="column is-full">
+        <app-spreadsheet (results)="resultsCalculated($event)"></app-spreadsheet>
+    </div>
+</div>
+
+<div class="columns">
+    <div class="column is-full">
+        <app-limits [results]="this.results"></app-limits>
+    </div>
+</div>

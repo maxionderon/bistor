@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LimitsComponent } from "./components/limits-components/limits/limits.component";
-import { SpreadsheetComponent } from './components/spreadsheet-components/spreadsheet/spreadsheet.component';
+import { BistorComponent } from "./components/bistor/bistor.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SpreadsheetComponent, LimitsComponent],
+  imports: [RouterOutlet, BistorComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

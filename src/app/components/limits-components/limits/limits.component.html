@@ -1,1 +1,63 @@
-<p>limits works!</p>
+<div class="card has-background-grey-lighter">
+
+    <header class="card-header">
+
+        <p class="card-header-title">
+            <span class="icon-text">
+                <span class="icon">
+                    <fa-icon [icon]="this.iconService.iconLimits"></fa-icon>
+                </span>
+                <span>Limits</span>
+                @if (this.limitsSelected) {
+                    <span class="icon has-text-success">
+                        <fa-icon [icon]="this.iconService.iconSuccess"></fa-icon>
+                    </span>
+                }
+            </span>
+        </p>
+
+        <button class="card-header-icon" aria-label="more options" (click)="expand()">
+            <span class="icon">
+                <fa-icon [icon]="iconIsExpanded"></fa-icon>
+            </span>
+        </button>
+
+
+    </header>
+
+    @if (this.isExpanded) {
+
+        <div class="card-content">
+
+            @for (itemType of this.itemTypes; track itemType) {
+                <div class="columns">
+                    <div class="column is-full">
+                        <app-chose-limit [itemType]="itemType" [minimum]="this.getMinimum(itemType)" [maximum]="this.getMaximum(itemType)"></app-chose-limit>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <footer class="card-footer">
+            <div class="card-footer-item">
+
+                <button class="button is-primary is-fullwidth">
+
+                    <span class="icon-text">
+                        <span class="icon">
+                            <fa-icon [icon]="this.iconService.iconTable"></fa-icon>
+                        </span>
+                        <span>Show Table</span>
+                    </span>
+
+                </button>
+
+            </div>
+        </footer>
+    }
+
+</div>
+
+
+
