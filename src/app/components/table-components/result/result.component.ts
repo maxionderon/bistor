@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Result } from '../../model/result';
-import { ItemType } from '../../model/itemType';
-import { Enhancement } from '../../model/enhancement';
 
-import { Augment } from '../../model/augment';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { faUserGear, faUserPlus, faStar, faSyringe } from '@fortawesome/free-solid-svg-icons'
-import { Item2Component } from "../item2/item2.component";
+import { Item2Component } from '../item2/item2.component';
+import { Result } from '../../../model/result';
+import { ItemType } from '../../../model/itemType';
+import { Enhancement } from '../../../model/enhancement';
+import { Augment } from '../../../model/augment';
 
 @Component({
   selector: 'app-result',

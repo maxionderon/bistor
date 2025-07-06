@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SpreadsheetComponent } from "./components/spreadsheet/spreadsheet.component";
-import { LimitsComponent } from "./components/limits/limits.component";
+import { LimitsComponent } from "./components/limits-components/limits/limits.component";
+import { SpreadsheetComponent } from './components/spreadsheet-components/spreadsheet/spreadsheet.component';
 
 @Component({
   selector: 'app-root',

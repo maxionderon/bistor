@@ -1,18 +1,18 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { SelectItemRatingComponent } from "../select-item-rating/select-item-rating.component";
-import { BistorService } from '../../services/bistor/bistor.service';
-import { IconService } from '../../services/iconService/icon.service';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { SelectItemTypesComponent } from "../select-item-types/select-item-types.component";
-import { ItemType } from '../../model/itemType';
-import { SelectStimItemTypesComponent } from "../select-stim-item-types/select-stim-item-types.component";
 import { SelectSetBonusItemTypesComponent } from "../select-set-bonus-item-types/select-set-bonus-item-types.component";
+import { BistorService } from '../../../services/bistor/bistor.service';
+import { IconService } from '../../../services/iconService/icon.service';
+import { CalculationService } from '../../../services/CalculationService/calculation.service';
+import { ItemType } from '../../../model/itemType';
+import { Result } from '../../../model/result';
+import { Stim } from '../../../model/stim';
+import { Enhancement } from '../../../model/enhancement';
+import { Augment } from '../../../model/augment';
+import { SelectStimItemTypesComponent } from '../select-stim-item-types/select-stim-item-types.component';
 
-import { Enhancement } from '../../model/enhancement';
-import { Augment } from '../../model/augment';
-import { Stim } from '../../model/stim';
-import { CalculationService } from '../../services/CalculationService/calculation.service';
-import { Result } from '../../model/result';
 
 @Component({
   selector: 'app-spreadsheet',

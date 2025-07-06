@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
-import { ItemType } from '../../model/itemType';
 
-import { IconService } from '../../services/iconService/icon.service';
 import { FormsModule } from '@angular/forms';
+import { ItemType } from '../../../model/itemType';
+import { IconService } from '../../../services/iconService/icon.service';
 
 @Component({
   selector: 'app-select-item-types',

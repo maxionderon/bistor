@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Result } from '../../model/result';
-import { ItemType } from '../../model/itemType';
 
 import { ResultComponent } from "../result/result.component";
+import { Result } from '../../../model/result';
+import { ItemType } from '../../../model/itemType';
 
 @Component({
   selector: 'app-table',
