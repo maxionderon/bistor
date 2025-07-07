@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { Result } from '../../model/result';
 import { LimitsComponent } from "../limits-components/limits/limits.component";
 import { SpreadsheetComponent } from "../spreadsheet-components/spreadsheet/spreadsheet.component";
+import { TableComponent } from "../table-components/table/table.component";
 
 @Component({
   selector: 'app-bistor',
-  imports: [LimitsComponent, SpreadsheetComponent],
+  imports: [LimitsComponent, SpreadsheetComponent, TableComponent],
   templateUrl: './bistor.component.html',
   styleUrl: './bistor.component.css'
 })

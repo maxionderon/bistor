@@ -199,8 +199,9 @@ export class CalculationService {
     }
  
   }
-
-  private attachSetBonus(results: Array<Result>, setBonus: Array<Enhancement>): Array<Result> {
+  
+  /*
+  private attachSetBonus_old(results: Array<Result>, setBonus: Array<Enhancement>): Array<Result> {
  
     if( setBonus.length == 0 || setBonus.length > 2 ) {
       
@@ -211,13 +212,13 @@ export class CalculationService {
     let newResults: Array<Result> = new Array<Result>;
 
     let firstSetBonus: Enhancement;
-    let secondSetBonus: Enhancement | undefined;
+    let secondSetBonus: Enhancement /*| undefined;
 
     firstSetBonus = setBonus.at(0) as Enhancement;
     
     if(setBonus.length > 1 ) {
 
-      secondSetBonus = setBonus.at(1);
+      secondSetBonus = setBonus.at(1) as Enhancement;
 
     }
 
@@ -235,6 +236,27 @@ export class CalculationService {
 
     return results;
 
+  }*/
+
+  private attachSetBonus(results: Array<Result>, setBonus: Array<Enhancement>): Array<Result> {
+  
+    let newResults: Array<Result> = new Array<Result>();
+
+    let firstSetBonus: Enhancement = setBonus.at(0) as Enhancement;
+    let secondSetBonus: Enhancement = setBonus.at(1) as Enhancement;
+
+    for(let i: number = 0; i != results.length; i = i + 1) {
+
+      if( results.at(i)?.attachSetBonus(firstSetBonus, secondSetBonus) == true ) {
+
+        newResults.push(results.at(i) as Result);
+
+      }
+
+    }
+
+    return newResults;
+  
   }
 
 }

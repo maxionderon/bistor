@@ -132,7 +132,7 @@ export class Result {
         
     }
     
-    attachSetBonus(firstSetBonus: Enhancement, secondSetBonus: Enhancement | undefined): boolean {
+    attachSetBonus_old(firstSetBonus: Enhancement, secondSetBonus: Enhancement | undefined): boolean {
         
         if( secondSetBonus == undefined ) {
 
@@ -225,6 +225,57 @@ export class Result {
         this.enhancements.splice(positionOfFirstSetBonus, 1, firstSetBonus);
         this.enhancements.splice(positionOfSecondSetBonus, 1, secondSetBonus);
         
+        return true;
+
+    }
+
+    attachSetBonus(firstSetBonus: Enhancement, secondSetBonus: Enhancement): boolean {
+
+        let positionOfFirstSetBonus: number | undefined = undefined;
+        let positionOfSecondSetBonus: number | undefined = undefined;
+
+        for(let i: number = 0; i != this.enhancements.length; i = i + 1) {
+
+            if( firstSetBonus.itemType == this.enhancements.at(i)?.itemType ) {
+
+                positionOfFirstSetBonus = i;
+                break;
+
+            }
+
+        }
+
+        if( positionOfFirstSetBonus == undefined ) {
+            //no first Set Bonus possible
+            return false;
+
+        }
+
+        for(let i: number = 0; i != this.enhancements.length; i = i + 1) {
+
+            if( secondSetBonus.itemType == this.enhancements.at(i)?.itemType ) {
+
+                if( i != positionOfFirstSetBonus) {
+
+                    positionOfSecondSetBonus = i;
+                    break;
+
+                }
+
+            }
+
+
+        }
+
+        if( positionOfSecondSetBonus == undefined ) {
+            //no second Set Bonus possible
+            return false;
+
+        }
+        
+        this.enhancements.splice(positionOfFirstSetBonus, 1, firstSetBonus);
+        this.enhancements.splice(positionOfSecondSetBonus, 1, secondSetBonus);
+
         return true;
 
     }

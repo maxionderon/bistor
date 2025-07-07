@@ -15,17 +15,15 @@ export class SelectStimItemTypesComponent implements OnInit {
 
   @Input("Icon")
   icon: IconDefinition;
-  @Input("StimItemTypes")
+  //@Input("StimItemTypes")
   stimItemTypes: Array<Array<ItemType>>;
 
   iconService: IconService;
-
-  chosenStimItemTypes: Array<ItemType>;
-
+  @Input("Stims")
   map: Map<Array<ItemType>, boolean>;
 
   @Output("ChosenStimItemTypes")
-  eventEmitter: EventEmitter<Array<ItemType>>;
+  eventEmitter: EventEmitter<Map<Array<ItemType>, boolean>>;
 
   constructor() {
 
@@ -34,17 +32,16 @@ export class SelectStimItemTypesComponent implements OnInit {
 
     this.iconService = new IconService();
 
-    this.chosenStimItemTypes = new Array<ItemType>();
-
     this.map = new Map<Array<ItemType>, boolean>
 
-    this.eventEmitter = new EventEmitter<Array<ItemType>>();
+    this.eventEmitter = new EventEmitter<Map<Array<ItemType>, boolean>>();
 
   }
 
   ngOnInit(): void {
 
-    this.initializeMap();
+    this.stimItemTypes = Array.from(this.map.keys());
+    //this.initializeMap();
       
   }
 
@@ -63,7 +60,7 @@ export class SelectStimItemTypesComponent implements OnInit {
       }
 
     });
-
+    /*
     if( this.map.get(chosenStimItemType) == true ) {
 
       this.chosenStimItemTypes = chosenStimItemType;
@@ -73,8 +70,8 @@ export class SelectStimItemTypesComponent implements OnInit {
       this.chosenStimItemTypes = new Array<ItemType>()
 
     }
-
-    this.eventEmitter.emit(this.chosenStimItemTypes);
+    */
+    this.eventEmitter.emit(this.map);
 
   }
 
@@ -84,6 +81,7 @@ export class SelectStimItemTypesComponent implements OnInit {
 
   }
 
+  /*
   private initializeMap(): void {
 
     this.stimItemTypes.forEach( (stim: Array<ItemType>) => {
@@ -93,6 +91,7 @@ export class SelectStimItemTypesComponent implements OnInit {
     });
 
   }
+  */
 
   getIsChecked(stim: Array<ItemType>): boolean {
 

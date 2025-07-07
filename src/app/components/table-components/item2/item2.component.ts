@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ItemType } from '../../model/itemType';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { fa0, faArrowTrendDown, faArrowTrendUp, faCrosshairs, faGaugeHigh, faShieldHalved } from '@fortawesome/free-solid-svg-icons'
+import { ItemType } from '../../../model/itemType';
 
 @Component({
   selector: 'app-item2',

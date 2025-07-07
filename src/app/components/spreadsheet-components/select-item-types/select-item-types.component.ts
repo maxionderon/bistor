@@ -15,13 +15,13 @@ export class SelectItemTypesComponent implements OnInit{
 
   @Input("Icon")
   icon: IconDefinition;
-  @Input("ItemTypes")
-  itemTypes: Array<ItemType>;
-
-  iconService: IconService;
-
+  @Input("ChosenItemType")
   chosenItemType: Map<ItemType, boolean>
 
+  itemTypes: Array<ItemType>;
+  
+  iconService: IconService;
+  
   @Output("ChosenItemTypes")
   eventEmitter: EventEmitter<Map<ItemType, boolean>>; 
 
@@ -40,20 +40,10 @@ export class SelectItemTypesComponent implements OnInit{
 
   ngOnInit(): void {
 
-    this.initializeChosenItemTypes();
+    this.itemTypes = Array.from(this.chosenItemType.keys());
       
   }
-
-  private initializeChosenItemTypes(): void {
-
-    this.itemTypes.forEach( (itemType: ItemType) => {
-
-      this.chosenItemType.set(itemType, false);
-
-    });
-
-  }
-  
+    
   change(itemType: ItemType) {
 
     this.chosenItemType.set(itemType, !(this.chosenItemType.get(itemType) as boolean));

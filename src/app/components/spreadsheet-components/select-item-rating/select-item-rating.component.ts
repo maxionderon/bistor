@@ -11,6 +11,8 @@ import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawes
 })
 export class SelectItemRatingComponent implements OnInit {
 
+  @Input("DefaultItemRating")
+  defaultItemRating: number;
   @Input("ItemRatings")
   itemRatings: Array<number>
   @Input("Icon")
@@ -26,7 +28,8 @@ export class SelectItemRatingComponent implements OnInit {
 
   constructor() {
 
-    this.itemRatings = new Array<number>;
+    this.defaultItemRating = 0;
+    this.itemRatings = new Array<number>();
     this.icon = {} as IconDefinition;
     this.disabled = false;
     this.eventEmitter = new EventEmitter<number>();
@@ -35,8 +38,17 @@ export class SelectItemRatingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      
-    this.selectedItemRating = this.itemRatings.at(0) as number;
+    
+    if(this.defaultItemRating == 0) {
+    
+      this.selectedItemRating = this.itemRatings.at(0) as number;
+    
+    } else {
+    
+      this.selectedItemRating = this.defaultItemRating;
+    
+    }
+    
     this.eventEmitter.emit(this.selectedItemRating);
 
   }

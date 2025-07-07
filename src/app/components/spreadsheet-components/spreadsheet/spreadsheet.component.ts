@@ -38,8 +38,8 @@ export class SpreadsheetComponent {
   chosenAugmentsItemTypes: Map<ItemType, boolean>;
 
   itemRatingStim: number;
-  chosenStimItemTypes: Array<ItemType>
-  
+  chosenStimItemTypes: Map<Array<ItemType>, boolean>;
+    
   showFirstSetBonus: boolean;
   showSecondSetBonus: boolean;
 
@@ -61,6 +61,7 @@ export class SpreadsheetComponent {
 
     this.itemRatingEnhancements = 0;
     this.chosenEnhancementsItemTypes = new Map<ItemType, boolean>();
+    this.initializeChosenEnhancementsItemTypes();
 
     this.itemRatingSetBonus = 0;
     this.firstSetBonus = new Map<ItemType, boolean>();
@@ -68,9 +69,11 @@ export class SpreadsheetComponent {
 
     this.itemRatingAugments = 0;
     this.chosenAugmentsItemTypes = new Map<ItemType, boolean>();
+    this.initializeChosenAugmentsItemTypes();
 
     this.itemRatingStim = 0;
-    this.chosenStimItemTypes = new Array<ItemType>();
+    this.chosenStimItemTypes = new Map<Array<ItemType>, boolean>();
+    this.initializeChosenStimItemTypes();
 
     this.showFirstSetBonus = false;
     this.showSecondSetBonus = false;
@@ -86,44 +89,44 @@ export class SpreadsheetComponent {
     
   }
 
-  setItemRatingEnhancements(itemRatingEnhancements: number): void {
+  protected setItemRatingEnhancements(itemRatingEnhancements: number): void {
 
     this.itemRatingEnhancements = itemRatingEnhancements;
     
   }
 
-  setChosenEnhancementsItemTypes(chosenEnhancementItemTypes: Map<ItemType, boolean>): void {
+  protected setChosenEnhancementsItemTypes(chosenEnhancementItemTypes: Map<ItemType, boolean>): void {
 
     this.chosenEnhancementsItemTypes = chosenEnhancementItemTypes;
     this.calculateSetBonusItemTypes();
 
   }
 
-  setItemRatingSetBonus(itemRatingSetBonus: number): void {
+  protected setItemRatingSetBonus(itemRatingSetBonus: number): void {
 
     this.itemRatingSetBonus = itemRatingSetBonus;
 
   }
 
-  setItemRatingAugments(itemRatingAugments: number): void {
+  protected setItemRatingAugments(itemRatingAugments: number): void {
 
     this.itemRatingAugments = itemRatingAugments;
 
   }
 
-  setChosenAugmentsItemTypes(chosenAugmentItemTypes: Map<ItemType, boolean>): void {
+  protected setChosenAugmentsItemTypes(chosenAugmentItemTypes: Map<ItemType, boolean>): void {
 
     this.chosenAugmentsItemTypes = chosenAugmentItemTypes;
 
   }
 
-  setItemRatingStim(itemRatingStim: number): void {
+  protected setItemRatingStim(itemRatingStim: number): void {
 
     this.itemRatingStim = itemRatingStim;
 
   }
 
-  setChosenStimItemTypes(chosenStimItemTypes: Array<ItemType>): void {
+  protected setChosenStimItemTypes(chosenStimItemTypes: Map<Array<ItemType>, boolean>): void {
 
     this.chosenStimItemTypes = chosenStimItemTypes;
 
@@ -150,7 +153,7 @@ export class SpreadsheetComponent {
 
   }
 
-  firstSetBonusChange(firstSetBonus: Map<ItemType, boolean>): void {
+  protected firstSetBonusChange(firstSetBonus: Map<ItemType, boolean>): void {
 
     let setBonusSelected = Array.from(firstSetBonus.values());
 
@@ -171,7 +174,7 @@ export class SpreadsheetComponent {
 
   }
 
-  expand(): void {
+  protected expand(): void {
 
     this.isExpanded = !this.isExpanded;
     this.iconIsExpanded = this.getIconIsExpanded();
@@ -192,7 +195,7 @@ export class SpreadsheetComponent {
 
   }
 
-  calculate(): void {
+  protected calculate(): void {
 
     this.isCalculating = true;
 
@@ -244,11 +247,34 @@ export class SpreadsheetComponent {
 
     let stim: Stim | undefined = undefined;
 
-    if( this.setChosenStimItemTypes.length != 0 ) {
 
-      stim = this.bistor.getStim( this.itemRatingStim, this.chosenStimItemTypes.at(0) as ItemType) as Stim
+    let chosenStimItemTypes: Array<ItemType> = new Array<ItemType>();
+
+    for(const bob of this.chosenStimItemTypes) {
+
+      if( bob[1] == true ) {
+
+        chosenStimItemTypes = bob[0];
+        break;
+
+      }
 
     }
+
+    if( chosenStimItemTypes.length != 0 ) {
+
+      stim = this.bistor.getStim( this.itemRatingStim, chosenStimItemTypes.at(0) as ItemType) as Stim;
+
+    }
+
+
+    /*
+    if( this.setChosenStimItemTypes.length != 0 ) {
+
+      //stim = this.bistor.getStim( this.itemRatingStim, this.chosenStimItemTypes.at(0) as ItemType) as Stim
+
+    }
+    */
 
     let results: Array<Result> = this.calculationService.calculateResults(enhancements, augments, setBonus, stim);
 
@@ -261,6 +287,34 @@ export class SpreadsheetComponent {
     
   }
 
-  
+  private initializeChosenEnhancementsItemTypes(): void {
+
+    this.bistor.enhancementsItemTypes.forEach( (itemType: ItemType) => {
+
+      this.chosenEnhancementsItemTypes.set(itemType, false);
+
+    });
+
+  }
+
+  private initializeChosenAugmentsItemTypes(): void {
+
+    this.bistor.augmentsItemTypes.forEach( (itemType: ItemType) => {
+
+      this.chosenAugmentsItemTypes.set(itemType, false);
+
+    });
+
+  }
+
+  private initializeChosenStimItemTypes(): void {
+
+    this.bistor.stimsItemTypes.forEach( (stim: Array<ItemType>) => {
+
+      this.chosenStimItemTypes.set(stim, false);
+
+    });
+
+  }
 
 }

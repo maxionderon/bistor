@@ -40,10 +40,10 @@
               </h1>
             </div>
             <div class="column is-full">
-              <app-select-item-rating [ItemRatings]="this.bistor.itemRatingEnhancements" [Icon]="this.iconService.iconEnhancements" (SelectedItemRating)="this.setItemRatingEnhancements($event)"></app-select-item-rating>
+              <app-select-item-rating [DefaultItemRating]="this.itemRatingEnhancements" [ItemRatings]="this.bistor.itemRatingEnhancements" [Icon]="this.iconService.iconEnhancements" (SelectedItemRating)="this.setItemRatingEnhancements($event)"></app-select-item-rating>
             </div>
             <div class="column is-full">
-              <app-select-item-types [ItemTypes]="this.bistor.enhancementsItemTypes" [Icon]="this.iconService.iconEnhancements" (ChosenItemTypes)="this.setChosenEnhancementsItemTypes($event)"></app-select-item-types>
+              <app-select-item-types [ChosenItemType]="this.chosenEnhancementsItemTypes" [Icon]="this.iconService.iconEnhancements" (ChosenItemTypes)="this.setChosenEnhancementsItemTypes($event)"></app-select-item-types>
             </div>
           </div>
         </div>
@@ -60,7 +60,7 @@
               </h1>
             </div>
             <div class="column is-full" >
-              <app-select-item-rating [ItemRatings]="this.bistor.itemRatingSetBonus" [Icon]="this.iconService.iconSetBonus" [Disabled]="!showFirstSetBonus" (SelectedItemRating)="setItemRatingSetBonus($event)"></app-select-item-rating>
+              <app-select-item-rating [DefaultItemRating]="this.itemRatingSetBonus" [ItemRatings]="this.bistor.itemRatingSetBonus" [Icon]="this.iconService.iconSetBonus" [Disabled]="!showFirstSetBonus" (SelectedItemRating)="setItemRatingSetBonus($event)"></app-select-item-rating>
             </div>
             @if (showFirstSetBonus) {
               <div class="column is-full">
@@ -87,10 +87,10 @@
               </h1>
             </div>
             <div class="column is-full">
-              <app-select-item-rating [ItemRatings]="this.bistor.itemRatingAugments" [Icon]="this.iconService.iconAugments" (SelectedItemRating)=this.setItemRatingAugments($event)></app-select-item-rating>
+              <app-select-item-rating [DefaultItemRating]="this.itemRatingAugments" [ItemRatings]="this.bistor.itemRatingAugments" [Icon]="this.iconService.iconAugments" (SelectedItemRating)=this.setItemRatingAugments($event)></app-select-item-rating>
             </div>
             <div class="column is-full">
-              <app-select-item-types [ItemTypes]="this.bistor.augmentsItemTypes" [Icon]="this.iconService.iconAugments" (ChosenItemTypes)="this.setChosenAugmentsItemTypes($event)"></app-select-item-types>
+              <app-select-item-types [ChosenItemType]="this.chosenAugmentsItemTypes" [Icon]="this.iconService.iconAugments" (ChosenItemTypes)="this.setChosenAugmentsItemTypes($event)"></app-select-item-types>
             </div>
           </div>
         </div>
@@ -107,10 +107,10 @@
               </h1>
             </div>
             <div class="column is-full">
-              <app-select-item-rating [ItemRatings]="this.bistor.itemRatingStims" [Icon]="this.iconService.iconStim" (SelectedItemRating)="this.setItemRatingStim($event)"></app-select-item-rating>
+              <app-select-item-rating [DefaultItemRating]="this.itemRatingStim" [ItemRatings]="this.bistor.itemRatingStims" [Icon]="this.iconService.iconStim" (SelectedItemRating)="this.setItemRatingStim($event)"></app-select-item-rating>
             </div>
             <div class="column is-full">
-              <app-select-stim-item-types [StimItemTypes]="this.bistor.stimsItemTypes" [Icon]="this.iconService.iconStim" (ChosenStimItemTypes)="this.setChosenStimItemTypes($event)"></app-select-stim-item-types>
+              <app-select-stim-item-types [Stims]="this.chosenStimItemTypes" [Icon]="this.iconService.iconStim" (ChosenStimItemTypes)="this.setChosenStimItemTypes($event)"></app-select-stim-item-types>
             </div>
           </div>
         </div>
