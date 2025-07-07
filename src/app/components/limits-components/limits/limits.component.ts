@@ -16,7 +16,7 @@ export class LimitsComponent implements OnInit, OnChanges {
   @Input("results")
   results: Array<Result>;
   protected maximum: Map<ItemType, number>;
-  protected minimum: Map<ItemType, number>;
+  //protected minimum: Map<ItemType, number>;
   protected itemTypes: Array<ItemType>;
 
   protected iconService: IconService;
@@ -29,7 +29,7 @@ export class LimitsComponent implements OnInit, OnChanges {
 
     this.results = new Array<Result>();
     this.maximum = new Map<ItemType, number>(); 
-    this.minimum = new Map<ItemType, number>();
+    //this.minimum = new Map<ItemType, number>();
     this.itemTypes = new Array<ItemType>();
     this.iconService = new IconService();
     this.limitsSelected = false;
@@ -99,20 +99,6 @@ export class LimitsComponent implements OnInit, OnChanges {
 
         }
 
-        if( this.minimum.has(itemType) == true ) {
-
-          if( this.minimum.get(itemType) as number > value ) {
-
-            this.minimum.set(itemType, value);
-
-          }
-
-        } else {
-
-          this.minimum.set(itemType, value);
-
-        }
-
       });
 
     });
@@ -120,12 +106,6 @@ export class LimitsComponent implements OnInit, OnChanges {
   }
 
   protected getMinimum(itemType: ItemType): number {
-
-    if( this.minimum.has(itemType) ) {
-
-      return this.minimum.get(itemType) as number;
-
-    }
 
     return 0;
 

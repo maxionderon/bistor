@@ -101,6 +101,7 @@ export class Result {
     getPercent(itemType: ItemType): number {
         //https://forums.swtor.com/topic/883575-stat-equations/
         //https://forums.swtor.com/topic/888604-help-needed-alacrity-formula/
+        //https://discord.com/channels/613633744246407178/943519822468218920
         if( this.values.has(itemType) ) {
             
             let base: number = 0;
@@ -115,7 +116,7 @@ export class Result {
             divisor = constants.divisor;
             cap = constants.cap;
 
-            return cap * (1 - (1 - (1 / 30)) ** ( (rating / 75) / divisor ) ) + base;
+            return cap * (1 - (1 - (1 / cap)) ** ( (rating / 80) / divisor ) ) + base;
 
 
         } else {

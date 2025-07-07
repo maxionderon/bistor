@@ -12,7 +12,7 @@
           <th><app-result [result]="result"></app-result></th>
           @for (itemType of necessaryItemTypes; track itemType) {
             <td>
-              {{this.getPercent(result, itemType)}} ({{result.getValue(itemType)}})
+              {{this.getPercent(result, itemType)}} ({{result.getValue(itemType)}}) [{{this.getRating(result, itemType)}}]
             </td>
           }
         </tr>

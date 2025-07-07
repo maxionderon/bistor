@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 import { ResultComponent } from "../result/result.component";
 import { Result } from '../../../model/result';
 import { ItemType } from '../../../model/itemType';
+import { Constants } from '../../../model/constants';
 
 @Component({
   selector: 'app-table',
@@ -10,7 +11,7 @@ import { ItemType } from '../../../model/itemType';
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
 
   @Input()
   results: Array<Result>;
@@ -33,6 +34,14 @@ export class TableComponent implements OnInit {
     this.necessaryItemTypes = this.calculateNecessaryItemTypes();
     this.showResults = this.results.concat([]);
           
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+      
+    this.necessaryItemTypes = this.calculateNecessaryItemTypes();
+    this.showResults = this.results.concat([]);
+
+
   }
 
   private calculateNecessaryItemTypes(): Array<ItemType> {
@@ -64,6 +73,12 @@ export class TableComponent implements OnInit {
   getPercent(result: Result, itemType: ItemType): string {
 
     return String(result.getPercent(itemType).toFixed(2)) + " %";
+
+  }
+
+  getRating(result: Result, itemType: ItemType): string {
+
+    return String( Constants.getRating(result.getPercent(itemType), itemType));
 
   }
 
