@@ -17,7 +17,7 @@
         
             <p class="control is-expanded has-icons-left">
             
-                <input class="input" type="number" placeholder="Minimum" [(ngModel)]="this.selectedMinimum" [min]="this.minimum" [max]="this.maximum">
+                <input class="input" type="number" placeholder="Minimum" [(ngModel)]="this.selectedMinimum" [min]="this.minimum" [max]="this.selectedMaximum" (ngModelChange)="changeMinimum()">
                 <span class="icon is-small is-left">
                     <fa-icon [icon]="this.iconService.iconLimitMinimum"></fa-icon>
                 </span>
@@ -25,10 +25,28 @@
             </p>
 
             <p class="control is-expanded has-icons-right">
+
+                <input class="input" type="number" placeholder="Minimum" [(ngModel)]="this.selectedMinimumInPercent" [min]="this.minimumInPercent" [max]="this.selectedMaximumInPercent" (ngModelChange)="changeMinimumInPercent()">
+                <span class="icon is-small is-right">
+                    <fa-icon [icon]="this.iconService.iconPercent"></fa-icon>
+                </span>
+
+            </p>
+
+            <p class="control is-expanded has-icons-right">
             
-               <input class="input" type="number" placeholder="Maximum" [(ngModel)]="this.selectedMaximum" [min]="this.minimum" [max]="this.maximum">
+               <input class="input" type="number" placeholder="Maximum" [(ngModel)]="this.selectedMaximum" [min]="this.selectedMinimum" [max]="this.maximum" (ngModelChange)="changeMaximum()">
                <span class="icon is-small is-right">
                    <fa-icon [icon]="this.iconService.iconLimitMaximum"></fa-icon>
+               </span>
+           
+            </p>
+
+             <p class="control is-expanded has-icons-right">
+            
+               <input class="input" type="number" placeholder="Maximum" [(ngModel)]="this.selectedMaximumInPercent" [min]="this.selectedMinimumInPercent" [max]="this.maximumInPercent" (ngModelChange)="changeMaximumInPercent()">
+               <span class="icon is-small is-right">
+                   <fa-icon [icon]="this.iconService.iconPercent"></fa-icon>
                </span>
            
             </p>
