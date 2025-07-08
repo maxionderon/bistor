@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { SelectItemRatingComponent } from "../select-item-rating/select-item-rating.component";
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { SelectItemTypesComponent } from "../select-item-types/select-item-types.component";
@@ -20,7 +20,7 @@ import { SelectStimItemTypesComponent } from '../select-stim-item-types/select-s
   templateUrl: './spreadsheet.component.html',
   styleUrl: './spreadsheet.component.css'
 })
-export class SpreadsheetComponent {
+export class SpreadsheetComponent implements AfterViewInit {
 
   bistor: BistorService;
   iconService: IconService;
@@ -87,6 +87,15 @@ export class SpreadsheetComponent {
 
     this.calculated = false;
     
+  }
+ 
+  ngAfterViewInit(): void {
+ 
+    this.itemRatingEnhancements = 0;
+    this.itemRatingSetBonus = 0;
+    this.itemRatingAugments = 0;
+    this.itemRatingStim = 0;
+  
   }
 
   protected setItemRatingEnhancements(itemRatingEnhancements: number): void {

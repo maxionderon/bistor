@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ItemType } from '../../../model/itemType';
 import { FaIconComponent, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { IconService } from '../../../services/iconService/icon.service';
 import { FormsModule } from '@angular/forms';
 import { Constants } from '../../../model/constants';
+import { Limit } from '../../../model/limit';
 
 @Component({
   selector: 'app-chose-limit',
@@ -32,6 +33,9 @@ export class ChoseLimitComponent implements OnInit {
   protected selectedMinimumInPercent: number;
   protected selectedMaximumInPercent: number;
 
+  @Output("limit")
+  eventEmitter: EventEmitter<Limit>;
+
   constructor() {
 
     this.itemType = ItemType.mastery;
@@ -47,6 +51,7 @@ export class ChoseLimitComponent implements OnInit {
     this.selectedMinimumInPercent = 0;
     this.selectedMaximumInPercent = 0;
 
+    this.eventEmitter = new EventEmitter<Limit>();    
 
   }
 
@@ -66,27 +71,35 @@ export class ChoseLimitComponent implements OnInit {
   protected changeMinimum(): void {
     
     this.selectedMinimumInPercent = Constants.getPercent(this.selectedMinimum, this.itemType);
+    this.emitLimit();
 
   }
 
   protected changeMinimumInPercent(): void {
 
     this.selectedMinimum = Constants.getRating(this.selectedMinimumInPercent, this.itemType);
+    this.emitLimit();
 
   }
 
   protected changeMaximum(): void {
 
     this.selectedMaximumInPercent = Constants.getPercent(this.selectedMaximum, this.itemType);
+    this.emitLimit();
 
   }
 
   protected changeMaximumInPercent(): void {
 
     this.selectedMaximum = Constants.getRating(this.selectedMaximumInPercent, this.itemType);
+    this.emitLimit();
 
   }
 
-  
+  private emitLimit(): void {
+
+    this.eventEmitter.emit(new Limit(this.selectedMinimum, this.itemType, this.selectedMaximum, true));
+
+  }
 
 }

@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 
@@ -42,9 +42,10 @@ export class SelectItemRatingComponent implements OnInit {
     if(this.defaultItemRating == 0) {
     
       this.selectedItemRating = this.itemRatings.at(0) as number;
+
     
     } else {
-    
+
       this.selectedItemRating = this.defaultItemRating;
     
     }

@@ -32,7 +32,7 @@
             @for (itemType of this.itemTypes; track itemType) {
                 <div class="columns">
                     <div class="column is-full">
-                        <app-chose-limit [itemType]="itemType" [minimum]="this.getMinimum(itemType)" [maximum]="this.getMaximum(itemType)"></app-chose-limit>
+                        <app-chose-limit [itemType]="itemType" [minimum]="this.getMinimum(itemType)" [maximum]="this.getMaximum(itemType)" (limit)="this.absorbLimit($event)"></app-chose-limit>
                     </div>
                 </div>
             }
@@ -42,13 +42,13 @@
         <footer class="card-footer">
             <div class="card-footer-item">
 
-                <button class="button is-primary is-fullwidth">
+                <button class="button is-primary is-fullwidth" [disabled]="!showTablePossible" (click)="showTable()">
 
                     <span class="icon-text">
                         <span class="icon">
                             <fa-icon [icon]="this.iconService.iconTable"></fa-icon>
                         </span>
-                        <span>Show Table</span>
+                        <span>Show Table with {{this.limitedResults.length}} Results</span>
                     </span>
 
                 </button>

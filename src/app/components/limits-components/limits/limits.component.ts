@@ -1,9 +1,10 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Result } from '../../../model/result';
 import { ItemType } from '../../../model/itemType';
 import { IconService } from '../../../services/iconService/icon.service';
 import { FaIconComponent, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { ChoseLimitComponent } from "../chose-limit/chose-limit.component";
+import { Limit } from '../../../model/limit';
 
 @Component({
   selector: 'app-limits',
@@ -25,6 +26,15 @@ export class LimitsComponent implements OnInit, OnChanges {
   protected iconIsExpanded: IconDefinition;
   protected isExpanded: boolean;
 
+  private limits: Map<ItemType, Limit>;
+
+  protected showTablePossible: boolean;
+
+  protected limitedResults: Array<Result>;
+ 
+  @Output("limitedResults")
+  private eventEmitter: EventEmitter<Array<Result>>;
+
   constructor() {
 
     this.results = new Array<Result>();
@@ -36,13 +46,22 @@ export class LimitsComponent implements OnInit, OnChanges {
     this.iconIsExpanded = this.iconService.iconWarning;
     this.isExpanded = false;
 
+    this.limits = new Map<ItemType, Limit>();
+
+    this.showTablePossible = false;
+
+    this.limitedResults = new Array<Result>();
+    
+    this.eventEmitter = new EventEmitter<Array<Result>>();
+
   }
 
   ngOnInit(): void {
 
     this.calculateMinimumAndMaximum();
     this.itemTypes = Array.from(this.maximum.keys());
-
+    this.limitedResults = this.results.concat([]);
+ 
   }
 
   ngOnChanges(): void {
@@ -56,6 +75,8 @@ export class LimitsComponent implements OnInit, OnChanges {
 
     }
 
+    this.limitedResults = this.results.concat([]);
+    
   }
 
   protected expand(): void {
@@ -77,7 +98,6 @@ export class LimitsComponent implements OnInit, OnChanges {
     }
 
   }
-
 
   private calculateMinimumAndMaximum(): void {
 
@@ -122,5 +142,73 @@ export class LimitsComponent implements OnInit, OnChanges {
     return 0;
 
   }
+
+  protected showTable(): void {
+
+    this.eventEmitter.emit(this.limitedResults);
+
+  }
+
+  protected absorbLimit(limit: Limit): void {
+
+    this.limits.set(limit.itemType, limit);
+
+    if( this.limitsAreLegit() == true ) {
+
+      this.limitedResults = this.calculateLimitedResults();
+      this.showTablePossible = true;
+
+    } else {
+
+      this.showTablePossible = false;
+
+    }
+    
+  }
+
+  private calculateLimitedResults(): Array<Result> {
+
+    let limitedResults: Array<Result> = this.results.concat([]);
+    let tempResults: Array<Result> = new Array<Result>();
+
+    this.limits.forEach( (limit: Limit, itemType: ItemType) => {
+      
+      for(const result of limitedResults) {
+
+        if( result.getValue(itemType) >= limit.minimum && result.getValue(itemType) <= limit.maximum ) {
+
+          tempResults.push(result);
+
+        }
+
+      }
+
+      limitedResults = tempResults.concat([]);
+      tempResults = new Array<Result>();
+
+    });
+
+    return limitedResults;
+
+  }
+
+  private limitsAreLegit(): boolean {
+
+    let isLegit: boolean = true;
+
+    this.limits.forEach( (limit: Limit, itemType: ItemType ) => {
+
+      if( limit.possible == false ) {
+
+        isLegit = false;
+
+      }
+
+    });
+
+    return isLegit;
+
+  }
+
   
 }

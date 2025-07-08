@@ -13,16 +13,24 @@ import { TableComponent } from "../table-components/table/table.component";
 export class BistorComponent {
 
   results: Array<Result>;
+  limitedResults: Array<Result>;
 
   constructor() {
 
     this.results = new Array<Result>();
+    this.limitedResults = new Array<Result>();
 
   }
 
   protected resultsCalculated(results: Array<Result>) {
 
     this.results = results;
+
+  }
+
+  protected showLimitedResults(limitedResults: Array<Result>) {
+
+    this.limitedResults = limitedResults;
 
   }
 
