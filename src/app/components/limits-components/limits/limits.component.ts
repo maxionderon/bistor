@@ -146,6 +146,8 @@ export class LimitsComponent implements OnInit, OnChanges {
   protected showTable(): void {
 
     this.eventEmitter.emit(this.limitedResults);
+    this.limitsSelected = true;
+    this.expand();
 
   }
 
