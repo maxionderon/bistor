@@ -1,16 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
-import { faUserGear, faUserPlus, faStar, faSyringe } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Item2Component } from '../item2/item2.component';
 import { Result } from '../../../model/result';
 import { ItemType } from '../../../model/itemType';
 import { Enhancement } from '../../../model/enhancement';
 import { Augment } from '../../../model/augment';
+import { StimComponent } from "../stim/stim.component";
+import { Stim } from '../../../model/stim';
+import { IconService } from '../../../services/iconService/icon.service';
 
 @Component({
   selector: 'app-result',
-  imports: [FontAwesomeModule, Item2Component],
+  imports: [FontAwesomeModule, Item2Component, StimComponent],
   templateUrl: './result.component.html',
   styleUrl: './result.component.css'
 })
@@ -19,22 +20,21 @@ export class ResultComponent implements OnInit {
   @Input()
   result: Result | undefined;
 
-  numberOfEnhancementsByType: Map<ItemType, number>;
-  numberOfAugmentsByType: Map<ItemType, number>;
-  numberOfSetBonusByType: Map<ItemType, number>;
-  itemTypesOfEnhancements: Array<ItemType>;
-  itemTypesOfAugments: Array<ItemType>;
-  itemTypesOfSetBonus: Array<ItemType>;
+  protected iconService: IconService;
 
-  iconEnhancements: IconDefinition;
-  iconAugments: IconDefinition;
-  iconSetBonus: IconDefinition;
-  iconStim: IconDefinition;
-
-  withSetBonus: boolean;
-  withStim: boolean;
+  protected numberOfEnhancementsByType: Map<ItemType, number>;
+  protected numberOfAugmentsByType: Map<ItemType, number>;
+  protected numberOfSetBonusByType: Map<ItemType, number>;
+  protected itemTypesOfEnhancements: Array<ItemType>;
+  protected itemTypesOfAugments: Array<ItemType>;
+  protected itemTypesOfSetBonus: Array<ItemType>;
+  
+  protected withSetBonus: boolean;
+  protected withStim: boolean;
 
   constructor() {
+
+    this.iconService = new IconService();
 
     this.numberOfEnhancementsByType = new Map<ItemType, number>;
     this.numberOfAugmentsByType = new Map<ItemType, number>;
@@ -42,12 +42,7 @@ export class ResultComponent implements OnInit {
     this.itemTypesOfEnhancements = new Array<ItemType>;
     this.itemTypesOfAugments = new Array<ItemType>;
     this.itemTypesOfSetBonus = new Array<ItemType>;
-
-    this.iconEnhancements = faUserGear;
-    this.iconAugments = faUserPlus;
-    this.iconSetBonus = faStar;
-    this.iconStim = faSyringe;
-
+    
     this.withSetBonus = false;
     this.withStim = false;
 
@@ -118,7 +113,7 @@ export class ResultComponent implements OnInit {
 
   }
 
-  getNumberOfEnhancements(itemType: ItemType): number {
+  protected getNumberOfEnhancements(itemType: ItemType): number {
 
     if( this.numberOfEnhancementsByType.has(itemType) ) {
 
@@ -133,7 +128,7 @@ export class ResultComponent implements OnInit {
 
   }
 
-  getNumberOfAugments(itemType: ItemType): number {
+  protected getNumberOfAugments(itemType: ItemType): number {
 
     if( this.numberOfAugmentsByType.has(itemType) )  {
       
@@ -147,7 +142,7 @@ export class ResultComponent implements OnInit {
 
   }
 
-  getNumberOfSetBonus(itemType: ItemType): number {
+  protected getNumberOfSetBonus(itemType: ItemType): number {
 
     if( this.numberOfSetBonusByType.has(itemType) ) {
 
@@ -158,6 +153,69 @@ export class ResultComponent implements OnInit {
       return 0;
 
     }
+
+  }
+
+  protected getStim(): Stim {
+
+    return this.result?.stim as Stim;
+
+  }
+
+  protected getValueOfEnhancement(itemType: ItemType): string {
+
+    let value: number = 0;
+
+    this.result?.enhancements.forEach( (enhancement: Enhancement) => {
+
+      if( enhancement.itemType == itemType && enhancement.setBonus == false ) {
+
+        value = enhancement.tertiaryStat
+        
+      }
+
+    });
+
+
+    return String(value);
+
+  }
+
+  protected getValueOfSetBonus(itemType: ItemType): string {
+
+    let value: number = 0;
+
+    for(const enhancement of this.result?.enhancements as Array<Enhancement> ) {
+
+      if( enhancement.setBonus == true && enhancement.itemType == itemType ) {
+
+        value = enhancement.tertiaryStat;
+        break;
+
+      }
+
+    }
+
+    return String(value)
+
+  }
+
+  protected getValueOfAugment(itemType: ItemType): string {
+
+    let value: number = 0;
+
+    for(const augment of this.result?.augments as Array<Augment>) {
+
+      if( augment.itemType == itemType ) {
+
+        value = augment.tertiaryStat;
+        break;
+
+      }
+
+    }
+
+    return String(value);
 
   }
 

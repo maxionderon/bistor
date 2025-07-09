@@ -236,7 +236,7 @@ export class SpreadsheetComponent implements AfterViewInit {
 
     this.firstSetBonus.forEach( (value: boolean, key: ItemType) => {
 
-      if( value = true ) {
+      if( value == true ) {
 
         setBonus.push( this.bistor.getSetBonus(this.itemRatingSetBonus, key) as Enhancement);
 
@@ -246,7 +246,7 @@ export class SpreadsheetComponent implements AfterViewInit {
 
     this.secondSetBonus.forEach( (value: boolean, key: ItemType) => {
 
-      if( value = true ) {
+      if( value == true ) {
 
         setBonus.push( this.bistor.getSetBonus(this.itemRatingSetBonus, key) as Enhancement);
 
