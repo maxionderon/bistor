@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { SelectItemRatingComponent } from "../select-item-rating/select-item-rating.component";
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { SelectItemTypesComponent } from "../select-item-types/select-item-types.component";
@@ -12,15 +12,18 @@ import { Stim } from '../../../model/stim';
 import { Enhancement } from '../../../model/enhancement';
 import { Augment } from '../../../model/augment';
 import { SelectStimItemTypesComponent } from '../select-stim-item-types/select-stim-item-types.component';
+import { Modifier } from '../../../model/modifier';
+import { SelectModifierComponent } from "../select-modifier/select-modifier.component";
+import { Modifiers } from '../../../model/modifiers';
 
 
 @Component({
   selector: 'app-spreadsheet',
-  imports: [SelectItemRatingComponent, FontAwesomeModule, SelectItemTypesComponent, SelectStimItemTypesComponent, SelectSetBonusItemTypesComponent],
+  imports: [SelectItemRatingComponent, FontAwesomeModule, SelectItemTypesComponent, SelectStimItemTypesComponent, SelectSetBonusItemTypesComponent, SelectModifierComponent],
   templateUrl: './spreadsheet.component.html',
   styleUrl: './spreadsheet.component.css'
 })
-export class SpreadsheetComponent implements AfterViewInit {
+export class SpreadsheetComponent {
 
   bistor: BistorService;
   iconService: IconService;
@@ -39,6 +42,8 @@ export class SpreadsheetComponent implements AfterViewInit {
 
   itemRatingStim: number;
   chosenStimItemTypes: Map<Array<ItemType>, boolean>;
+
+  chosenModifiers: Map<Modifier, boolean>;
     
   showFirstSetBonus: boolean;
   showSecondSetBonus: boolean;
@@ -48,8 +53,10 @@ export class SpreadsheetComponent implements AfterViewInit {
 
   isCalculating: boolean;
   
-  @Output("results")
-  eventEmitter: EventEmitter<Array<Result>>;
+  @Output("Results")
+  resultsEmitter: EventEmitter<Array<Result>>;
+  @Output("Modifiers")
+  modifiersEmitter: EventEmitter<Modifiers>;
 
   calculated: boolean;
 
@@ -59,21 +66,24 @@ export class SpreadsheetComponent implements AfterViewInit {
     this.iconService = new IconService()
     this.calculationService = new CalculationService();
 
-    this.itemRatingEnhancements = 0;
+    this.itemRatingEnhancements = this.bistor.itemRatingEnhancements.at(0) as number;
     this.chosenEnhancementsItemTypes = new Map<ItemType, boolean>();
     this.initializeChosenEnhancementsItemTypes();
 
-    this.itemRatingSetBonus = 0;
+    this.itemRatingSetBonus = this.bistor.itemRatingSetBonus.at(0) as number;
     this.firstSetBonus = new Map<ItemType, boolean>();
     this.secondSetBonus = new Map<ItemType, boolean>();
 
-    this.itemRatingAugments = 0;
+    this.itemRatingAugments = this.bistor.itemRatingAugments.at(0) as number;
     this.chosenAugmentsItemTypes = new Map<ItemType, boolean>();
     this.initializeChosenAugmentsItemTypes();
 
-    this.itemRatingStim = 0;
+    this.itemRatingStim = this.bistor.itemRatingStims.at(0) as number;
     this.chosenStimItemTypes = new Map<Array<ItemType>, boolean>();
     this.initializeChosenStimItemTypes();
+
+    this.chosenModifiers = new Map<Modifier, boolean>();
+    this.initializeChosenModifiers();
 
     this.showFirstSetBonus = false;
     this.showSecondSetBonus = false;
@@ -83,19 +93,11 @@ export class SpreadsheetComponent implements AfterViewInit {
 
     this.isCalculating = false;
 
-    this.eventEmitter = new EventEmitter<Array<Result>>();
+    this.resultsEmitter = new EventEmitter<Array<Result>>();
+    this.modifiersEmitter = new EventEmitter<Modifiers>()
 
     this.calculated = false;
     
-  }
- 
-  ngAfterViewInit(): void {
- 
-    this.itemRatingEnhancements = 0;
-    this.itemRatingSetBonus = 0;
-    this.itemRatingAugments = 0;
-    this.itemRatingStim = 0;
-  
   }
 
   protected setItemRatingEnhancements(itemRatingEnhancements: number): void {
@@ -287,11 +289,16 @@ export class SpreadsheetComponent implements AfterViewInit {
 
     let results: Array<Result> = this.calculationService.calculateResults(enhancements, augments, setBonus, stim);
 
-    this.eventEmitter.emit(results);
-
+    this.resultsEmitter.emit(results);
+    
     this.isCalculating = false;
 
     this.calculated = true;
+    
+    let modifiers: Modifiers = new Modifiers()
+    modifiers.buildModifiers(this.chosenModifiers);
+    this.modifiersEmitter.emit(modifiers)
+
     this.expand();
     
   }
@@ -325,5 +332,17 @@ export class SpreadsheetComponent implements AfterViewInit {
     });
 
   }
+
+  private initializeChosenModifiers(): void {
+
+    for(const modifier of this.bistor.modifiers) {
+
+      this.chosenModifiers.set(modifier, false);
+
+    }
+
+  }
+
+  
 
 }

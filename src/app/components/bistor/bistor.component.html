@@ -1,20 +1,24 @@
 <div class="columns">
     <div class="column is-full">
-        <app-spreadsheet (results)="resultsCalculated($event)"></app-spreadsheet>
+        <app-spreadsheet (Results)="resultsCalculated($event)" (Modifiers)="receiveModifiers($event)"></app-spreadsheet>
     </div>
 </div>
 
+@if ( this.calculated ) {
+
 <div class="columns">
     <div class="column is-full">
-        <app-limits [results]="this.results" (limitedResults)="this.showLimitedResults($event)"></app-limits>
+        <app-limits [Results]="this.results" [Modifiers]="this.modifiers" (limitedResults)="this.showLimitedResults($event)"></app-limits>
     </div>
 </div>
+
+}
 
 @if( this.limitedResults.length != 0 ) {
 
 <div class="columns">
     <div class="column is-full">
-        <app-table [results]="this.limitedResults"></app-table>
+        <app-table [Results]="this.limitedResults" [Modifiers]="this.modifiers"></app-table>
     </div>
 </div>
 

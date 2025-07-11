@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Result } from '../../../model/result';
 import { ItemType } from '../../../model/itemType';
 import { IconService } from '../../../services/iconService/icon.service';
 import { FaIconComponent, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { ChoseLimitComponent } from "../chose-limit/chose-limit.component";
 import { Limit } from '../../../model/limit';
+import { Modifiers } from '../../../model/modifiers';
 
 @Component({
   selector: 'app-limits',
@@ -14,8 +15,10 @@ import { Limit } from '../../../model/limit';
 })
 export class LimitsComponent implements OnInit, OnChanges {
 
-  @Input("results")
+  @Input("Results")
   results: Array<Result>;
+  @Input("Modifiers")
+  modifiers: Modifiers;
   protected maximum: Map<ItemType, number>;
   //protected minimum: Map<ItemType, number>;
   protected itemTypes: Array<ItemType>;
@@ -38,6 +41,7 @@ export class LimitsComponent implements OnInit, OnChanges {
   constructor() {
 
     this.results = new Array<Result>();
+    this.modifiers = new Modifiers();
     this.maximum = new Map<ItemType, number>(); 
     //this.minimum = new Map<ItemType, number>();
     this.itemTypes = new Array<ItemType>();
@@ -48,7 +52,7 @@ export class LimitsComponent implements OnInit, OnChanges {
 
     this.limits = new Map<ItemType, Limit>();
 
-    this.showTablePossible = false;
+    this.showTablePossible = true;
 
     this.limitedResults = new Array<Result>();
     
@@ -61,7 +65,7 @@ export class LimitsComponent implements OnInit, OnChanges {
     this.calculateMinimumAndMaximum();
     this.itemTypes = Array.from(this.maximum.keys());
     this.limitedResults = this.results.concat([]);
- 
+     
   }
 
   ngOnChanges(): void {
@@ -75,10 +79,10 @@ export class LimitsComponent implements OnInit, OnChanges {
 
     }
 
-    this.limitedResults = this.results.concat([]);
-    
+    this.limitedResults = this.calculateLimitedResults();
+        
   }
-
+ 
   protected expand(): void {
     
     if( this.itemTypes.length != 0 ) {
@@ -167,7 +171,7 @@ export class LimitsComponent implements OnInit, OnChanges {
     }
     
   }
-
+  
   private calculateLimitedResults(): Array<Result> {
 
     let limitedResults: Array<Result> = this.results.concat([]);
@@ -211,6 +215,5 @@ export class LimitsComponent implements OnInit, OnChanges {
     return isLegit;
 
   }
-
   
 }

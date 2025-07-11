@@ -73,7 +73,7 @@ export class Constants {
 
     }
 
-    public static getPercent(rating: number, itemType: ItemType): number {
+    public static getPercent(rating: number, itemType: ItemType, modifier: number): number {
         //https://forums.swtor.com/topic/883575-stat-equations/
         //https://forums.swtor.com/topic/888604-help-needed-alacrity-formula/
         //https://discord.com/channels/613633744246407178/943519822468218920
@@ -87,11 +87,11 @@ export class Constants {
         divisor = constants.divisor;
         cap = constants.cap;
         
-        return cap * (1 - (1 - (1 / cap)) ** ( (rating / 80) / divisor ) ) + base;
+        return cap * (1 - (1 - (1 / cap)) ** ( (rating / 80) / divisor ) ) + base + modifier;
     
     }
 
-    public static getRating(percent: number, itemType: ItemType): number {
+    public static getRating(percent: number, itemType: ItemType, modifier: number): number {
 
         let rating: number = 0;
 
@@ -104,7 +104,7 @@ export class Constants {
         divisor = constants.divisor;
         cap = constants.cap;
 
-        let exponent: number = Math.log( (1 - (percent - base) / cap) ) / Math.log( (1 - (1 / cap )) ) ;
+        let exponent: number = Math.log( (1 - (percent - base - modifier) / cap) ) / Math.log( (1 - (1 / cap )) ) ;
 
         rating = exponent * divisor * 80;
 

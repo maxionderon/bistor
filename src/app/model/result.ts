@@ -11,7 +11,7 @@ export class Result {
     stim: Stim | undefined;
     isPossible: Boolean;
     values: Map<ItemType, number>;
-
+    
     constructor(enhancements: Enhancement[], augments: Augment[], stim?: Stim) {
 
         this.enhancements = enhancements;
@@ -19,7 +19,7 @@ export class Result {
         this.stim = stim;
 
         this.isPossible = this.calculateIsPossible();
-        this.values = new Map<ItemType, number>;
+        this.values = new Map<ItemType, number>();
 
     }
 
@@ -97,36 +97,7 @@ export class Result {
         }
 
     }
-
-    getPercent(itemType: ItemType): number {
-        //https://forums.swtor.com/topic/883575-stat-equations/
-        //https://forums.swtor.com/topic/888604-help-needed-alacrity-formula/
-        //https://discord.com/channels/613633744246407178/943519822468218920
-        if( this.values.has(itemType) ) {
-            
-            let base: number = 0;
-            let divisor: number = 0;
-            let cap: number = 0;
-
-            let rating: number = this.values.get(itemType) as number;
-           
-            let constants: Constants = Constants.getConstants(itemType);
-
-            base = constants.base;
-            divisor = constants.divisor;
-            cap = constants.cap;
-
-            return cap * (1 - (1 - (1 / cap)) ** ( (rating / 80) / divisor ) ) + base;
-
-
-        } else {
-
-            return Constants.getConstants(itemType).base;
-
-        }
-        
-    }
-
+    
     setStim(stim: Stim) {
 
         this.stim = stim;
@@ -280,5 +251,5 @@ export class Result {
         return true;
 
     }
-    
+        
 }

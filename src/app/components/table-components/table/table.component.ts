@@ -4,6 +4,7 @@ import { ResultComponent } from "../result/result.component";
 import { Result } from '../../../model/result';
 import { ItemType } from '../../../model/itemType';
 import { Constants } from '../../../model/constants';
+import { Modifiers } from '../../../model/modifiers';
 
 @Component({
   selector: 'app-table',
@@ -13,8 +14,10 @@ import { Constants } from '../../../model/constants';
 })
 export class TableComponent implements OnInit, OnChanges {
 
-  @Input()
+  @Input("Results")
   results: Array<Result>;
+  @Input("Modifiers")
+  modifiers: Modifiers;
 
   showResults: Array<Result>;
 
@@ -24,6 +27,7 @@ export class TableComponent implements OnInit, OnChanges {
   constructor() {
 
     this.results = new Array<Result>
+    this.modifiers = new Modifiers();
     this.necessaryItemTypes = new Array<ItemType>;
     this.showResults = new Array<Result>
 
@@ -72,13 +76,14 @@ export class TableComponent implements OnInit, OnChanges {
 
   getPercent(result: Result, itemType: ItemType): string {
 
-    return String(result.getPercent(itemType).toFixed(2)) + " %";
+    return Constants.getPercent(result.getValue(itemType), itemType, this.modifiers.getModifier(itemType) as number).toFixed(2) + " %";
+    //return String(result.getPercent(itemType).toFixed(2)) + " %";
 
   }
 
   getRating(result: Result, itemType: ItemType): string {
 
-    return String( Constants.getRating(result.getPercent(itemType), itemType));
+    return String( Constants.getRating(Constants.getPercent(result.getValue(itemType), itemType, this.modifiers.getModifier(itemType) as number), itemType, this.modifiers.getModifier(itemType) as number));
 
   }
 

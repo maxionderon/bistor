@@ -16,6 +16,8 @@ export class ChoseLimitComponent implements OnInit {
 
   @Input("itemType")
   itemType: ItemType;
+  @Input("modifier")
+  modifier: number;
   @Input("maximum")
   maximum: number;
   @Input("minimum")
@@ -54,6 +56,7 @@ export class ChoseLimitComponent implements OnInit {
   constructor() {
 
     this.itemType = ItemType.mastery;
+    this.modifier = 0;
     this.maximum = 0;
     this.minimum = 0;
     this.maximumInPercent = 0;
@@ -88,13 +91,13 @@ export class ChoseLimitComponent implements OnInit {
   ngOnInit(): void {
 
     this.iconItemType = this.iconService.getIcon(this.itemType);
-    this.maximumInPercent = Constants.getPercent(this.maximum, this.itemType);
-    this.minimumInPercent = Constants.getPercent(this.minimum, this.itemType);
+    this.maximumInPercent = Constants.getPercent(this.maximum, this.itemType, this.modifier);
+    this.minimumInPercent = Constants.getPercent(this.minimum, this.itemType, this.modifier);
     this.selectedMinimum = this.minimum;
     this.selectedMaximum = this.maximum;
 
-    this.selectedMinimumInPercent = Constants.getPercent(this.selectedMinimum, this.itemType);
-    this.selectedMaximumInPercent = Constants.getPercent(this.selectedMaximum, this.itemType);
+    this.selectedMinimumInPercent = Constants.getPercent(this.selectedMinimum, this.itemType, this.modifier);
+    this.selectedMaximumInPercent = Constants.getPercent(this.selectedMaximum, this.itemType, this.modifier);
 
     this.emitLimit(true);
 
@@ -111,7 +114,7 @@ export class ChoseLimitComponent implements OnInit {
 
     } else {
 
-      this.selectedMinimumInPercent = Constants.getPercent(this.selectedMinimum, this.itemType);
+      this.selectedMinimumInPercent = Constants.getPercent(this.selectedMinimum, this.itemType, this.modifier);
       this.showHelperMinimum = false;
       this.enableInput();
       this.emitLimit(true);
@@ -131,7 +134,7 @@ export class ChoseLimitComponent implements OnInit {
 
     } else {
 
-      this.selectedMinimum = Constants.getRating(this.selectedMinimumInPercent, this.itemType);
+      this.selectedMinimum = Constants.getRating(this.selectedMinimumInPercent, this.itemType, this.modifier);
       this.showHelperMinimumPercent = false;
       this.enableInput();
       this.emitLimit(true);
@@ -151,7 +154,7 @@ export class ChoseLimitComponent implements OnInit {
 
     } else {
 
-      this.selectedMaximumInPercent = Constants.getPercent(this.selectedMaximum, this.itemType);
+      this.selectedMaximumInPercent = Constants.getPercent(this.selectedMaximum, this.itemType, this.modifier);
       this.showHelperMaximum = false;
       this.enableInput();
       this.emitLimit(true);
@@ -171,7 +174,7 @@ export class ChoseLimitComponent implements OnInit {
 
     } else {
 
-      this.selectedMaximum = Constants.getRating(this.selectedMaximumInPercent, this.itemType);
+      this.selectedMaximum = Constants.getRating(this.selectedMaximumInPercent, this.itemType, this.modifier);
       this.showHelperMaximumPercent = false;
       this.enableInput();
       this.emitLimit(true);

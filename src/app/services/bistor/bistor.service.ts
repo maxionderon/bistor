@@ -5,6 +5,8 @@ import { Augment } from '../../model/augment';
 import { Item } from '../../model/item';
 import { ItemClass } from '../../model/itemClass';
 import { Stim } from '../../model/stim';
+import { Modifier } from '../../model/modifier';
+import { ModifierType } from '../../model/modifier-type';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +24,7 @@ export class BistorService {
   stimByItemRating: Map<number, Array<Stim>>;
   itemRatingStims: Array<number>;
   stimsItemTypes: Array<Array<ItemType>>;
+  modifiers: Array<Modifier>;
   
   constructor() { 
     
@@ -65,15 +68,14 @@ export class BistorService {
     accuracyStim.push(ItemType.accuracy);
     accuracyStim.push(ItemType.critical);
 
-
-
     this.stimsItemTypes.push(enduranceStim);
     this.stimsItemTypes.push(masteryStim);
     this.stimsItemTypes.push(accuracyStim);
-    
 
     this.stimByItemRating = this.createAvailableStims();
     this.itemRatingStims = Array.from(this.stimByItemRating.keys());
+
+    this.modifiers = this.createAvailableModifiers();
 
   }
 
@@ -138,6 +140,18 @@ export class BistorService {
     stimByItemRating.set(296, this.buildStims(132, 296, 264, 109));
 
     return stimByItemRating;
+
+  }
+
+  private createAvailableModifiers(): Array<Modifier> {
+
+    let modifiers: Array<Modifier> = new Array<Modifier>();
+
+    modifiers.push( new Modifier(ItemType.accuracy, 1, ModifierType.companionBonus, false) );
+    modifiers.push( new Modifier(ItemType.alacrity, 3, ModifierType.combatOrCarnageOrGunneryOrArsenal, true));
+    modifiers.push( new Modifier(ItemType.alacrity, 5, ModifierType.telekineticsOrLightning, true));
+
+    return modifiers;
 
   }
 
