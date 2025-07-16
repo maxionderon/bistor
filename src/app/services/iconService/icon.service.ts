@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IconDefinition } from '@fortawesome/angular-fontawesome';
-import { fa1, fa2, faAngleDown, faAngleUp, faArrowTrendDown, faArrowTrendUp, faAsterisk, faBolt, faCalculator, faCircleCheck, faCrosshairs, faGaugeHigh, faGears, faHeart, faNotdef, faPercent, faRoadBarrier, faShield, faShieldHalved, faStar, faSyringe, faTable, faTemperatureArrowDown, faTemperatureArrowUp, faTriangleExclamation, faUserGear, faUserPen, faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { fa1, fa2, faAngleDown, faAngleUp, faArrowTrendDown, faArrowTrendUp, faAsterisk, faBolt, faCalculator, faCircleCheck, faCrosshairs, faGaugeHigh, faGears, faHeart, faNotdef, faPercent, faRoadBarrier, faShield, faShieldHalved, faSort, faSortDown, faSortUp, faStar, faSyringe, faTable, faTemperatureArrowDown, faTemperatureArrowUp, faTriangleExclamation, faUserGear, faUserPen, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { ItemType } from '../../model/itemType';
 
 @Injectable({
@@ -33,6 +33,10 @@ export class IconService {
   iconTable: IconDefinition;
 
   iconPercent: IconDefinition;
+
+  iconSort: IconDefinition;
+  iconSortUp: IconDefinition;
+  iconSortDown: IconDefinition;
   
   constructor() { 
 
@@ -61,6 +65,10 @@ export class IconService {
     this.iconTable = faTable;
 
     this.iconPercent = faPercent;
+
+    this.iconSort = faSort;
+    this.iconSortUp = faSortUp;
+    this.iconSortDown = faSortDown;
 
   }
 

@@ -2,15 +2,46 @@
   <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
     <thead>
       <th></th>
+      @for (itemType of this.selectedItemTypes; track $index) {
+
+        <th>
+          <abbr title="{{itemType}}">
+            <div class="level">
+
+              <div class="level-left">
+                <div class="level-item">
+                  <app-select-header [Options]="this.necessaryItemTypes" [ItemType]="itemType" (SelectedOption)="changedItemType($event, $index)"></app-select-header>
+                </div>
+              </div>
+
+              <div class="level-right">
+                <div class="level-item">
+                  <button class="button is-rounded" (click)="sort(itemType)">
+                    <span class="icon is-small">
+                      <fa-icon [icon]="this.getIcon(itemType)"></fa-icon>
+                    </span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </abbr>
+        </th>
+
+      }
+
+
+      <!--
       @for (itemType of necessaryItemTypes; track itemType) {
         <th (click)="sortByHeader(itemType)"><abbr title="{{itemType}}">{{itemType}}</abbr></th>
       }
+      -->
     </thead>
     <tbody>
       @for (result of showResults; track result) {
         <tr>
           <th><app-result [result]="result"></app-result></th>
-          @for (itemType of necessaryItemTypes; track itemType) {
+          @for (itemType of this.selectedItemTypes; track $index) {
             <td>
               {{this.getPercent(result, itemType)}} ({{result.getValue(itemType)}}) [{{this.getRating(result, itemType)}}]
             </td>
@@ -20,3 +51,7 @@
     </tbody>
   </table>
 </div>
+
+@if( this.paginationIsNecessary ) {
+  <app-pagination></app-pagination>
+}
