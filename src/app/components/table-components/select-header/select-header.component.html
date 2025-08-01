@@ -1,8 +1,0 @@
-<div class="select">
-    <select [(ngModel)]="this.selectedOption" (change)="this.changedOption()">
-        @for(option of this.options; track option) {
-            <option [ngValue]="option"> {{option}} </option>
-        }
-    </select>
-</div>
-
