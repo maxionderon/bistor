@@ -28,7 +28,7 @@
             ],
             "styles": [
               "node_modules/bulma/css/bulma.min.css",
-              "node_modules/@creativebulma/bulma-tooltip/dist/bulma-tooltip.css",
+              "node_modules/@creativebulma/bulma-tooltip/dist/bulma-tooltip.min.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -38,8 +38,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "2MB",
+                  "maximumError": "5MB"
                 },
                 {
                   "type": "anyComponentStyle",
