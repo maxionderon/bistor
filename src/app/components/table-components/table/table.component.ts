@@ -35,6 +35,10 @@ export class TableComponent implements OnInit, OnChanges {
 
   private sortStates: Map<ItemType, SortState>;
 
+  protected numberOfPages: number;
+  protected displayResults: Array<Result>
+  private selectedPage: number;
+
   constructor() {
 
     this.results = new Array<Result>();
@@ -45,6 +49,9 @@ export class TableComponent implements OnInit, OnChanges {
     this.paginationIsNecessary = false;
     this.iconService = new IconService();
     this.sortStates = new Map<ItemType, SortState>();
+    this.numberOfPages = 0;
+    this.displayResults = new Array<Result>();
+    this.selectedPage = 1;
 
   }
 
@@ -59,6 +66,9 @@ export class TableComponent implements OnInit, OnChanges {
     } else {
       this.paginationIsNecessary = false;
     }
+    this.numberOfPages = Math.ceil( this.showResults.length / 10 );
+    this.selectedPage = 1;
+    this.calculateDisplayResults();
 
   }
 
@@ -73,6 +83,8 @@ export class TableComponent implements OnInit, OnChanges {
     } else {
       this.paginationIsNecessary = false;
     }
+    this.numberOfPages = Math.ceil( this.showResults.length / 10 );
+    this.calculateDisplayResults();
 
   }
 
@@ -114,6 +126,7 @@ export class TableComponent implements OnInit, OnChanges {
 
   }
 
+  /*
   protected sortByHeader(itemType: ItemType) {
 
     this.showResults.sort( (a, b) => {
@@ -122,7 +135,10 @@ export class TableComponent implements OnInit, OnChanges {
 
     });
 
+    this.calculateDisplayResults();
+
   }
+  */
 
   protected changedItemType(changedItemType: ItemType, index: number): void {
 
@@ -166,6 +182,8 @@ export class TableComponent implements OnInit, OnChanges {
       this.setSortState(itemType, true, false);
 
     }
+
+    this.calculateDisplayResults();
 
   }
 
@@ -216,6 +234,28 @@ export class TableComponent implements OnInit, OnChanges {
     sortState.descending = descending;
 
     this.sortStates.set(itemType, sortState);
+
+  }
+
+  protected setSelectedPage(selectedPage: number): void {
+
+    this.selectedPage = selectedPage;
+    this.calculateDisplayResults();
+  
+  }
+
+  private calculateDisplayResults(): void {
+    
+    let firstIndex: number = 10 * (this.selectedPage - 1);
+    let lastIndex: number = 10 * (this.selectedPage - 1) + 10;
+
+    if( lastIndex > this.showResults.length ) {
+
+      lastIndex = this.showResults.length;
+
+    }
+
+    this.displayResults = this.showResults.slice(firstIndex, lastIndex);
 
   }
   

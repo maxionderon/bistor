@@ -1,3 +1,28 @@
+@if ( this.numberOfPages > 0 ) {
+
+  <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+
+    <button class="pagination-previous" (click)="this.previousPage()" [disabled]="this.previousDisabled()">Previous</button>
+    <button class="pagination-next" (click)="this.nextPage()" [disabled]="this.nextDisabled()">Next page</button>
+
+    <ul class="pagination-list">
+
+      @for (page of this.getNumbers(); track $index) {
+
+        <li>
+          <button class="pagination-link" [attr.aria-label]="this.writeAriaLabel(page)" [class.is-current]="this.getIsSelected(page)" (click)="this.selectPage(page)">{{page}}</button>
+        </li>
+
+      }
+
+    </ul>
+
+  </nav>
+
+
+
+}
+<!--
 <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
   <button class="pagination-previous">Previous</button>
   <button class="pagination-next">Next page</button>
@@ -29,3 +54,4 @@
     </li>
   </ul>
 </nav>
+-->

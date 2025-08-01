@@ -38,7 +38,7 @@
       -->
     </thead>
     <tbody>
-      @for (result of showResults; track result) {
+      @for (result of this.displayResults; track result) {
         <tr>
           <th><app-result [result]="result"></app-result></th>
           @for (itemType of this.selectedItemTypes; track $index) {
@@ -53,5 +53,5 @@
 </div>
 
 @if( this.paginationIsNecessary ) {
-  <app-pagination></app-pagination>
+  <app-pagination [NumberOfPages]="this.numberOfPages" (SelectedPage)="setSelectedPage($event)"></app-pagination>
 }
