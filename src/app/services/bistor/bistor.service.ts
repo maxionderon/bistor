@@ -122,7 +122,7 @@ export class BistorService {
     setBonusByItemRating.set(330, this.buildSetBonus(149, 330, 554, 527));
     setBonusByItemRating.set(332, this.buildSetBonus(150, 332, 566, 539));
     setBonusByItemRating.set(334, this.buildSetBonus(151, 334, 577, 550));
-    setBonusByItemRating.set(336, this.buildSetBonus(152, 336, 559, 561));
+    setBonusByItemRating.set(336, this.buildSetBonus(152, 336, 589, 561));
     setBonusByItemRating.set(338, this.buildSetBonus(153, 338, 602, 573));    
     setBonusByItemRating.set(340, this.buildSetBonus(154, 340, 614, 585));
 
