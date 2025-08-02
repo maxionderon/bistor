@@ -87,7 +87,7 @@ export class BistorService {
     enhancementsByItemRating.set(330, this.buildEnhancements(153, 330, 554, 527));
     enhancementsByItemRating.set(332, this.buildEnhancements(154, 332, 566, 539));
     enhancementsByItemRating.set(334, this.buildEnhancements(155, 334, 577, 550));
-    enhancementsByItemRating.set(336, this.buildEnhancements(156, 336, 559, 561));
+    enhancementsByItemRating.set(336, this.buildEnhancements(156, 336, 589, 561));
     enhancementsByItemRating.set(338, this.buildEnhancements(157, 338, 602, 573));
     enhancementsByItemRating.set(340, this.buildEnhancements(158, 340, 614, 585));
     enhancementsByItemRating.set(342, this.buildEnhancements(159, 342, 627, 597));
