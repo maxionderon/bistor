@@ -16,7 +16,7 @@
       </span>
     </p>
 
-    <button class="card-header-icon" aria-label="more options" (click)="expand()">
+    <button class="card-header-icon" aria-label="more options" [attr.data-tooltip]="this.labelIsExpanded" (click)="expand()">
       <span class="icon">
         <fa-icon [icon]="iconIsExpanded"></fa-icon>
       </span>

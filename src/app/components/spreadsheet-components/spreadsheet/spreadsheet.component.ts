@@ -50,6 +50,7 @@ export class SpreadsheetComponent {
 
   isExpanded: boolean;
   iconIsExpanded: IconDefinition;
+  labelIsExpanded: string;
 
   isCalculating: boolean;
   
@@ -90,6 +91,7 @@ export class SpreadsheetComponent {
 
     this.isExpanded = true;
     this.iconIsExpanded = this.getIconIsExpanded();
+    this.labelIsExpanded = this.calculateLabelIsExpanded();
 
     this.isCalculating = false;
 
@@ -189,6 +191,7 @@ export class SpreadsheetComponent {
 
     this.isExpanded = !this.isExpanded;
     this.iconIsExpanded = this.getIconIsExpanded();
+    this.labelIsExpanded = this.calculateLabelIsExpanded();
 
   }
 
@@ -278,15 +281,6 @@ export class SpreadsheetComponent {
 
     }
 
-
-    /*
-    if( this.setChosenStimItemTypes.length != 0 ) {
-
-      //stim = this.bistor.getStim( this.itemRatingStim, this.chosenStimItemTypes.at(0) as ItemType) as Stim
-
-    }
-    */
-
     let results: Array<Result> = this.calculationService.calculateResults(enhancements, augments, setBonus, stim);
 
     this.resultsEmitter.emit(results);
@@ -343,6 +337,18 @@ export class SpreadsheetComponent {
 
   }
 
-  
+  private calculateLabelIsExpanded(): string {
+
+    if( this.isExpanded == true ) {
+
+      return "Collapse";
+
+    } else {
+
+      return "Expand";
+
+    }
+
+  }
 
 }

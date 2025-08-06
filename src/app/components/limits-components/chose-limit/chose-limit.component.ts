@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ItemType } from '../../../model/itemType';
 import { FaIconComponent, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { IconService } from '../../../services/iconService/icon.service';
@@ -12,7 +12,7 @@ import { Limit } from '../../../model/limit';
   templateUrl: './chose-limit.component.html',
   styleUrl: './chose-limit.component.css'
 })
-export class ChoseLimitComponent implements OnInit {
+export class ChoseLimitComponent implements OnInit, OnChanges {
 
   @Input("itemType")
   itemType: ItemType;
@@ -90,6 +90,21 @@ export class ChoseLimitComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.iconItemType = this.iconService.getIcon(this.itemType);
+    this.maximumInPercent = Constants.getPercent(this.maximum, this.itemType, this.modifier);
+    this.minimumInPercent = Constants.getPercent(this.minimum, this.itemType, this.modifier);
+    this.selectedMinimum = this.minimum;
+    this.selectedMaximum = this.maximum;
+
+    this.selectedMinimumInPercent = Constants.getPercent(this.selectedMinimum, this.itemType, this.modifier);
+    this.selectedMaximumInPercent = Constants.getPercent(this.selectedMaximum, this.itemType, this.modifier);
+
+    this.emitLimit(true);
+
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+      
     this.iconItemType = this.iconService.getIcon(this.itemType);
     this.maximumInPercent = Constants.getPercent(this.maximum, this.itemType, this.modifier);
     this.minimumInPercent = Constants.getPercent(this.minimum, this.itemType, this.modifier);

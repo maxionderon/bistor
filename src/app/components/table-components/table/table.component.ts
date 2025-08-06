@@ -37,7 +37,7 @@ export class TableComponent implements OnInit, OnChanges {
 
   protected numberOfPages: number;
   protected displayResults: Array<Result>
-  private selectedPage: number;
+  protected selectedPage: number;
 
   constructor() {
 
@@ -84,6 +84,7 @@ export class TableComponent implements OnInit, OnChanges {
       this.paginationIsNecessary = false;
     }
     this.numberOfPages = Math.ceil( this.showResults.length / 10 );
+    this.selectedPage = 1;
     this.calculateDisplayResults();
 
   }
@@ -125,20 +126,6 @@ export class TableComponent implements OnInit, OnChanges {
     return String( Constants.getRating(Constants.getPercent(result.getValue(itemType), itemType, this.modifiers.getModifier(itemType) as number), itemType, this.modifiers.getModifier(itemType) as number));
 
   }
-
-  /*
-  protected sortByHeader(itemType: ItemType) {
-
-    this.showResults.sort( (a, b) => {
-
-      return a.getValue(itemType) - b.getValue(itemType);
-
-    });
-
-    this.calculateDisplayResults();
-
-  }
-  */
 
   protected changedItemType(changedItemType: ItemType, index: number): void {
 

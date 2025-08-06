@@ -29,13 +29,6 @@
         </th>
 
       }
-
-
-      <!--
-      @for (itemType of necessaryItemTypes; track itemType) {
-        <th (click)="sortByHeader(itemType)"><abbr title="{{itemType}}">{{itemType}}</abbr></th>
-      }
-      -->
     </thead>
     <tbody>
       @for (result of this.displayResults; track result) {
@@ -53,5 +46,5 @@
 </div>
 
 @if( this.paginationIsNecessary ) {
-  <app-pagination [NumberOfPages]="this.numberOfPages" (SelectedPage)="setSelectedPage($event)"></app-pagination>
+  <app-pagination [NumberOfPages]="this.numberOfPages" [SelectedPage]="this.selectedPage" (SelectedPage)="setSelectedPage($event)"></app-pagination>
 }

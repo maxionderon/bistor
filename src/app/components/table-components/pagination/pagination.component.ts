@@ -10,8 +10,8 @@ export class PaginationComponent implements OnInit, OnChanges {
 
   @Input("NumberOfPages")
   public numberOfPages: number;
-
-  protected selectedPage: number;
+  @Input("SelectedPage")
+  public selectedPage: number;
 
   private pages: Map<number, boolean>;
 

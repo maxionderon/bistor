@@ -28,6 +28,7 @@ export class LimitsComponent implements OnInit, OnChanges {
   protected limitsSelected: boolean;
   protected iconIsExpanded: IconDefinition;
   protected isExpanded: boolean;
+  protected labelIsExpanded: string;
 
   private limits: Map<ItemType, Limit>;
 
@@ -49,6 +50,7 @@ export class LimitsComponent implements OnInit, OnChanges {
     this.limitsSelected = false;
     this.iconIsExpanded = this.iconService.iconWarning;
     this.isExpanded = false;
+    this.labelIsExpanded = this.calculateLabelIsExpanded();
 
     this.limits = new Map<ItemType, Limit>();
 
@@ -76,6 +78,7 @@ export class LimitsComponent implements OnInit, OnChanges {
 
       this.isExpanded = true;
       this.iconIsExpanded = this.iconService.iconShowLess;
+      this.labelIsExpanded = this.calculateLabelIsExpanded();
 
     }
 
@@ -88,6 +91,7 @@ export class LimitsComponent implements OnInit, OnChanges {
     if( this.itemTypes.length != 0 ) {
 
       this.isExpanded = !this.isExpanded;
+      this.labelIsExpanded = this.calculateLabelIsExpanded();
 
       if( this.isExpanded == true ) {
 
@@ -213,6 +217,20 @@ export class LimitsComponent implements OnInit, OnChanges {
     });
 
     return isLegit;
+
+  }
+
+  private calculateLabelIsExpanded(): string {
+
+    if( this.isExpanded == true ) {
+
+      return "Collapse";
+
+    } else {
+
+      return "Expand";
+
+    }
 
   }
   
