@@ -10,4 +10,11 @@ import { BistorComponent } from "./components/bistor/bistor.component";
 })
 export class AppComponent {
   title = 'BISTOR';
+
+  protected getYear(): string {
+
+    return new Date().getFullYear().toString();
+
+  }
+
 }
